@@ -1,13 +1,11 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-mode="full">
 <head>
-  <!-- Meta -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Paul Luca — QA & DevOps</title>
   <meta name="description" content="QA Tester (8+ years) + DevOps automation (1+ year). Linux, Ansible, CI/CD, testing, troubleshooting." />
 
-  <!-- Optional: nicer fonts (works only when online) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
@@ -16,7 +14,47 @@
 </head>
 
 <body>
-  <!-- Top nav (small, clean) -->
+  <!-- =========================
+       Path chooser modal (shows on first visit)
+       ========================= -->
+  <div class="overlay" id="modeOverlay" aria-hidden="true">
+    <div class="overlay__backdrop"></div>
+
+    <div class="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+      <div class="modal__top">
+        <div class="pill">Choose a path</div>
+        <h2 class="modal__title" id="modalTitle">What do you want to review?</h2>
+        <p class="modal__subtitle">
+          Pick a focus and the page will filter automatically. You can switch anytime.
+        </p>
+      </div>
+
+      <div class="modal__actions">
+        <button class="modeBtn modeBtn--qa" data-mode="qa" type="button">
+          <span class="modeBtn__title">QA Focus</span>
+          <span class="modeBtn__desc">Testing, coverage, triage, process, collaboration</span>
+        </button>
+
+        <button class="modeBtn modeBtn--devops" data-mode="devops" type="button">
+          <span class="modeBtn__title">DevOps Focus</span>
+          <span class="modeBtn__desc">Automation, Linux ops, CI/CD, reliability tooling</span>
+        </button>
+
+        <button class="modeBtn modeBtn--full" data-mode="full" type="button">
+          <span class="modeBtn__title">Full Spectrum</span>
+          <span class="modeBtn__desc">Everything: QA + DevOps together</span>
+        </button>
+      </div>
+
+      <div class="modal__foot">
+        <span class="muted">Tip: “Full Spectrum” shows the complete story.</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================
+       Top nav
+       ========================= -->
   <nav class="nav">
     <div class="container nav__inner">
       <a class="nav__brand" href="#top">Paul Luca</a>
@@ -27,16 +65,21 @@
         <a href="#experience">Experience</a>
         <a href="#contact">Contact</a>
       </div>
+
+      <button class="nav__mode" id="changeMode" type="button" title="Change focus">
+        Change path
+      </button>
     </div>
   </nav>
 
-  <!-- HERO -->
+  <!-- =========================
+       HERO
+       ========================= -->
   <header class="hero" id="top">
     <div class="container hero__inner">
 
-      <!-- Left: intro -->
       <div class="hero__left">
-        <div class="pill">Open to QA / DevOps roles • Remote/Hybrid</div>
+        <div class="pill" id="modePill">Full Spectrum • QA + DevOps</div>
 
         <h1 class="hero__title">
           Hi, I’m <span class="accent">Paul</span> Luca
@@ -46,29 +89,30 @@
 
         <p class="hero__summary">
           QA Tester with 8+ years of experience and 1+ year in DevOps/automation.
-          I work with dev/product/ops to uncover real risks, automate repetitive operations,
-          and keep releases smooth (boringly stable is the goal).
+          I work with dev, product, and ops to spot real risks, automate repeatable work,
+          and keep releases boring (the best kind).
         </p>
 
-        <div class="stats">
+        <!-- Same layout for all modes: stats always present, values swap via JS -->
+        <div class="stats" data-domain="qa devops">
           <div class="stat">
-            <div class="stat__num">8+</div>
-            <div class="stat__label">Years QA</div>
+            <div class="stat__num" id="stat1Num">8+</div>
+            <div class="stat__label" id="stat1Label">Years QA</div>
           </div>
 
           <div class="stat">
-            <div class="stat__num">1+</div>
-            <div class="stat__label">Years DevOps</div>
+            <div class="stat__num" id="stat2Num">1+</div>
+            <div class="stat__label" id="stat2Label">Years DevOps</div>
           </div>
 
           <div class="stat">
-            <div class="stat__num">10+</div>
-            <div class="stat__label">Automation utilities</div> <!-- TODO: adjust -->
+            <div class="stat__num" id="stat3Num">10+</div>
+            <div class="stat__label" id="stat3Label">Automation utilities</div>
           </div>
 
           <div class="stat">
-            <div class="stat__num">24/7</div>
-            <div class="stat__label">Release paranoia</div> <!-- tiny humor; delete if you want -->
+            <div class="stat__num" id="stat4Num">High</div>
+            <div class="stat__label" id="stat4Label">Ownership</div>
           </div>
         </div>
 
@@ -84,14 +128,17 @@
         </div>
       </div>
 
-      <!-- Right: terminal -->
-      <div class="hero__right">
+      <!-- Same component for all modes: content swaps via JS -->
+      <div class="hero__right" data-domain="qa devops">
         <div class="terminal">
           <div class="terminal__top">
             <span class="dot dot--r"></span>
             <span class="dot dot--y"></span>
             <span class="dot dot--g"></span>
-            <span class="terminal__title">paul@ops:~</span>
+
+            <button class="terminal__copy" id="terminalCopy" type="button">Copy</button>
+
+            <span class="terminal__title" id="terminalTitle">paul@ops:~</span>
           </div>
 
           <pre class="terminal__body" id="terminalBody">
@@ -107,86 +154,103 @@ $ gh run list --limit 5
     </div>
   </header>
 
-  <!-- SKILLS -->
+  <!-- =========================
+       SKILLS (balanced: 2 QA + 2 DevOps + 1 shared)
+       ========================= -->
   <section class="section" id="skills">
     <div class="container">
       <h3 class="section__title">Technical <span class="accent">Expertise</span></h3>
       <p class="section__subtitle">Practical stack, built from real work.</p>
 
       <div class="grid grid--skills">
-        <article class="card">
-          <h4 class="card__title">QA & Testing</h4>
+        <!-- QA -->
+        <article class="card" data-domain="qa">
+          <h4 class="card__title">QA: Test Strategy</h4>
           <div class="chips">
             <span class="chip">Exploratory</span>
             <span class="chip">Regression</span>
+            <span class="chip">Risk-based</span>
             <span class="chip">System</span>
             <span class="chip">Compatibility</span>
-            <span class="chip">Jira</span>
-            <span class="chip">Jama/TestLink</span>
-            <span class="chip">Log Triage</span>
           </div>
         </article>
 
-        <article class="card">
-          <h4 class="card__title">Automation & Ops</h4>
+        <article class="card" data-domain="qa">
+          <h4 class="card__title">QA: Tooling & Process</h4>
+          <div class="chips">
+            <span class="chip">Jira</span>
+            <span class="chip">Jama/TestLink</span>
+            <span class="chip">Evidence-driven</span>
+            <span class="chip">Agile/Scrum</span>
+            <span class="chip">Clear reporting</span>
+          </div>
+        </article>
+
+        <!-- DevOps -->
+        <article class="card" data-domain="devops">
+          <h4 class="card__title">DevOps: Automation</h4>
           <div class="chips">
             <span class="chip">Linux</span>
             <span class="chip">Ansible</span>
             <span class="chip">Puppet</span>
             <span class="chip">Bash</span>
             <span class="chip">Python</span>
-            <span class="chip">Nginx</span>
-            <span class="chip">Docker</span>
-            <span class="chip">RabbitMQ</span>
           </div>
         </article>
 
-        <article class="card">
-          <h4 class="card__title">CI/CD</h4>
+        <article class="card" data-domain="devops">
+          <h4 class="card__title">DevOps: Delivery</h4>
           <div class="chips">
+            <span class="chip">Git/GitHub</span>
             <span class="chip">GitHub Actions</span>
             <span class="chip">Jenkins</span>
-            <span class="chip">Reusable Workflows</span>
-            <span class="chip">Release Automation</span>
-            <span class="chip">Git/GitHub</span>
+            <span class="chip">Release hygiene</span>
+            <span class="chip">Artifacts</span>
           </div>
         </article>
 
-        <article class="card">
-          <h4 class="card__title">Currently Learning</h4>
+        <!-- Shared -->
+        <article class="card" data-domain="qa devops">
+          <h4 class="card__title">Shared: Troubleshooting</h4>
           <div class="chips">
-            <span class="chip">Azure AZ-900</span>
-            <span class="chip">Cloud Foundations</span>
-            <span class="chip">Terraform Basics</span> <!-- TODO: keep only if true -->
+            <span class="chip">Client/Server Logs</span>
+            <span class="chip">Root Cause</span>
+            <span class="chip">Runbooks</span>
+            <span class="chip">Wireshark</span>
+            <span class="chip">Ownership</span>
           </div>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- PROJECTS -->
+  <!-- =========================
+       PROJECTS (balanced: 3 DevOps + 3 QA)
+       ========================= -->
   <section class="section" id="projects">
     <div class="container">
       <h3 class="section__title">Case <span class="accent">Studies</span></h3>
       <p class="section__subtitle">Small tools that remove big headaches.</p>
 
       <div class="grid grid--projects">
-        <article class="card card--project">
+        <!-- DevOps (3) -->
+        <article class="card card--project" data-domain="devops">
           <div class="card__top">
             <h4 class="card__title">Server Health Check</h4>
             <span class="badge">Ansible</span>
           </div>
           <p class="card__text">
-            Targeted health/service checks across inventory groups, designed for fast operator decisions.
+            Targeted health/service checks across inventory groups for fast operator decisions.
           </p>
           <ul class="bullets">
             <li>Group-based targeting (dev/staging/prod)</li>
             <li>Clear pass/fail output</li>
             <li>Repeatable, low-risk execution</li>
           </ul>
+          <a class="project__link" href="https://github.com/luca1paul" target="_blank" rel="noreferrer">View on GitHub →</a>
         </article>
 
-        <article class="card card--project">
+        <article class="card card--project" data-domain="devops">
           <div class="card__top">
             <h4 class="card__title">Safe Patching Workflow</h4>
             <span class="badge">Ops</span>
@@ -196,91 +260,150 @@ $ gh run list --limit 5
           </p>
           <ul class="bullets">
             <li>Serial patching to reduce blast radius</li>
-            <li>Before/after package snapshots for verification</li>
+            <li>Before/after snapshots for verification</li>
             <li>Post-update validation step</li>
           </ul>
+          <a class="project__link" href="https://github.com/luca1paul" target="_blank" rel="noreferrer">View on GitHub →</a>
         </article>
 
-        <article class="card card--project">
+        <article class="card card--project" data-domain="devops">
           <div class="card__top">
             <h4 class="card__title">Server Inventory Dashboard</h4>
             <span class="badge">Python</span>
           </div>
           <p class="card__text">
-            Generates an HTML dashboard with runtime/platform details and ONLINE/OFFLINE status,
-            keeping last-known data when hosts go unreachable.
+            Generates an HTML dashboard with runtime/platform details + ONLINE/OFFLINE status and last-known retention.
           </p>
           <ul class="bullets">
             <li>Single-page HTML output</li>
             <li>Offline retention via snapshots</li>
             <li>Designed for quick scanning</li>
           </ul>
+          <a class="project__link" href="https://github.com/luca1paul" target="_blank" rel="noreferrer">View on GitHub →</a>
         </article>
 
-        <article class="card card--project">
+        <!-- QA (3) -->
+        <article class="card card--project" data-domain="qa">
           <div class="card__top">
-            <h4 class="card__title">CI/CD Workflow Standardization</h4>
-            <span class="badge">CI/CD</span>
+            <h4 class="card__title">Log-Driven Bug Triage</h4>
+            <span class="badge">QA</span>
           </div>
           <p class="card__text">
-            Reusable workflows and consistent release steps for predictable deployments and builds.
+            Root-cause investigation using client + server logs, reducing noise and focusing teams on real risk.
           </p>
           <ul class="bullets">
-            <li>Reusable pipelines</li>
-            <li>Artifact handling</li>
-            <li>Reduced manual release steps</li>
+            <li>Clear repro steps + evidence</li>
+            <li>Impact-focused reporting</li>
+            <li>Fast feedback loops</li>
+          </ul>
+        </article>
+
+        <article class="card card--project" data-domain="qa">
+          <div class="card__top">
+            <h4 class="card__title">Test Coverage Strategy</h4>
+            <span class="badge">QA</span>
+          </div>
+          <p class="card__text">
+            Structured test design and maintenance for stable releases: regression, system, exploratory.
+          </p>
+          <ul class="bullets">
+            <li>Risk-first prioritization</li>
+            <li>Reusable suites</li>
+            <li>Stakeholder-friendly quality signals</li>
+          </ul>
+        </article>
+
+        <article class="card card--project" data-domain="qa">
+          <div class="card__top">
+            <h4 class="card__title">Mobile Regression & Compatibility Matrix</h4>
+            <span class="badge">QA</span>
+          </div>
+          <p class="card__text">
+            Structured coverage across devices/Android versions to catch real-world issues early and keep releases stable.
+          </p>
+          <ul class="bullets">
+            <li>Risk-based device selection</li>
+            <li>Regression suite with clear pass/fail signals</li>
+            <li>Evidence-driven bug reporting</li>
           </ul>
         </article>
       </div>
     </div>
   </section>
 
-  <!-- EXPERIENCE -->
+  <!-- =========================
+       EXPERIENCE (balanced: 3 QA highlights + 3 DevOps highlights)
+       ========================= -->
   <section class="section" id="experience">
     <div class="container">
       <h3 class="section__title">Work <span class="accent">Experience</span></h3>
-      <p class="section__subtitle">Impact-focused summary (details in PDF).</p>
+      <p class="section__subtitle">Highlights by focus (full details in PDF).</p>
 
       <div class="timeline">
-        <div class="timeline__item">
+        <!-- DevOps highlights (3) -->
+        <div class="timeline__item" data-domain="devops">
           <div class="timeline__when">Jun 2024 – Present</div>
           <div class="timeline__what">
-            <h4>DevOps Engineer (Part-time) — Cognizant</h4>
+            <h4>DevOps: Automation & Tooling — Cognizant</h4>
             <p>
-              Automated operations with Ansible on Linux environments, built inventory-based utilities,
-              created HTML reporting dashboards, supported controlled patching workflows,
-              and contributed to CI/CD (Jenkins + GitHub Actions). Documentation-first habits.
+              Built and improved automation utilities around shared inventories, targeted checks, and operator-friendly outputs.
+              Focus on reliability and reducing manual toil.
             </p>
           </div>
         </div>
 
-        <div class="timeline__item">
+        <div class="timeline__item" data-domain="devops">
+          <div class="timeline__when">Jun 2024 – Present</div>
+          <div class="timeline__what">
+            <h4>DevOps: Linux Operations — Cognizant</h4>
+            <p>
+              Supported Linux environments (RHEL/CentOS/Debian): troubleshooting via logs, validating configs,
+              resolving environment issues, and documenting runbooks.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline__item" data-domain="devops">
+          <div class="timeline__when">Jun 2024 – Present</div>
+          <div class="timeline__what">
+            <h4>DevOps: CI/CD & Releases — Cognizant</h4>
+            <p>
+              Contributed to CI/CD (Jenkins + GitHub Actions): reusable workflows, consistent release steps,
+              and automation that makes deployments predictable.
+            </p>
+          </div>
+        </div>
+
+        <!-- QA highlights (3) -->
+        <div class="timeline__item" data-domain="qa">
           <div class="timeline__when">Jul 2019 – Present</div>
           <div class="timeline__what">
-            <h4>Test Analyst — Cognizant</h4>
+            <h4>QA: Test Analyst — Cognizant</h4>
             <p>
-              Mobile testing (Android). Test case design/maintenance, regression/system/compatibility/exploratory testing,
-              defect triage via client/server logs, Jira reporting, Agile collaboration.
+              Android testing: test case design/maintenance, regression/system/compatibility/exploratory testing,
+              and defect triage using client/server logs with clear Jira reporting.
             </p>
           </div>
         </div>
 
-        <div class="timeline__item">
+        <div class="timeline__item" data-domain="qa">
           <div class="timeline__when">Aug 2017 – Jun 2019</div>
           <div class="timeline__what">
-            <h4>Software QA Tester — OSF Global Services</h4>
+            <h4>QA: Software QA Tester — OSF Global Services</h4>
             <p>
-              eCommerce testing across desktop/mobile, test plans & cases, Jira reporting, integrations, and post-launch support.
+              eCommerce testing across desktop/mobile: test plans & cases, Jira reporting, integration testing,
+              and post-launch support focused on usability and stability.
             </p>
           </div>
         </div>
 
-        <div class="timeline__item">
+        <div class="timeline__item" data-domain="qa">
           <div class="timeline__when">Feb 2015 – Aug 2017</div>
           <div class="timeline__what">
-            <h4>Junior → Senior QA Tester — Gameloft</h4>
+            <h4>QA: Junior → Senior QA Tester — Gameloft</h4>
             <p>
-              Manual testing, compatibility coverage, test case optimization, team leadership/training, and reporting.
+              Manual testing with strong coverage and reporting, compatibility testing, test case optimization,
+              and team leadership/training during high-throughput periods.
             </p>
           </div>
         </div>
@@ -288,10 +411,12 @@ $ gh run list --limit 5
     </div>
   </section>
 
-  <!-- CONTACT -->
+  <!-- =========================
+       CONTACT (always visible)
+       ========================= -->
   <section class="section" id="contact">
     <div class="container">
-      <div class="contact card">
+      <div class="contact card" data-domain="qa devops">
         <h3 class="section__title">Contact</h3>
         <p class="section__subtitle">Fastest way to reach me:</p>
 
