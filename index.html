@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <!-- Meta -->
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Paul Luca — QA & DevOps</title>
+  <meta name="description" content="QA Tester (8+ years) + DevOps automation (1+ year). Linux, Ansible, CI/CD, testing, troubleshooting." />
+
+  <!-- Optional: nicer fonts (works only when online) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+  <!-- Top nav (small, clean) -->
+  <nav class="nav">
+    <div class="container nav__inner">
+      <a class="nav__brand" href="#top">Paul Luca</a>
+
+      <div class="nav__links">
+        <a href="#skills">Skills</a>
+        <a href="#projects">Projects</a>
+        <a href="#experience">Experience</a>
+        <a href="#contact">Contact</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <header class="hero" id="top">
+    <div class="container hero__inner">
+
+      <!-- Left: intro -->
+      <div class="hero__left">
+        <div class="pill">Open to QA / DevOps roles • Remote/Hybrid</div>
+
+        <h1 class="hero__title">
+          Hi, I’m <span class="accent">Paul</span> Luca
+        </h1>
+
+        <h2 class="hero__subtitle">Test Analyst & DevOps Automation</h2>
+
+        <p class="hero__summary">
+          QA Tester with 8+ years of experience and 1+ year in DevOps/automation.
+          I work with dev/product/ops to uncover real risks, automate repetitive operations,
+          and keep releases smooth (boringly stable is the goal).
+        </p>
+
+        <div class="stats">
+          <div class="stat">
+            <div class="stat__num">8+</div>
+            <div class="stat__label">Years QA</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat__num">1+</div>
+            <div class="stat__label">Years DevOps</div>
+          </div>
+
+          <div class="stat">
+            <div class="stat__num">10+</div>
+            <div class="stat__label">Automation utilities</div> <!-- TODO: adjust -->
+          </div>
+
+          <div class="stat">
+            <div class="stat__num">24/7</div>
+            <div class="stat__label">Release paranoia</div> <!-- tiny humor; delete if you want -->
+          </div>
+        </div>
+
+        <div class="cta">
+          <a class="btn btn--primary" href="#projects">View Projects</a>
+          <a class="btn btn--ghost" href="assets/resume.pdf" download>Download Resume</a>
+        </div>
+
+        <div class="hero__meta">
+          Cluj-Napoca, Romania •
+          <a href="https://www.linkedin.com/in/paulluca" target="_blank" rel="noreferrer">LinkedIn</a> •
+          <a href="mailto:luca.paul.andrei@gmail.com">luca.paul.andrei@gmail.com</a>
+        </div>
+      </div>
+
+      <!-- Right: terminal -->
+      <div class="hero__right">
+        <div class="terminal">
+          <div class="terminal__top">
+            <span class="dot dot--r"></span>
+            <span class="dot dot--y"></span>
+            <span class="dot dot--g"></span>
+            <span class="terminal__title">paul@ops:~</span>
+          </div>
+
+          <pre class="terminal__body" id="terminalBody">
+$ ansible-playbook ops/server-health-check.yml -l prod
+$ ansible-playbook ops/service-presence-check.yml -l staging
+$ ansible-playbook ops/safe-patching.yml -l app_nodes --serial 1
+$ python tools/server-inventory-dashboard.py --inventory hosts.ini
+$ gh run list --limit 5
+          </pre>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- SKILLS -->
+  <section class="section" id="skills">
+    <div class="container">
+      <h3 class="section__title">Technical <span class="accent">Expertise</span></h3>
+      <p class="section__subtitle">Practical stack, built from real work.</p>
+
+      <div class="grid grid--skills">
+        <article class="card">
+          <h4 class="card__title">QA & Testing</h4>
+          <div class="chips">
+            <span class="chip">Exploratory</span>
+            <span class="chip">Regression</span>
+            <span class="chip">System</span>
+            <span class="chip">Compatibility</span>
+            <span class="chip">Jira</span>
+            <span class="chip">Jama/TestLink</span>
+            <span class="chip">Log Triage</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h4 class="card__title">Automation & Ops</h4>
+          <div class="chips">
+            <span class="chip">Linux</span>
+            <span class="chip">Ansible</span>
+            <span class="chip">Puppet</span>
+            <span class="chip">Bash</span>
+            <span class="chip">Python</span>
+            <span class="chip">Nginx</span>
+            <span class="chip">Docker</span>
+            <span class="chip">RabbitMQ</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h4 class="card__title">CI/CD</h4>
+          <div class="chips">
+            <span class="chip">GitHub Actions</span>
+            <span class="chip">Jenkins</span>
+            <span class="chip">Reusable Workflows</span>
+            <span class="chip">Release Automation</span>
+            <span class="chip">Git/GitHub</span>
+          </div>
+        </article>
+
+        <article class="card">
+          <h4 class="card__title">Currently Learning</h4>
+          <div class="chips">
+            <span class="chip">Azure AZ-900</span>
+            <span class="chip">Cloud Foundations</span>
+            <span class="chip">Terraform Basics</span> <!-- TODO: keep only if true -->
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section class="section" id="projects">
+    <div class="container">
+      <h3 class="section__title">Case <span class="accent">Studies</span></h3>
+      <p class="section__subtitle">Small tools that remove big headaches.</p>
+
+      <div class="grid grid--projects">
+        <article class="card card--project">
+          <div class="card__top">
+            <h4 class="card__title">Server Health Check</h4>
+            <span class="badge">Ansible</span>
+          </div>
+          <p class="card__text">
+            Targeted health/service checks across inventory groups, designed for fast operator decisions.
+          </p>
+          <ul class="bullets">
+            <li>Group-based targeting (dev/staging/prod)</li>
+            <li>Clear pass/fail output</li>
+            <li>Repeatable, low-risk execution</li>
+          </ul>
+        </article>
+
+        <article class="card card--project">
+          <div class="card__top">
+            <h4 class="card__title">Safe Patching Workflow</h4>
+            <span class="badge">Ops</span>
+          </div>
+          <p class="card__text">
+            Controlled patching with safety rails: one host at a time, stop on failure, optional snapshots.
+          </p>
+          <ul class="bullets">
+            <li>Serial patching to reduce blast radius</li>
+            <li>Before/after package snapshots for verification</li>
+            <li>Post-update validation step</li>
+          </ul>
+        </article>
+
+        <article class="card card--project">
+          <div class="card__top">
+            <h4 class="card__title">Server Inventory Dashboard</h4>
+            <span class="badge">Python</span>
+          </div>
+          <p class="card__text">
+            Generates an HTML dashboard with runtime/platform details and ONLINE/OFFLINE status,
+            keeping last-known data when hosts go unreachable.
+          </p>
+          <ul class="bullets">
+            <li>Single-page HTML output</li>
+            <li>Offline retention via snapshots</li>
+            <li>Designed for quick scanning</li>
+          </ul>
+        </article>
+
+        <article class="card card--project">
+          <div class="card__top">
+            <h4 class="card__title">CI/CD Workflow Standardization</h4>
+            <span class="badge">CI/CD</span>
+          </div>
+          <p class="card__text">
+            Reusable workflows and consistent release steps for predictable deployments and builds.
+          </p>
+          <ul class="bullets">
+            <li>Reusable pipelines</li>
+            <li>Artifact handling</li>
+            <li>Reduced manual release steps</li>
+          </ul>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section class="section" id="experience">
+    <div class="container">
+      <h3 class="section__title">Work <span class="accent">Experience</span></h3>
+      <p class="section__subtitle">Impact-focused summary (details in PDF).</p>
+
+      <div class="timeline">
+        <div class="timeline__item">
+          <div class="timeline__when">Jun 2024 – Present</div>
+          <div class="timeline__what">
+            <h4>DevOps Engineer (Part-time) — Cognizant</h4>
+            <p>
+              Automated operations with Ansible on Linux environments, built inventory-based utilities,
+              created HTML reporting dashboards, supported controlled patching workflows,
+              and contributed to CI/CD (Jenkins + GitHub Actions). Documentation-first habits.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__when">Jul 2019 – Present</div>
+          <div class="timeline__what">
+            <h4>Test Analyst — Cognizant</h4>
+            <p>
+              Mobile testing (Android). Test case design/maintenance, regression/system/compatibility/exploratory testing,
+              defect triage via client/server logs, Jira reporting, Agile collaboration.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__when">Aug 2017 – Jun 2019</div>
+          <div class="timeline__what">
+            <h4>Software QA Tester — OSF Global Services</h4>
+            <p>
+              eCommerce testing across desktop/mobile, test plans & cases, Jira reporting, integrations, and post-launch support.
+            </p>
+          </div>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__when">Feb 2015 – Aug 2017</div>
+          <div class="timeline__what">
+            <h4>Junior → Senior QA Tester — Gameloft</h4>
+            <p>
+              Manual testing, compatibility coverage, test case optimization, team leadership/training, and reporting.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="section" id="contact">
+    <div class="container">
+      <div class="contact card">
+        <h3 class="section__title">Contact</h3>
+        <p class="section__subtitle">Fastest way to reach me:</p>
+
+        <div class="contact__grid">
+          <a class="contact__item" href="mailto:luca.paul.andrei@gmail.com">
+            <div class="contact__label">Email</div>
+            <div class="contact__value">luca.paul.andrei@gmail.com</div>
+          </a>
+
+          <a class="contact__item" href="tel:+40723019863">
+            <div class="contact__label">Phone</div>
+            <div class="contact__value">+40 723 019 863</div>
+          </a>
+
+          <a class="contact__item" href="https://www.linkedin.com/in/paulluca" target="_blank" rel="noreferrer">
+            <div class="contact__label">LinkedIn</div>
+            <div class="contact__value">linkedin.com/in/paulluca</div>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div>© <span id="year"></span> Paul Luca</div>
+      <div class="footer__right">
+        <span class="muted">Romanian (Native) • English (Full Professional)</span>
+        <span class="sep">•</span>
+        <span class="muted">QA Employee of the Month</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
