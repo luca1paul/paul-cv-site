@@ -21,29 +21,74 @@ document.documentElement.setAttribute("data-mode", "full");
   });
 })();
 
-// Terminal copy button
-const terminalBody = document.getElementById("terminalBody");
-const terminalCopy = document.getElementById("terminalCopy");
+/* =========================
+   Terminal typewriter
+   ========================= */
 
-if (terminalCopy && terminalBody) {
-  terminalCopy.addEventListener("click", async () => {
-    const text = terminalBody.textContent.trim();
+const terminalTextEl = document.getElementById("terminalText");
+const terminalCopyBtn = document.getElementById("terminalCopy");
+
+// #comment: speed tuning
+const TYPE_MS = 14;          // per character
+const LINE_PAUSE_MS = 260;   // pause after each line
+
+const lines = Array.isArray(window.TERMINAL_LINES) ? window.TERMINAL_LINES : [];
+let fullText = ""; // used for copy
+
+function sleep(ms) {
+  return new Promise(r => setTimeout(r, ms));
+}
+
+async function typeTerminal() {
+  if (!terminalTextEl || lines.length === 0) return;
+
+  // Clear any existing content
+  terminalTextEl.textContent = "";
+  fullText = "";
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+
+    // Type line char-by-char
+    for (let c = 0; c < line.length; c++) {
+      terminalTextEl.textContent += line[c];
+      fullText += line[c];
+      await sleep(TYPE_MS + Math.floor(Math.random() * 18));
+    }
+
+    // Newline (except optionally last)
+    if (i !== lines.length - 1) {
+      terminalTextEl.textContent += "\n";
+      fullText += "\n";
+      await sleep(LINE_PAUSE_MS);
+    }
+  }
+}
+
+// Start typing once page loads
+typeTerminal();
+
+/* Copy button copies the final text (even if typing is still in progress) */
+if (terminalCopyBtn) {
+  terminalCopyBtn.addEventListener("click", async () => {
+    const textToCopy = (fullText || (terminalTextEl ? terminalTextEl.textContent : "")).trim();
     try {
-      await navigator.clipboard.writeText(text);
-      terminalCopy.textContent = "Copied";
-      setTimeout(() => (terminalCopy.textContent = "Copy"), 1100);
+      await navigator.clipboard.writeText(textToCopy);
+      terminalCopyBtn.textContent = "Copied";
+      setTimeout(() => (terminalCopyBtn.textContent = "Copy"), 1100);
     } catch {
       const ta = document.createElement("textarea");
-      ta.value = text;
+      ta.value = textToCopy;
       document.body.appendChild(ta);
       ta.select();
       document.execCommand("copy");
       ta.remove();
-      terminalCopy.textContent = "Copied";
-      setTimeout(() => (terminalCopy.textContent = "Copy"), 1100);
+      terminalCopyBtn.textContent = "Copied";
+      setTimeout(() => (terminalCopyBtn.textContent = "Copy"), 1100);
     }
   });
 }
+
 
 /* Reveal on scroll */
 (function setupReveal() {

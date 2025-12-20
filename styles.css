@@ -376,16 +376,30 @@ code{
   font-size: 13px;
   line-height: 1.75;
   color: rgba(255,255,255,.92);
-  white-space: pre-wrap;
+
+  /* IMPORTANT: keep each command on a single line */
+  white-space: pre;        /* was pre-wrap */
+  overflow-x: auto;        /* allow horizontal scroll instead of wrapping */
+  overflow-y: hidden;
+
+  /* optional: makes scroll feel less ugly */
+  scrollbar-width: thin;
 }
-.terminal__body::after{
-  content:"▋";
+.caret{
+  display:inline-block;
   margin-left: 6px;
   color: rgba(255,255,255,.82);
-  animation: blink 1.05s infinite;
+  animation: caretBlink 1.05s infinite;
+  transform: translateY(1px);
 }
-@keyframes blink{ 0%, 50%{ opacity:1; } 51%, 100%{ opacity:0; } }
+@keyframes caretBlink{
+  0%, 50%{ opacity:1; }
+  51%, 100%{ opacity:0; }
+}
 
+#terminalText{
+  display: inline; /* keep it flowing inside the pre */
+}
 /* =========================
    Mini button + side note (used by index.html)
    ========================= */

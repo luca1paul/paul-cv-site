@@ -5,7 +5,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Paul Luca — QA & DevOps</title>
-  <meta name="description" content="QA Tester (8+ years) + DevOps automation (1+ year). Testing, Linux, Ansible, CI/CD, troubleshooting." />
+  <meta name="description" content="QA Tester (8+ years) + DevOps (1+ year). Testing, Linux, Ansible, CI/CD, troubleshooting." />
 
   <!-- Optional: fonts (online only) -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -53,13 +53,13 @@
           Paul <span class="accent">Luca</span>
         </h1>
 
-        <h2 class="hero__subtitle">Test Analyst & DevOps Automation</h2>
+        <h2 class="hero__subtitle">Test Analyst & DevOps</h2>
 
-        <p class="hero__summary">
-          QA Tester with 8+ years of experience and 1+ year in DevOps/automation.
-          Evidence-first, automation-minded, and relentlessly calm under pressure.
-        </p>
-
+      <p class="hero__summary">
+        QA with 8+ years of experience and 1+ year in DevOps.
+        Calm under pressure. I help teams ship reliably by turning risks into tests and toil into scripts.
+        I’m comfortable working across testing and operations, from test strategy and test cycles, to Linux troubleshooting, configuration workflows and reliability improvements through scripting and CI/CD.
+      </p>
         <div class="stats reveal">
           <div class="stat">
             <div class="stat__num" id="stat1Num">8+</div>
@@ -72,8 +72,8 @@
           </div>
 
           <div class="stat">
-            <div class="stat__num" id="stat3Num">10+</div>
-            <div class="stat__label" id="stat3Label">Utilities shipped</div>
+            <div class="stat__num" id="stat3Num">20+</div>
+            <div class="stat__label" id="stat3Label">Features shipped</div>
             <!-- #comment: edit number/text -->
           </div>
 
@@ -126,27 +126,26 @@
             <span class="dot dot--y"></span>
             <span class="dot dot--g"></span>
 
-            <span class="terminal__title" id="terminalTitle">paul@ops:~</span>
+            <span class="terminal__title" id="terminalTitle">paul@qaops:~</span>
             <button class="miniBtn" id="terminalCopy" type="button" aria-label="Copy commands">Copy</button>
           </div>
 
-          <pre class="terminal__body" id="terminalBody">
-$ ansible-playbook ops/server-health-check.yml -l prod
-$ ansible-playbook ops/service-presence-check.yml -l staging
-$ ansible-playbook ops/safe-patching.yml -l app_nodes --serial 1
-$ python tools/server-inventory-dashboard.py --inventory hosts.ini
-$ gh run list --limit 5
-          </pre>
-        </div>
+      <pre class="terminal__body"><span id="terminalText"></span><span class="caret" aria-hidden="true">▋</span></pre>
 
-        <div class="sideNote">
-          <div class="sideNote__title">#comment: Recruiter-friendly</div>
-          <div class="sideNote__text">
-            Keep commands real. Add 1 screenshot per case study for instant credibility.
-          </div>
+      <!-- #comment: put the full terminal text here (keeps HTML clean) -->
+        <script>
+           window.TERMINAL_LINES = [
+  "$ ansible --version",
+  "$ ansible-inventory --graph -i hosts.ini",
+  "$ ansible all -m ping -i hosts.ini -l prod",
+  "$ ansible prod -m shell -a 'uptime' -i hosts.ini",
+  "$ ansible-playbook patch_safe.yml -i hosts.ini --serial 1",
+  "$ python report_inventory.py --out inventory.html",
+  "$ gh run list --limit 5"
+           ];
+          </script>
         </div>
       </div>
-
     </div>
   </header>
 
@@ -160,69 +159,93 @@ $ gh run list --limit 5
 
       <div class="grid grid--skills">
         <article class="card">
-          <h4 class="card__title">QA: Test Strategy</h4>
+          <h4 class="card__title">QA Test Strategy</h4>
           <div class="chips">
             <span class="chip">Exploratory</span>
-            <span class="chip">Regression</span>
-            <span class="chip">System</span>
+            <span class="chip">Regression</span> 
+            <span class="chip">System Test</span>
             <span class="chip">Compatibility</span>
             <span class="chip">Risk-based</span>
+            <span class="chip">Acceptance</span>
+            <span class="chip">E2E flows</span>
+            <span class="chip">Smoke</span>
+            <span class="chip">Release sign-off</span>
           </div>
         </article>
 
         <article class="card">
-          <h4 class="card__title">QA: Tooling & Process</h4>
+          <h4 class="card__title">QA Tooling & Process</h4>
           <div class="chips">
             <span class="chip">Jira</span>
-            <span class="chip">Jama/TestLink</span>
-            <span class="chip">Log triage</span>
+            <span class="chip">Jama</span>
+            <span class="chip">Confluence</span>
             <span class="chip">Agile</span>
-            <span class="chip">Clear reporting</span>
+            <span class="chip">Defect lifecycle</span>
+            <span class="chip">Logcat/RXLogger</span>
+            <span class="chip">Test Case creation</span>
+            <span class="chip">Test Case maintenance</span>
+            <span class="chip">Release notes</span>
           </div>
         </article>
 
         <article class="card">
-          <h4 class="card__title">DevOps: Automation</h4>
+          <h4 class="card__title">DevOps Techstack</h4>
           <div class="chips">
-            <span class="chip">Linux</span>
+            <span class="chip">Linux (RHEL/CentOS/Debian)</span>
             <span class="chip">Ansible</span>
             <span class="chip">Puppet</span>
             <span class="chip">Bash</span>
             <span class="chip">Python</span>
+            <span class="chip">RabbitMQ</span>
+            <span class="chip">Azure</span>
+            <span class="chip">AWS</span>
+            <span class="chip">Grafana</span>
           </div>
         </article>
 
         <article class="card">
-          <h4 class="card__title">DevOps: Delivery</h4>
+          <h4 class="card__title">DevOps Delivery</h4>
           <div class="chips">
             <span class="chip">GitHub Actions</span>
+            <span class="chip">Reusable workflows</span>
+            <span class="chip">CI/CD pipelines</span>
             <span class="chip">Jenkins</span>
-            <span class="chip">Reusable Workflows</span>
-            <span class="chip">Release Hygiene</span>
-            <span class="chip">Git/GitHub</span>
+            <span class="chip">Safe patching</span>
+            <span class="chip">Idempotent runs</span>
+            <span class="chip">Ad-hoc automation</span>
+            <span class="chip">HTML dashboards</span>
+            <span class="chip">Release hygiene</span>
           </div>
         </article>
 
         <article class="card">
-          <h4 class="card__title">Shared: Troubleshooting</h4>
+          <h4 class="card__title">Troubleshooting</h4>
           <div class="chips">
-            <span class="chip">Client/Server Logs</span>
-            <span class="chip">Root cause</span>
-            <span class="chip">Runbooks</span>
-            <span class="chip">Wireshark</span>
-            <span class="chip">Ownership</span>
+             <span class="chip">Client/Server logs</span>
+             <span class="chip">Root cause</span>
+             <span class="chip">Linux triage</span>
+             <span class="chip">Incident support</span>
+             <span class="chip">Runbooks</span>
+             <span class="chip">Service checks</span>
+             <span class="chip">Connectivity debugging</span>
+             <span class="chip">Proxy routing (azproxy/proxy)</span>
+             <span class="chip">Wireshark</span>
           </div>
         </article>
 
         <!-- IMPORTANT LAYOUT FIX: 6th card balances the 4-col grid -->
         <article class="card">
-          <h4 class="card__title">Shared: Communication</h4>
+          <h4 class="card__title">Communication</h4>
           <div class="chips">
-            <span class="chip">Clear updates</span>
+            <span class="chip">Clear status updates</span>
             <span class="chip">Stakeholder alignment</span>
-            <span class="chip">Triage notes</span>
+            <span class="chip">Triage facilitation</span>
+            <span class="chip">Calm under pressure</span>
             <span class="chip">Docs-first</span>
-            <span class="chip">Handoffs</span>
+            <span class="chip">Knowledge sharing</span>
+            <span class="chip">Ownership mindset</span>
+            <span class="chip">Cross-team handoffs</span>
+            <span class="chip">Expectation setting</span>
           </div>
           <!-- #comment: replace chips with your wording -->
         </article>
