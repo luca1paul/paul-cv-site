@@ -612,7 +612,7 @@ code{
    ========================= */
 .socialDock{
   position: fixed;
-  left: 16px;
+  left: var(--dockGap);
   top: 50%;
   transform: translateY(-50%);
   z-index: 999;
@@ -620,8 +620,9 @@ code{
   flex-direction: column;
   gap: 10px;
 }
+
 .socialBtn{
-  width: 190px; /* #comment: adjust width if you want */
+  width: var(--dockW);
   height: 46px;
   display: inline-flex;
   align-items: center;
