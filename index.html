@@ -5,7 +5,7 @@
   <!-- Meta -->
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Paul Luca — QA & DevOps</title>
+  <title>Paul Luca — DevOps Engineer (Transitioning from QA)</title>
   <meta name="description" content="QA Tester (8+ years) + DevOps (1+ year). Testing, Linux, Ansible, CI/CD, troubleshooting." />
 
   <!-- Optional: fonts (online only) -->
@@ -53,13 +53,11 @@
           Paul <span class="accent">Luca</span>
         </h1>
 
-        <h2 class="hero__subtitle">Test Analyst & DevOps @ COGNIZANT</h2>
+        <h2 class="hero__subtitle">Junior DevOps Engineer & Mid QA @ Cognizant</h2>
 
         <p class="hero__summary">
-          QA with 8+ years of experience and 1+ year in DevOps.
-          Calm under pressure. I help teams ship reliably by turning risks into tests and toil into scripts.
-          I’m comfortable working across testing and operations, from test strategy and test cycles, to Linux troubleshooting,
-          configuration workflows and reliability improvements through scripting and CI/CD.
+          DevOps-focused engineer with 1+ year building delivery workflows (Linux, Ansible, CI/CD) that keep environments stable and changes low-risk.
+          Backed by 8+ years in QA: risk-based thinking, evidence-driven triage and calm incident execution that help teams resolve issues faster.
         </p>
 
         <div class="stats reveal">
@@ -101,14 +99,13 @@
 
           <div class="proof__card">
             <div class="proof__kicker" id="proof3Kicker">What you get</div>
-            <div class="proof__title" id="proof3Title">Boring releases</div>
+            <div class="proof__title" id="proof3Title">Reliable delivery</div>
             <div class="proof__text" id="proof3Text">Predictable delivery with fewer surprises.</div>
           </div>
         </div>
 
         <div class="cta">
           <a class="btn btn--primary" href="#projects">View Projects</a>
-          <!-- #comment: put your real PDF at assets/resume.pdf -->
           <a class="btn btn--ghost" href="assets/resume.pdf" download>Download Resume</a>
         </div>
       </div>
@@ -127,13 +124,12 @@
 
           <pre class="terminal__body"><span id="terminalText"></span><span class="caret" aria-hidden="true">▋</span></pre>
 
-          <!-- #comment: edit terminal lines here -->
           <script>
             window.TERMINAL_LINES = [
-              "$ ansible --version",
-              "$ ansible-inventory --graph -i hosts.ini",
+              "$ terraform init",
+              "$ git checkout -b feature/<name>",
               "$ ansible all -m ping -i hosts.ini -l prod",
-              "$ ansible prod -m shell -a 'uptime' -i hosts.ini",
+              "$ docker logs --tail 200 -f <container_name>",
               "$ ansible-playbook patch_safe.yml -i hosts.ini",
               "$ python report_inventory.py --out inventory.html",
               "$ gh run list --limit 5"
@@ -151,7 +147,7 @@
   <section class="section reveal" id="skills">
     <div class="container">
       <h3 class="section__title">Technical <span class="accent">Expertise</span></h3>
-      <p class="section__subtitle">Practical skills I've gained from real work.</p>
+      <p class="section__subtitle">Practical skills built through production work.</p>
 
       <div class="grid grid--skills">
         <article class="card">
@@ -294,9 +290,6 @@
     <p class="section__subtitle">Tools I’ve built to make releases and operations smoother.</p>
 
     <div class="grid grid--projects">
-      <!-- =========================
-           DevOps (3)
-           ========================= -->
 
       <article class="card card--project">
         <div class="card__top">
@@ -304,10 +297,8 @@
           <span class="tag">Ansible</span>
         </div>
 
-        <!-- #comment: 1-liner what it does -->
         <p class="card__text">  An Ansible health check that validates required RPM packages are installed on each host and reports pass/fail clearly.</p>
 
-        <!-- #comment: WHY it exists / the pain it solves -->
         <p class="card__why">
           <strong>Reason:</strong> Verifying RPMs manually across servers was slow and inconsistent. This turns “does this host have what it needs?” into a fast, repeatable check before incidents and releases.
         </p>
@@ -319,7 +310,6 @@
         </ul>
 
         <a class="linkBtn" href="#" data-project-link>GitHub →</a>
-        <!-- #comment: add real link; hidden automatically if still "#" -->
       </article>
 
       <article class="card card--project">
@@ -338,7 +328,6 @@
           <li>One host at a time</li>
           <li>Before/after snapshots with what's changed</li>
           <li><strong>Impact:</strong> <span class="muted">Patch failures: 8 → 2 per release</span></li>
-          <!-- #comment: add real numbers -->
         </ul>
 
         <a class="linkBtn" href="#" data-project-link>GitHub →</a>
@@ -364,10 +353,6 @@
 
         <a class="linkBtn" href="#" data-project-link>GitHub →</a>
       </article>
-
-      <!-- =========================
-           QA (3)
-           ========================= -->
 
       <article class="card card--project">
         <div class="card__top">
@@ -420,14 +405,13 @@
         <p class="card__text">Structured device/OS coverage to catch real-world issues early.</p>
 
         <p class="card__why">
-          <strong>Reason:</strong> Users don’t all run “the newest device.” A deliberate matrix catches the “works on my phone” problems before release.
+          <strong>Reason:</strong> Users don’t all run the newest device. Used multiple Android devices and OSs to catch the “works on my phone” problems before release.
         </p>
 
         <ul class="bullets">
           <li>Risk-based selection</li>
-          <li>Consistent regression passes</li>
-          <li><strong>Impact:</strong> <span class="muted">__% fewer regressions</span></li>
-          <!-- #comment: add real numbers -->
+          <li>Up to date with the latest Android</li>
+          <li><strong>Impact:</strong> <span class="muted">More stable releases on different devices and OS versions</span></li>
         </ul>
 
         <a class="linkBtn" href="#" data-project-link>GitHub →</a>
@@ -440,37 +424,38 @@
   <!-- =========================
        Approach
        ========================= -->
-  <section class="section reveal" id="approach">
-    <div class="container">
-      <h3 class="section__title">How I <span class="accent">Work</span></h3>
-      <p class="section__subtitle">An operating system for quality + reliability.</p>
+<section class="section reveal" id="approach">
+  <div class="container">
+    <h3 class="section__title">How I <span class="accent">Work</span></h3>
+    <p class="section__subtitle">
+      I’m transitioning into DevOps with strong QA fundamentals: risk management, strong triage, and dependable execution
+    </p>
 
-      <div class="grid grid--approach">
-        <article class="card">
-          <h4 class="card__title">Principles</h4>
-          <ul class="bullets">
-            <li><strong>Signals over noise:</strong> checks must drive action.</li>
-            <li><strong>Evidence-first:</strong> repro + logs beat opinions.</li>
-            <li><strong>Small blast radius:</strong> safe, incremental changes.</li>
-            <li><strong>Docs that run:</strong> runbooks that match reality.</li>
-            <li><strong>Automation for sanity:</strong> scripts repeat; humans decide.</li>
-          </ul>
-          <!-- #comment: tweak to your voice -->
-        </article>
+    <div class="grid grid--approach">
+      <article class="card">
+        <h4 class="card__title">How I operate</h4>
+        <ul class="bullets">
+          <li><strong>Risk-first:</strong> I prioritize what can break users or releases, and focus effort there.</li>
+          <li><strong>Clear communication:</strong> I keep updates short, factual, and action-oriented (what happened, impact, next step).</li>
+          <li><strong>Ownership:</strong> I follow issues through—repro, evidence, fix validation, and documentation.</li>
+          <li><strong>Calm in incidents:</strong> I stay structured under pressure and regain control quickly.</li>
+          <li><strong>Continuous learning:</strong> I actively ramp in DevOps by closing gaps fast and applying what I learn immediately.</li>
+        </ul>
+      </article>
 
-        <article class="card">
-          <h4 class="card__title">What teams get</h4>
-          <ul class="bullets">
-            <li>Clear release signals</li>
-            <li>Faster triage, fewer loops</li>
-            <li>Less manual ops work</li>
-            <li>Better handoffs via docs</li>
-            <li>Calm delivery (no heroics)</li>
-          </ul>
-        </article>
-      </div>
+      <article class="card">
+        <h4 class="card__title">What teams get</h4>
+        <ul class="bullets">
+          <li><strong>Smoother operations:</strong> fewer surprises, more repeatable flows.</li>
+          <li><strong>Faster decisions:</strong> clear signals from checks, logs, and quick validation steps.</li>
+          <li><strong>Better handoffs:</strong> notes that make ownership transferable.</li>
+          <li><strong>Safer change:</strong> I prefer incremental improvements over risky big changes.</li>
+          <li><strong>Reliable delivery:</strong> consistent execution across testing + operations responsibilities.</li>
+        </ul>
+      </article>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- =========================
        Experience
@@ -484,37 +469,36 @@
         <div class="timeline__item">
           <div class="timeline__when">Jun 2024 – Present</div>
           <div class="timeline__what">
-            <h4>DevOps Engineer (Part-time) — Cognizant</h4>
+            <h4>DevOps @ Cognizant</h4>
             <div class="role__stack"><strong>Stack:</strong> Linux • Ansible • Bash • Python • GitHub Actions • Jenkins</div>
-            <p>Automation, inventory-driven utilities, reporting dashboards, safe patching workflows, and CI/CD improvements.</p>
-            <!-- #comment: add one measurable win -->
+            <p>Hiera, Ansible inventory-driven utilities, patching workflows and CI/CD improvements.</p>
           </div>
         </div>
 
         <div class="timeline__item">
           <div class="timeline__when">Jul 2019 – Present</div>
           <div class="timeline__what">
-            <h4>Test Analyst — Cognizant</h4>
-            <div class="role__stack"><strong>Stack:</strong> Android • Logcat • Jira • Regression/System/Exploratory</div>
-            <p>Test design + execution, log-driven triage, and clear bug lifecycle management.</p>
+            <h4>Test Analyst @ Cognizant</h4>
+            <div class="role__stack"><strong>Stack:</strong> Android • Logcat • Jira • Story Testing • System Testing</div>
+            <p>Test design + execution, log-driven and clear bug lifecycle management.</p>
           </div>
         </div>
 
         <div class="timeline__item">
           <div class="timeline__when">Aug 2017 – Jun 2019</div>
           <div class="timeline__what">
-            <h4>Software QA Tester — OSF Global Services</h4>
+            <h4>Software QA Tester @ OSF Global Services</h4>
             <div class="role__stack"><strong>Stack:</strong> Web • Jira • TestLink • Integrations</div>
-            <p>eCommerce testing across desktop/mobile, integration testing, and post-launch support.</p>
+            <p>eCommerce testing across desktop/mobile, integration testing and post-launch support.</p>
           </div>
         </div>
 
         <div class="timeline__item">
           <div class="timeline__when">Feb 2015 – Aug 2017</div>
           <div class="timeline__what">
-            <h4>Junior → Senior QA Tester — Gameloft</h4>
-            <div class="role__stack"><strong>Stack:</strong> iOS • Black-box • Compatibility • Leadership</div>
-            <p>Manual testing, compatibility coverage, test case optimization, and team leadership/training.</p>
+            <h4>Junior → Senior QA Tester @ Gameloft</h4>
+            <div class="role__stack"><strong>Stack:</strong> iOS • Black-box • Compatibility • Game Testing</div>
+            <p>Manual testing, compatibility coverage, Test Case optimization, and team leadership/training.</p>
           </div>
         </div>
       </div>
@@ -550,7 +534,6 @@
     </div>
   </section>
 
-  <!-- Floating social buttons (left side) -->
   <div class="socialDock" aria-label="Quick contact links">
     <a class="socialBtn" href="https://www.linkedin.com/in/paulluca" target="_blank" rel="noreferrer" aria-label="LinkedIn">
       <span class="icon" aria-hidden="true">
@@ -605,7 +588,6 @@
         </svg>
       </span>
       <span class="socialBtn__text">Instagram</span>
-      <!-- #comment: replace YOUR_HANDLE -->
     </a>
   </div>
 
