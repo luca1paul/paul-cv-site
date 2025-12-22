@@ -677,3 +677,66 @@ code{
   .socialBtn{ width: 46px; padding: 10px; justify-content: center; }
   .socialBtn__text{ display:none; }
 }
+
+  /* Mobile bottom bar (icons) */
+.mobileBar{ display:none; }
+
+@media (max-width: 980px){
+  /* Hide the left dock on mobile */
+  .socialDock{ display:none; }
+
+  /* Make room so content isn't hidden behind the bar */
+  body{ padding-bottom: 74px; }
+
+  .mobileBar{
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 1000;
+
+    padding: 10px;
+    background: rgba(0,0,0,.55);
+    backdrop-filter: blur(12px);
+    border-top: 1px solid var(--border);
+  }
+
+  .mobileBar__btn{
+    height: 52px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    border-radius: 14px;
+    border: 1px solid rgba(255,255,255,.16);
+    background: rgba(255,255,255,.06);
+    box-shadow: var(--shadow2);
+  }
+
+  .mobileBar__btn:hover{
+    border-color: rgba(0,245,255,.28);
+    background: rgba(0,245,255,.10);
+  }
+
+  .mobileBar__btn:focus{
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+
+  .mobileBar__btn .icon{
+    width: 20px;
+    height: 20px;
+    display:inline-flex;
+  }
+
+  .mobileBar__btn svg{
+    width: 20px;
+    height: 20px;
+    color: var(--accent);
+  }
+}
+
