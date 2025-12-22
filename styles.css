@@ -86,11 +86,6 @@ a{ color:inherit; text-decoration:none; }
 a:hover{ color: var(--accent); }
 .container{ width:min(1150px, 92vw); margin:0 auto; }
 
-:root{
-  --dockW: 190px;
-  --dockGap: 16px;
-}
-
 @media (min-width: 981px){
   body{
     padding-left: calc(var(--dockW) + var(--dockGap) + 12px);
