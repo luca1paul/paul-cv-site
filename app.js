@@ -1,13 +1,7 @@
-// Footer year
+// app.js
+// Footer year (safe even if you don't have a footer element)
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-/**
- * FULL ONLY:
- * - No chooser overlay
- * - No QA/DevOps filtering
- * - No theme switching
- */
 
 // Force full mode attribute (safe)
 document.documentElement.setAttribute("data-mode", "full");
@@ -56,7 +50,7 @@ async function typeTerminal() {
       await sleep(TYPE_MS + Math.floor(Math.random() * 18));
     }
 
-    // Newline (except optionally last)
+    // Newline (except last)
     if (i !== lines.length - 1) {
       terminalTextEl.textContent += "\n";
       fullText += "\n";
@@ -89,7 +83,6 @@ if (terminalCopyBtn) {
   });
 }
 
-
 /* Reveal on scroll */
 (function setupReveal() {
   const els = [...document.querySelectorAll(".reveal")];
@@ -120,22 +113,33 @@ if (terminalCopyBtn) {
 */
 const levelsFull = {
   core: [
-    "Manual QA (Exploratory / Regression / System)",
-    "Bug reporting and triage (evidence-first)",
-    "Linux basics + troubleshooting",
-    "Ansible automation (safe runs / targeted checks)",
+    "Manual QA: story, system, compatibility",
+    "Defects: clear repro, evidence, prioritization",
+    "Linux: services, processes, logs, troubleshooting",
+    "Git/GitHub: branches, PRs, merges (daily workflow)",
+    "Ansible: inventory, targeting, playbook execution",
+    "Puppet: runs, troubleshooting, data awareness",
+    "Scripting: Python/Bash automation helpers",
+    "Networking: HTTP/S, DNS, TCP/IP debugging",
   ],
   strong: [
-    "CI/CD concepts (GitHub Actions, Jenkins usage)",
-    "Log-driven investigation (client/server)",
-    "Documentation and runbooks",
-    "Python/Bash for small tooling",
+    "CI/CD: GitHub Actions + Jenkins usage",
+    "Investigations: client + server log correlation",
+    "Documentation: handoffs, knowledge sharing",
+    "Monitoring: Grafana dashboards",
+    "Cloud: AWS/Azure fundamentals",
+    "API testing: Postman request/response validation",
+    "Agile: Scrum/Kanban delivery in sprints",
   ],
   familiar: [
-    "Docker and Nginx basics",
-    "RabbitMQ basics",
-    "Cloud foundations (Azure AZ-900 prep)",
-    "Networking fundamentals (Wireshark)",
+    "Docker: images, containers, compose-level usage",
+    "Terraform: reading plans, small changes with guidance",
+    "RabbitMQ: queues/consumers, basic troubleshooting",
+    "Wireshark: captures, filters, common network issues",
+    "SQL: simple SELECT/WHERE/JOIN understanding",
+    "Load balancing: health checks, routing concepts",
+    "Security: firewalls/VPN/encryption fundamentals",
+    "Performance testing: concepts + tooling awareness",
   ]
 };
 

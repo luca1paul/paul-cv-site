@@ -1,10 +1,7 @@
+/* styles.css */
 /* =========================
-   CYBERPUNK ONLY (Full page only)
-   - No QA/DevOps filtering
-   - No vaporwave
-   - No gradient buttons
+   CSS Variables
    ========================= */
-
 :root{
   --font: Inter, ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
@@ -113,7 +110,7 @@ code{
 }
 
 /* =========================
-   Nav
+   Nav (centered links, no brand)
    ========================= */
 .nav{
   position:sticky;
@@ -125,20 +122,17 @@ code{
 }
 .nav__inner{
   display:flex;
-  justify-content:space-between;
+  justify-content:center;
   align-items:center;
   gap: 14px;
   padding: 14px 0;
-}
-.nav__brand{
-  font-weight:900;
-  letter-spacing:-0.02em;
 }
 .nav__links{
   display:flex;
   gap:18px;
   font-weight:800;
   color: rgba(255,255,255,.88);
+  justify-content:center;
 }
 .nav__links a{ padding: 8px 10px; border-radius: 10px; }
 .nav__links a:hover{ background: rgba(255,255,255,.06); }
@@ -149,10 +143,19 @@ code{
 .hero{ padding: 60px 0 24px; position:relative; }
 .hero__inner{
   display:grid;
-  grid-template-columns: 1.10fr .90fr;
+  grid-template-columns: 1.15fr .85fr;
   gap: 42px;
-  align-items:start;
+  align-items: start;
 }
+.hero__right{
+  justify-self: end;
+  width: 100%;
+  max-width: 520px; /* #comment: adjust if you want wider terminal */
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.hero__right .terminal{ width: 100%; }
 
 .hero__badgeRow{
   display:flex;
@@ -170,7 +173,7 @@ code{
   font-weight: 900;
   letter-spacing: -0.02em;
   color: rgba(0,0,0,.92);
-  background: var(--accent); /* solid, no gradient */
+  background: var(--accent);
   box-shadow: 0 16px 50px rgba(0,0,0,.40);
 }
 .hero__badgeText{ display:flex; flex-direction:column; gap: 6px; }
@@ -315,21 +318,30 @@ code{
   background: rgba(0,245,255,.10);
   color: rgba(255,255,255,.96);
 }
-.btn--primary:hover{
-  background: rgba(0,245,255,.16);
-}
+.btn--primary:hover{ background: rgba(0,245,255,.16); }
 .btn--ghost{
   border-color: rgba(255,255,255,.16);
   background: rgba(255,255,255,.06);
 }
-.btn--ghost:hover{
-  background: rgba(255,255,255,.10);
-}
+.btn--ghost:hover{ background: rgba(255,255,255,.10); }
 
-.hero__meta{ color: rgba(255,255,255,.78); font-size: 14px; }
+/* Mini button (Copy) */
+.miniBtn{
+  margin-left:auto;
+  padding: 8px 10px;
+  border-radius: 12px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(255,255,255,.06);
+  color: rgba(255,255,255,.9);
+  font-family: var(--mono);
+  font-size: 12px;
+  font-weight: 900;
+  cursor:pointer;
+}
+.miniBtn:hover{ background: rgba(0,245,255,.10); border-color: rgba(0,245,255,.30); }
 
 /* =========================
-   Terminal
+   Terminal (typing-friendly)
    ========================= */
 .terminal{
   border-radius: 22px;
@@ -344,7 +356,7 @@ code{
   position:absolute;
   inset:-2px;
   border-radius: 22px;
-  background: rgba(0,245,255,.10); /* soft glow, not gradient */
+  background: rgba(0,245,255,.10);
   filter: blur(18px);
   z-index:0;
 }
@@ -369,6 +381,7 @@ code{
   font-family: var(--mono);
 }
 
+/* The PRE itself */
 .terminal__body{
   margin:0;
   padding: 18px 18px 22px;
@@ -377,14 +390,17 @@ code{
   line-height: 1.75;
   color: rgba(255,255,255,.92);
 
-  /* IMPORTANT: keep each command on a single line */
-  white-space: pre;        /* was pre-wrap */
-  overflow-x: auto;        /* allow horizontal scroll instead of wrapping */
+  white-space: pre;
+  overflow-x: auto;
   overflow-y: hidden;
 
-  /* optional: makes scroll feel less ugly */
-  scrollbar-width: thin;
+  border: 0 !important;
+  outline: 0 !important;
+  background: transparent;
 }
+
+#terminalText{ display:inline; }
+
 .caret{
   display:inline-block;
   margin-left: 6px;
@@ -395,49 +411,6 @@ code{
 @keyframes caretBlink{
   0%, 50%{ opacity:1; }
   51%, 100%{ opacity:0; }
-}
-
-#terminalText{
-  display: inline; /* keep it flowing inside the pre */
-}
-/* =========================
-   Mini button + side note (used by index.html)
-   ========================= */
-.miniBtn{
-  margin-left:auto;
-  padding: 8px 10px;
-  border-radius: 12px;
-  border: 1px solid rgba(255,255,255,.18);
-  background: rgba(255,255,255,.06);
-  color: rgba(255,255,255,.90);
-  font-weight: 900;
-  font-family: var(--mono);
-  font-size: 12px;
-  cursor: pointer;
-}
-.miniBtn:hover{
-  background: rgba(0,245,255,.10);
-  border-color: rgba(0,245,255,.30);
-}
-
-.sideNote{
-  margin-top: 12px;
-  border: 1px solid rgba(255,255,255,.12);
-  border-radius: var(--radius);
-  background: rgba(255,255,255,.05);
-  box-shadow: var(--shadow2);
-  padding: 14px;
-}
-.sideNote__title{
-  font-family: var(--mono);
-  font-size: 12px;
-  color: rgba(255,255,255,.78);
-}
-.sideNote__text{
-  margin-top: 8px;
-  color: var(--muted);
-  line-height: 1.6;
-  font-size: 13px;
 }
 
 /* =========================
@@ -452,7 +425,7 @@ code{
 .section__subtitle{ margin:0 0 26px; color: var(--muted); line-height: 1.6; }
 
 .grid{ display:grid; gap: 16px; }
-.grid--skills{ grid-template-columns: repeat(4, 1fr); }
+.grid--skills{ grid-template-columns: repeat(3, 1fr); } /* 6 cards = balanced */
 .grid--projects{ grid-template-columns: repeat(2, 1fr); }
 .grid--levels{ grid-template-columns: repeat(3, 1fr); }
 .grid--approach{ grid-template-columns: repeat(2, 1fr); }
@@ -471,8 +444,23 @@ code{
   transform: translateY(-1px);
 }
 .card__title{ margin:0 0 12px; font-size: 16px; font-weight: 900; letter-spacing:-0.01em; }
-.card__text{ margin:0 0 14px; color: var(--muted); line-height: 1.65; }
+.card__text{ margin:0 0 14px; color: var(--muted); line-height: 1.65; font-size: 14px; }
 
+.card__why{
+  margin: 0 0 14px;
+  padding: 12px 12px;
+  border-radius: 14px;
+  border: 1px dashed rgba(255,255,255,.14);
+  background: rgba(0,0,0,.18);
+  color: var(--muted);
+  line-height: 1.6;
+  font-size: 13px;
+}
+.card__why strong{
+  color: rgba(255,255,255,.92);
+}
+
+/* Chips (default) */
 .chips{ display:flex; flex-wrap:wrap; gap: 10px; }
 .chip{
   padding: 8px 10px;
@@ -484,6 +472,42 @@ code{
   color: rgba(255,255,255,.90);
 }
 .chip:hover{ border-color: rgba(0,245,255,.28); background: rgba(255,255,255,.06); }
+
+/* Skills section polish (KEEP your HTML) */
+#skills .card{
+  position: relative;
+  overflow: hidden;
+}
+#skills .card__title{
+  display:flex;
+  align-items:center;
+  gap: 10px;
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
+}
+#skills .card__title::before{
+  content:"";
+  width: 10px;
+  height: 10px;
+  border-radius: 3px;
+  background: var(--accent);
+  box-shadow: 0 0 18px rgba(0,245,255,.25);
+}
+#skills .chip{
+  padding: 7px 10px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,.12);
+  background: rgba(0,0,0,.18);
+  font-family: var(--mono);
+  font-size: 12px;
+  line-height: 1;
+  color: rgba(255,255,255,.90);
+}
+#skills .chip:hover{
+  border-color: rgba(0,245,255,.28);
+  background: rgba(0,245,255,.08);
+}
 
 .card__top{
   display:flex;
@@ -534,6 +558,7 @@ code{
   padding-left: 18px;
   line-height: 1.65;
   color: rgba(255,255,255,.88);
+  font-size: 15px;
 }
 .level__list li{ margin: 6px 0; }
 
@@ -572,21 +597,60 @@ code{
 .contact__label{ font-size: 12px; color: rgba(255,255,255,.74); font-family: var(--mono); }
 .contact__value{ margin-top: 6px; font-weight: 900; letter-spacing: -0.01em; }
 
-/* Footer */
-.footer{
-  padding: 26px 0 36px;
-  border-top: 1px solid rgba(255,255,255,.10);
-  background: rgba(0,0,0,.18);
+/* =========================
+   Floating social buttons (left side, same size)
+   ========================= */
+.socialDock{
+  position: fixed;
+  left: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
-.footer__inner{
-  display:flex;
-  justify-content:space-between;
-  align-items:center;
-  gap: 16px;
-  color: rgba(255,255,255,.78);
-  font-size: 14px;
+.socialBtn{
+  width: 190px; /* #comment: adjust width if you want */
+  height: 46px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,.16);
+  background: rgba(0,0,0,.28);
+  backdrop-filter: blur(10px);
+  box-shadow: var(--shadow2);
+  color: rgba(255,255,255,.92);
+  font-weight: 900;
+  overflow: hidden;
 }
-.footer__right{ display:flex; align-items:center; gap: 6px; flex-wrap:wrap; }
+.socialBtn:hover{
+  border-color: rgba(0,245,255,.28);
+  background: rgba(0,245,255,.10);
+}
+.socialBtn:focus{
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+.socialBtn .icon{
+  width: 18px;
+  height: 18px;
+  display: inline-flex;
+  flex: 0 0 18px;
+}
+.socialBtn svg{
+  width: 18px;
+  height: 18px;
+  color: var(--accent);
+}
+.socialBtn__text{
+  flex: 1 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
 
 /* Responsive */
 @media (max-width: 980px){
@@ -594,11 +658,16 @@ code{
   .hero__title{ font-size: 44px; }
   .stats{ grid-template-columns: repeat(2, 1fr); }
   .proof{ grid-template-columns: 1fr; }
-  .grid--skills{ grid-template-columns: repeat(2, 1fr); }
+  .grid--skills{ grid-template-columns: 1fr; }
   .grid--projects{ grid-template-columns: 1fr; }
   .grid--levels{ grid-template-columns: 1fr; }
   .grid--approach{ grid-template-columns: 1fr; }
   .timeline__item{ grid-template-columns: 1fr; }
   .contact__grid{ grid-template-columns: 1fr; }
   .nav__links{ display:none; }
+
+  /* Social dock becomes icons-only */
+  .socialDock{ left: 10px; }
+  .socialBtn{ width: 46px; padding: 10px; justify-content: center; }
+  .socialBtn__text{ display:none; }
 }
