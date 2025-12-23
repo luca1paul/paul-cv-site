@@ -1,20 +1,20 @@
-# Server Version Dashboard (Mock data pack)
+# Server Version Dashboard (Portfolio-safe)
 
-This pack adds **richer mock fixtures**, **multiple inventory groups**, and a **GitHub Pages** workflow.
-It does **NOT** include `server_version_report.py` (you already have it).
+A small “SSH into fleet → parse config → keep snapshot → generate HTML dashboard” project.
 
-## Where to copy these files
-Copy the zip contents into your repo root, so you get:
-- `projects/hosts.ini`
-- `projects/server-version-dashboard/fixtures/...`
-- `.github/workflows/server-version-dashboard-pages.yml`
-- `projects/server-version-dashboard/STYLING_SNIPPET.md` (optional nicer status styling)
-- `projects/server-version-dashboard/styling_patch.diff` (optional patch)
+It reads an Ansible-style inventory, collects a few simple facts per host, and generates a static HTML report grouped by inventory group.  
+It supports **real SSH mode** (for private use) and a **mock mode** (safe to run in GitHub Actions and publish on GitHub Pages).
 
-## Run locally (mock)
-```bash
-python projects/server-version-dashboard/server_version_report.py   --mock   --inventory projects/hosts.ini   --fixtures-dir projects/server-version-dashboard/fixtures   --snapshot projects/server-version-dashboard/fixtures/server_version_snapshot.tsv   --output site/index.html
-```
+---
 
-## GitHub Pages (one-time)
-Repo → Settings → Pages → Source: **GitHub Actions**.
+## What it shows
+
+For every host in the inventory:
+
+- **Status:** `ONLINE` / `OFFLINE`
+- **Platform/Environment:** from a small fact file (example: `/etc/example/facts/platform.txt`)
+- **Primary IP:** from `hostname -I`
+- **App Port:** parsed from an Erlang-style `sys.config`
+- **Proxy:** detected from keywords inside `sys.config`
+- **Grouping:** hosts are displayed under their inventory section (`[dev]`, `[staging]`, `[prod]`, etc.)
+- **Snapshot retention:** if a host is offline, the dashboard shows its **last-known values** from a TSV snapshot

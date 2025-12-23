@@ -538,6 +538,15 @@ section[id]{ scroll-margin-top: calc(var(--navH) + 14px); }
 }
 .linkBtn:hover{ background: rgba(0,245,255,.10); border-color: rgba(0,245,255,.30); }
 
+.projectLinks{
+  display:flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+.card--project .projectLinks{ margin-top: auto; }
+.card--project .projectLinks .linkBtn{ margin-top: 0; }
+
 /* Levels */
 .level__top{
   display:flex;

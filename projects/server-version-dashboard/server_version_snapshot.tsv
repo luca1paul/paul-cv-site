@@ -1,0 +1,5 @@
+FQDN	Group	Status	Environment	IP Address	Port	Proxy	Last Snapshot
+cluster02-1.example.net	clusters	ONLINE	prod-cluster-node	10.30.200.11	5092	proxy.alpha	15-01-2025 09:11
+cluster02-2.example.net	clusters	ONLINE	prod-cluster-node	10.30.200.12	5092	proxy.alpha	15-01-2025 09:12
+prd-app03.example.net	prod	ONLINE	prod-rhel9	10.30.1.13	5062	proxy.alpha	15-01-2025 09:10
+stg-old01.example.net	staging	ONLINE	staging-centos7	10.20.9.99		proxy.alpha	15-01-2025 09:11
