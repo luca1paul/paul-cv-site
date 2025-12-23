@@ -128,23 +128,21 @@
   hosts: localhost
   gather_facts: false
   tasks:
-    # TODO: write artifacts/<run_id>/patch-report.txt
     - name: Ensure run folder exists
       ansible.builtin.file:
-        path: "artifacts/{{ hostvars[(groups['all']|first)].run_id | default('mock-run') }}"
+        path: "artifacts/{{ run_id }}"
         state: directory
 
     - name: Write run report
       ansible.builtin.copy:
-        dest: "artifacts/{{ hostvars[(groups['all']|first)].run_id | default('mock-run') }}/patch-report.txt"
+        dest: "artifacts/{{ run_id }}/patch-report.txt"
         content: |
           Mock Patch Run Report
           ====================
 
-          Run ID: {{ hostvars[(groups['all']|first)].run_id | default('mock-run') }}
+          Run ID: {{ run_id }}
 
           Results:
           {% for h in (groups['all'] | sort) %}
           - {{ h }}: {% if (hostvars[h].yum_ok | default(false)) %}SUCCESS{% else %}FAILURE{% endif %}
           {% endfor %}
-
