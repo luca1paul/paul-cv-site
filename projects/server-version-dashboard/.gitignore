@@ -1,0 +1,4 @@
+# Generated artifacts (local)
+site/
+projects/server-version-dashboard/server_version_report.html
+projects/server-version-dashboard/server_version_snapshot.tsv

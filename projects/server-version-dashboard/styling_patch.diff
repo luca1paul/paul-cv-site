@@ -1,0 +1,5 @@
+diff --git a/projects/server-version-dashboard/server_version_report.py b/projects/server-version-dashboard/server_version_report.py
+--- a/projects/server-version-dashboard/server_version_report.py
++++ b/projects/server-version-dashboard/server_version_report.py
+@@ -1,0 +1,0 @@
+# This is an OPTIONAL patch reference. If your file differs, use STYLING_SNIPPET.md instead.

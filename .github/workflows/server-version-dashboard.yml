@@ -1,0 +1,56 @@
+name: Server Version Dashboard (mock → GitHub Pages)
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "15 3 * * *" # daily 03:15 UTC
+
+concurrency:
+  group: server-version-dashboard
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Generate dashboard (MOCK)
+        run: |
+          mkdir -p server-version-dashboard
+
+          python projects/server-version-dashboard/server_version_report.py \
+            --mock \
+            --inventory projects/hosts.ini \
+            --fixtures-dir projects/server-version-dashboard/fixtures \
+            --output server-version-dashboard/index.html \
+            --snapshot projects/server-version-dashboard/fixtures/server_version_snapshot.tsv \
+            --timezone Europe/Bucharest
+
+      - name: Commit & push if changed
+        run: |
+          if git diff --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          git add server-version-dashboard/index.html \
+                  projects/server-version-dashboard/fixtures/server_version_snapshot.tsv
+
+          git commit -m "Update server version dashboard (mock)"
+          git pull --rebase origin main
+          git push
