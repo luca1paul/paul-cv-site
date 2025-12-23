@@ -290,16 +290,15 @@
           <span class="tag">Ansible</span>
         </div>
 
-        <p class="card__text">  An Ansible health check that validates required RPM packages are installed on each host and reports pass/fail clearly.</p>
+        <p class="card__text">  Read-only compliance check that verifies required packages are present across inventory groups and produces a clear pass/fail report.</p>
 
         <p class="card__why">
-          <strong>Reason:</strong> Verifying RPMs manually across servers was slow and inconsistent. This turns “does this host have what it needs?” into a fast, repeatable check before incidents and releases.
-        </p>
+          <strong>Reason:</strong> Quick pre-flight validation before deployments and troubleshooting—no more spot-checking servers by hand.</p>
 
         <ul class="bullets">
-          <li>Validates required RPMs (and optional versions) per server/group</li>
-          <li>Clear pass/fail output with missing package names</li>
-          <li><strong>Impact:</strong> <span class="muted">18 hosts checked in 1 min (was 15+ min)</span></li>
+          <li>Validates required package presence per host or group</li>
+          <li>Highlights missing packages per host</li>
+          <li><strong>Impact:</strong> <span class="muted">Checks 18 hosts in ~1 minute and replaces manual spot checks</span></li>
         </ul>
 
         <div class="projectLinks">
@@ -315,16 +314,15 @@
           <span class="tag">Ansible</span>
         </div>
 
-        <p class="card__text">Controlled patching: one host at a time, stop-on-failure, with snapshots.</p>
+        <p class="card__text">Safe rollout pattern: explicitly targeted runs, one host at a time, stop on first failure, with a run report and controller-side failure logs.</p>
 
         <p class="card__why">
-          <strong>Reason:</strong> Manual patching varied by person and day. This standardized the steps to make sure each host is patched safely and with minimal risk.
-        </p>
+          <strong>Reason:</strong>Standardizes patch execution to reduce risk and make results consistent regardless of who runs it.</p>
 
         <ul class="bullets">
-          <li>One host at a time</li>
+          <li>Safe-by-default targeting (SAFE_DEFAULT + explicit target)</li>
           <li>Before/after snapshots with what's changed</li>
-          <li><strong>Impact:</strong> <span class="muted">Patch failures: 8 → 2 per release</span></li>
+          <li><strong>Impact:</strong> <span class="muted">Demonstrates operational safety controls (blast-radius reduction + deterministic failure handling)</span></li>
         </ul>
 
         <div class="projectLinks">
@@ -339,7 +337,7 @@
           <span class="tag">Python</span>
         </div>
 
-        <p class="card__text">HTML dashboard: runtime details, ONLINE/OFFLINE status, last-known retention.</p>
+        <p class="card__text">Single-page HTML dashboard built from an inventory file that shows host grouping, runtime details, ONLINE/OFFLINE status, and last-known state retention.</p>
 
         <p class="card__why">
           <strong>Reason:</strong> New joiners, TLs, PMs and devs needed fast context. This dashboard made handoffs smoother by showing environment, platform, and status in one place.
@@ -347,8 +345,8 @@
 
         <ul class="bullets">
           <li>Single-page report</li>
-          <li>Offline retention</li>
-          <li><strong>Impact:</strong> <span class="muted">Helped everyone in the team to know everything they needed for each host</span></li>
+          <li>Shows status + last-known retention for offline hosts</li>
+          <li><strong>Impact:</strong> <span class="muted">Faster onboarding and fewer "what environment is this server running?” questions</span></li>
         </ul>
 
         <div class="projectLinks">
