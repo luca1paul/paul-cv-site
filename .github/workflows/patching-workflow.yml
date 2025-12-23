@@ -46,13 +46,16 @@ jobs:
               printf '%s' '{"rc":0,"updated":["core-utils"],"installed":[],"msg":"mock patch succeeded"}' > "${d}/yum_result.json"
             fi
           done
-
-      - name: Run mock patch playbook
-        working-directory: projects/patching-workflow
+      - name: Publish run report to workflow summary
+        shell: bash
         env:
-          ANSIBLE_CONFIG: ansible.cfg
+          RUN_ID: mock-${{ github.run_id }}
         run: |
-          ansible-playbook -i ../hosts.ini patch_mock.yml -e target=all --tags apply
+          echo "## Patching Workflow (Mock) — Run Report" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          cat "projects/patching-workflow/artifacts/${RUN_ID}/patch-report.txt" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
 
       - name: Publish run report to workflow summary
         shell: bash
@@ -62,7 +65,6 @@ jobs:
           echo '```' >> "$GITHUB_STEP_SUMMARY"
           ls -1dt projects/patching-workflow/artifacts/mock-* | head -n 1 | xargs -I{} cat "{}/patch-report.txt" >> "$GITHUB_STEP_SUMMARY"
           echo '```' >> "$GITHUB_STEP_SUMMARY"
-
       - name: Upload artifacts
         uses: actions/upload-artifact@v4
         with:
