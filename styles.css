@@ -520,6 +520,31 @@ section[id]{ scroll-margin-top: calc(var(--navH) + 14px); }
   border-radius: 999px;
 }
 
+.tagLink {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 12px;
+  font-weight: 900;
+  color: var(--accent);
+  border: 1px solid rgba(0,245,255,.30);
+  background: rgba(0,245,255,.10);
+  padding: 6px 12px;
+  border-radius: 999px;
+  line-height: 1;
+  transition: background .2s ease, border-color .2s ease;
+}
+
+.tagLink:hover {
+  background: rgba(0,245,255,.14);
+  border-color: rgba(0,245,255,.45);
+}
+
+.tagLink:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
 .bullets{
   margin: 0;
   padding-left: 18px;
