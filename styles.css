@@ -24,13 +24,10 @@
   --accent:#00f5ff;
   --accent2:#ff2bd6;
 
-  --btnBg: rgba(255,255,255,.06);
-  --btnBorder: rgba(255,255,255,.16);
-  --btnHoverBg: rgba(255,255,255,.10);
-
   --ring: rgba(0,245,255,.35);
 
   --navH: 68px;
+
 }
 
 /* =========================
@@ -38,6 +35,7 @@
    ========================= */
 *{ box-sizing:border-box; }
 html{ scroll-behavior:smooth; }
+
 body{
   margin:0;
   font-family: var(--font);
@@ -45,41 +43,28 @@ body{
   line-height: 1.65;
   color: var(--text);
 
-  /* Lighter + more stable background (less GPU pain) */
+  /* IMPORTANT: no fixed overlay layers -> avoids Chrome white flashes */
   background:
+    repeating-linear-gradient(
+      180deg,
+      rgba(255,255,255,.018) 0px,
+      rgba(255,255,255,.018) 1px,
+      transparent 2px,
+      transparent 8px
+    ),
     radial-gradient(900px 520px at 20% 10%, rgba(0,245,255,.08), transparent 60%),
     radial-gradient(700px 520px at 80% 18%, rgba(255,43,214,.06), transparent 62%),
     linear-gradient(180deg, var(--bg1), var(--bg0));
 
+  background-attachment: scroll;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+
   min-height:100vh;
   overflow-x:hidden;
-}
 
-/* Subtle scanlines (NO blend-mode to avoid white flashing) */
-body::before{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.08;
-  background:
-    repeating-linear-gradient(
-      180deg,
-      rgba(255,255,255,.025) 0px,
-      rgba(255,255,255,.025) 1px,
-      transparent 2px,
-      transparent 7px
-    );
-}
-
-/* Subtle noise (low opacity, stable) */
-body::after{
-  content:"";
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  opacity:.035;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
+  /* Make space for fixed nav */
+  padding-top: var(--navH);
 }
 
 a{ color:inherit; text-decoration:none; }
@@ -89,6 +74,7 @@ a:hover{ color: var(--accent); }
 
 @media (min-width: 981px){
   body{
+    /* page content makes space for left dock */
     padding-left: calc(var(--dockW) + var(--dockGap) + 12px);
   }
 }
@@ -105,12 +91,16 @@ code{
   border: 1px solid rgba(255,255,255,.10);
 }
 
-/* Reveal animation (kept, but gentle) */
+/* Anchor jumps land below the fixed nav */
+section[id]{ scroll-margin-top: calc(var(--navH) + 14px); }
+
+/* Reveal animation (gentle) */
 @media (prefers-reduced-motion: no-preference){
   .reveal{
-    opacity: 0;
-    transform: translateY(8px);
-    transition: opacity .45s ease, transform .45s ease;
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity .45s ease, transform .45s ease;
+  will-change: transform, opacity;
   }
   .reveal.is-visible{ opacity: 1; transform: translateY(0); }
 }
@@ -119,7 +109,7 @@ code{
 }
 
 /* =========================
-   Nav (full width, centered, uniform text)
+   Nav (full width, centered, uniform size)
    ========================= */
 .nav{
   position: fixed;
@@ -128,7 +118,7 @@ code{
   right:0;
   z-index: 1000;
 
-  background: rgba(0,0,0,.62); /* solid translucency = less glitchy */
+  background: rgba(0,0,0,.62);
   border-bottom: 1px solid var(--border);
 }
 
@@ -140,6 +130,7 @@ code{
   min-height: var(--navH);
 }
 
+/* Center links and keep consistent typography */
 .nav__links{
   display:flex;
   flex-wrap: wrap;
@@ -148,7 +139,7 @@ code{
   gap: 10px;
 
   font-weight: 800;
-  font-size: 14px;         /* uniform size */
+  font-size: 14px;
   letter-spacing: .01em;
   color: rgba(255,255,255,.90);
 }
@@ -157,6 +148,8 @@ code{
   padding: 10px 12px;
   border-radius: 12px;
   line-height: 1;
+  font-size: 14px;
+  font-weight: 800;
 }
 
 .nav__links a:hover{
@@ -170,8 +163,16 @@ code{
 }
 .nav__cta:hover{ background: rgba(0,245,255,.18); }
 
-/* Make space for fixed nav */
-body{ padding-top: var(--navH); }
+/* Align nav content with body content area (because body is padded for dock) */
+@media (min-width: 981px){
+  .nav__inner{
+    padding-left: calc(var(--dockW) + var(--dockGap) + 12px);
+    padding-right: 12px;
+  }
+  .nav__links{
+    flex-wrap: nowrap;
+  }
+}
 
 /* =========================
    Hero
@@ -185,7 +186,7 @@ body{ padding-top: var(--navH); }
   align-items: start;
 }
 
-.hero__left{ min-width: 0; } /* prevents weird overflow pushes */
+.hero__left{ min-width: 0; }
 .hero__right{
   justify-self: end;
   width: 100%;
@@ -218,7 +219,7 @@ body{ padding-top: var(--navH); }
 }
 
 .hero__badgeText{ display:flex; flex-direction:column; gap: 6px; }
-.hero__micro{ color: var(--muted); font-size: 13px; }
+.hero__micro{ color: var(--muted); font-size: 14px; }
 
 .pill{
   display:inline-flex;
@@ -240,7 +241,7 @@ body{ padding-top: var(--navH); }
   letter-spacing: -0.03em;
 }
 
-/* Less “glitchy”: keep class, remove the effect */
+/* Keep class but remove glitch pseudo layers */
 .glitch::before,
 .glitch::after{ display:none !important; }
 
@@ -279,7 +280,7 @@ body{ padding-top: var(--navH); }
 }
 .stat__label{
   margin-top: 6px;
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
 }
 
@@ -303,7 +304,7 @@ body{ padding-top: var(--navH); }
   color: rgba(255,255,255,.75);
 }
 .proof__title{ margin-top: 6px; font-weight: 900; letter-spacing:-0.01em; }
-.proof__text{ margin-top: 6px; color: var(--muted); line-height: 1.6; font-size: 13px; }
+.proof__text{ margin-top: 6px; color: var(--muted); line-height: 1.6; font-size: 14px; }
 
 /* =========================
    Terminal (stable, no blur filters)
@@ -319,8 +320,6 @@ body{ padding-top: var(--navH); }
     0 0 0 1px rgba(0,245,255,.10),
     0 0 22px rgba(0,245,255,.08);
 }
-
-.terminal::before{ content:""; display:none; } /* remove expensive glow layer */
 
 .terminal__top{
   display:flex;
@@ -420,8 +419,6 @@ body{ padding-top: var(--navH); }
   box-shadow: var(--shadow2);
   padding: 18px;
 }
-
-/* Less “jumpy” hover to reduce repaint/jank */
 .card:hover{
   border-color: rgba(0,245,255,.20);
   background: rgba(255,255,255,.06);
@@ -438,9 +435,17 @@ body{ padding-top: var(--navH); }
   background: rgba(0,0,0,.18);
   color: var(--muted);
   line-height: 1.6;
-  font-size: 13px;
+  font-size: 14px;
 }
 .card__why strong{ color: rgba(255,255,255,.92); }
+
+/* Make project cards look “designed”: equal height + button pinned */
+.card--project{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.card--project .linkBtn{ margin-top: auto; }
 
 /* Chips */
 .chips{ display:flex; flex-wrap:wrap; gap: 10px; }
@@ -507,7 +512,6 @@ body{ padding-top: var(--navH); }
 
 .linkBtn{
   display:inline-block;
-  margin-top: 10px;
   padding: 10px 12px;
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,.16);
@@ -547,7 +551,7 @@ body{ padding-top: var(--navH); }
 }
 .timeline__when{ font-family: var(--mono); color: rgba(255,255,255,.74); font-size: 12px; }
 .timeline__what h4{ margin: 0 0 8px; font-size: 15px; }
-.role__stack{ margin: 0 0 10px; font-size: 13px; color: rgba(255,255,255,.78); }
+.role__stack{ margin: 0 0 10px; font-size: 14px; color: rgba(255,255,255,.78); }
 .timeline__what p{ margin:0; color: var(--muted); line-height: 1.7; }
 
 /* Contact */
@@ -591,7 +595,7 @@ body{ padding-top: var(--navH); }
   padding: 10px 12px;
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,.16);
-  background: rgba(0,0,0,.52); /* no blur = less glitch */
+  background: rgba(0,0,0,.52);
   box-shadow: var(--shadow2);
   color: rgba(255,255,255,.92);
   font-weight: 900;
@@ -715,12 +719,8 @@ body{ padding-top: var(--navH); }
 
 /* =========================
    Chrome Lite FX (fx-lite)
-   - extra hardening if Chrome still flashes
    ========================= */
-html.fx-lite body::before,
-html.fx-lite body::after{
-  display:none;
-}
+html.fx-lite{ scroll-behavior: auto; }
 
 html.fx-lite .nav,
 html.fx-lite .socialBtn,
