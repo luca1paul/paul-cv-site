@@ -1,14 +1,21 @@
 // app.js
 
+/* Enable "lite" effects on desktop Chrome to avoid white flashing + scroll jank */
 (function enableChromeLiteFx() {
   const ua = navigator.userAgent;
-  const isChrome = /Chrome\/\d+/.test(ua) && !/Edg\/|OPR\//.test(ua); // include desktop Chrome
-  if (isChrome) document.documentElement.classList.add("fx-lite");
+  const isChrome = /Chrome\/\d+/.test(ua) && !/Edg\/|OPR\//.test(ua);
+
+  // Also enable lite mode if user prefers reduced motion (extra stability)
+  const prefersReduced =
+    window.matchMedia &&
+    window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+  if (isChrome || prefersReduced) {
+    document.documentElement.classList.add("fx-lite");
+  }
 })();
 
-/* =========================
-   Footer year (safe even if you don't have a footer element)
-   ========================= */
+/* Footer year (safe even if you don't have a footer element) */
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
@@ -26,20 +33,18 @@ document.documentElement.setAttribute("data-mode", "full");
 
 /* =========================
    Terminal typewriter
-   - Faster typing
+   - Fast typing
    - Finish instantly if user scrolls past
-   - Hard cap (never keeps recruiters waiting)
+   - Hard cap
    ========================= */
-
 const terminalTextEl = document.getElementById("terminalText");
 const terminalCopyBtn = document.getElementById("terminalCopy");
 
-// Speed tuning
-const TYPE_MS = 8; // per character (faster)
-const LINE_PAUSE_MS = 120; // pause after each line (faster)
+const TYPE_MS = 7;
+const LINE_PAUSE_MS = 110;
 
 const lines = Array.isArray(window.TERMINAL_LINES) ? window.TERMINAL_LINES : [];
-let fullText = ""; // used for copy
+let fullText = "";
 
 let typingAborted = false;
 let typingFinished = false;
@@ -48,10 +53,6 @@ function sleep(ms) {
   return new Promise((r) => setTimeout(r, ms));
 }
 
-/**
- * Instantly prints the full terminal output.
- * Why: Recruiters scroll; don't make them wait for a typewriter effect.
- */
 function finishTerminalInstant() {
   if (!terminalTextEl || typingFinished) return;
 
@@ -64,10 +65,6 @@ function finishTerminalInstant() {
   typingFinished = true;
 }
 
-/**
- * Types terminal output char-by-char unless aborted.
- * Why: Visual flair, but still respects speed/skip conditions.
- */
 async function typeTerminal() {
   if (!terminalTextEl || lines.length === 0) return;
 
@@ -85,8 +82,7 @@ async function typeTerminal() {
       terminalTextEl.textContent += line[c];
       fullText += line[c];
 
-      // small randomness so it looks natural, but still fast
-      await sleep(TYPE_MS + Math.floor(Math.random() * 10));
+      await sleep(TYPE_MS + Math.floor(Math.random() * 8));
     }
 
     if (i !== lines.length - 1) {
@@ -99,22 +95,17 @@ async function typeTerminal() {
   typingFinished = true;
 }
 
-// Start typing once page loads
 typeTerminal();
 
-/**
- * Skip typing once user scrolls past the terminal.
- * Why: Most people won't wait; this preserves the info.
- */
+/* Skip typing once user scrolls past the terminal */
 (function terminalSkipOnScrollPast() {
   const terminalWrap = document.querySelector(".terminal");
   if (!terminalWrap) return;
 
-  // If IntersectionObserver isn't available, just hard-cap
   if (!("IntersectionObserver" in window)) {
     setTimeout(() => {
       if (!typingFinished) finishTerminalInstant();
-    }, 2500);
+    }, 2200);
     return;
   }
 
@@ -124,10 +115,8 @@ typeTerminal();
     (entries) => {
       for (const ent of entries) {
         if (ent.isIntersecting) {
-          // Terminal entered viewport at least once
           seen = true;
         } else if (seen && !typingFinished) {
-          // User has scrolled past it
           finishTerminalInstant();
           io.disconnect();
         }
@@ -138,16 +127,15 @@ typeTerminal();
 
   io.observe(terminalWrap);
 
-  // Hard cap: always finish quickly even if user doesn't scroll
   setTimeout(() => {
     if (!typingFinished) {
       finishTerminalInstant();
       io.disconnect();
     }
-  }, 2500);
+  }, 2200);
 })();
 
-/* Copy button copies the final text (even if typing is still in progress) */
+/* Copy button copies the final text */
 if (terminalCopyBtn) {
   terminalCopyBtn.addEventListener("click", async () => {
     const textToCopy = (
@@ -159,7 +147,6 @@ if (terminalCopyBtn) {
       terminalCopyBtn.textContent = "Copied";
       setTimeout(() => (terminalCopyBtn.textContent = "Copy"), 1100);
     } catch {
-      // Fallback for older browsers
       const ta = document.createElement("textarea");
       ta.value = textToCopy;
       document.body.appendChild(ta);

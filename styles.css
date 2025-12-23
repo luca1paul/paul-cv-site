@@ -7,38 +7,30 @@
   --mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
 
   --radius: 18px;
-  --shadow: 0 22px 70px rgba(0,0,0,.55);
-  --shadow2: 0 10px 30px rgba(0,0,0,.32);
+  --shadow: 0 18px 55px rgba(0,0,0,.50);
+  --shadow2: 0 10px 26px rgba(0,0,0,.30);
 
-  /* add these back (you use them in body padding-left) */
   --dockW: 190px;
   --dockGap: 16px;
 
-  /* Color palette */
   --bg0:#04050a;
-  --bg1:#060813;
-
-  --panel:#0b1020;
-  --panel2:#090e1b;
+  --bg1:#070a18;
 
   --text:#e9f2ff;
-
   --muted:#cbd5e1;
 
   --border: rgba(255,255,255,.12);
 
-  /* Accents */
-  --accent:#00f5ff;     /* neon cyan */
-  --accent2:#ff2bd6;    /* neon magenta */
-  --accent3:#ffd400;    /* neon yellow */
+  --accent:#00f5ff;
+  --accent2:#ff2bd6;
 
-  /* Buttons (solid, no gradients) */
   --btnBg: rgba(255,255,255,.06);
   --btnBorder: rgba(255,255,255,.16);
   --btnHoverBg: rgba(255,255,255,.10);
 
-  /* Focus ring */
   --ring: rgba(0,245,255,.35);
+
+  --navH: 68px;
 }
 
 /* =========================
@@ -49,46 +41,50 @@ html{ scroll-behavior:smooth; }
 body{
   margin:0;
   font-family: var(--font);
+  font-size: 16px;
+  line-height: 1.65;
   color: var(--text);
+
+  /* Lighter + more stable background (less GPU pain) */
   background:
-    radial-gradient(900px 520px at 20% 10%, rgba(0,245,255,.10), transparent 60%),
-    radial-gradient(700px 520px at 80% 18%, rgba(255,43,214,.08), transparent 62%),
-    radial-gradient(520px 420px at 50% 0%, rgba(255,212,0,.06), transparent 55%),
+    radial-gradient(900px 520px at 20% 10%, rgba(0,245,255,.08), transparent 60%),
+    radial-gradient(700px 520px at 80% 18%, rgba(255,43,214,.06), transparent 62%),
     linear-gradient(180deg, var(--bg1), var(--bg0));
+
   min-height:100vh;
   overflow-x:hidden;
 }
 
-/* Scanlines */
+/* Subtle scanlines (NO blend-mode to avoid white flashing) */
 body::before{
   content:"";
   position:fixed;
   inset:0;
   pointer-events:none;
-  opacity:.22;
+  opacity:.08;
   background:
     repeating-linear-gradient(
       180deg,
-      rgba(255,255,255,.03) 0px,
-      rgba(255,255,255,.03) 1px,
+      rgba(255,255,255,.025) 0px,
+      rgba(255,255,255,.025) 1px,
       transparent 2px,
-      transparent 6px
+      transparent 7px
     );
-  mix-blend-mode: overlay;
 }
 
-/* Subtle noise */
+/* Subtle noise (low opacity, stable) */
 body::after{
   content:"";
   position:fixed;
   inset:0;
   pointer-events:none;
-  opacity:.08;
+  opacity:.035;
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='220' height='220'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='220' height='220' filter='url(%23n)' opacity='.45'/%3E%3C/svg%3E");
 }
 
 a{ color:inherit; text-decoration:none; }
 a:hover{ color: var(--accent); }
+
 .container{ width:min(1150px, 92vw); margin:0 auto; }
 
 @media (min-width: 981px){
@@ -96,9 +92,9 @@ a:hover{ color: var(--accent); }
     padding-left: calc(var(--dockW) + var(--dockGap) + 12px);
   }
 }
+
 .accent{ color: var(--accent); }
 .muted{ color: var(--muted); }
-.sep{ opacity:.6; padding:0 10px; }
 
 code{
   font-family: var(--mono);
@@ -109,81 +105,91 @@ code{
   border: 1px solid rgba(255,255,255,.10);
 }
 
-/* Reveal animation */
+/* Reveal animation (kept, but gentle) */
 @media (prefers-reduced-motion: no-preference){
   .reveal{
     opacity: 0;
-    transform: translateY(10px);
-    transition: opacity .55s ease, transform .55s ease;
+    transform: translateY(8px);
+    transition: opacity .45s ease, transform .45s ease;
   }
   .reveal.is-visible{ opacity: 1; transform: translateY(0); }
 }
+@media (prefers-reduced-motion: reduce){
+  .reveal{ opacity: 1 !important; transform:none !important; transition:none !important; }
+}
 
 /* =========================
-   Nav (centered links, no brand)
+   Nav (full width, centered, uniform text)
    ========================= */
 .nav{
-  position:sticky;
+  position: fixed;
   top:0;
-  z-index:50;
-  background: rgba(0,0,0,.28);
-  backdrop-filter: blur(14px);
+  left:0;
+  right:0;
+  z-index: 1000;
+
+  background: rgba(0,0,0,.62); /* solid translucency = less glitchy */
   border-bottom: 1px solid var(--border);
 }
+
 .nav__inner{
   display:flex;
   justify-content:center;
   align-items:center;
-  gap: 14px;
-  padding: 14px 0;
+  padding: 12px 0;
+  min-height: var(--navH);
 }
+
 .nav__links{
   display:flex;
-  gap:18px;
-  font-weight:800;
-  color: rgba(255,255,255,.88);
+  flex-wrap: wrap;
   justify-content:center;
+  align-items:center;
+  gap: 10px;
+
+  font-weight: 800;
+  font-size: 14px;         /* uniform size */
+  letter-spacing: .01em;
+  color: rgba(255,255,255,.90);
 }
-.nav__links a{ padding: 8px 10px; border-radius: 10px; }
-/* Prominent Resume CTA in nav */
+
+.nav__links a{
+  padding: 10px 12px;
+  border-radius: 12px;
+  line-height: 1;
+}
+
+.nav__links a:hover{
+  background: rgba(255,255,255,.06);
+}
+
 .nav__cta{
-  border: 1px solid rgba(0,245,255,.40);
-  background: rgba(0,245,255,.10);
+  border: 1px solid rgba(0,245,255,.45);
+  background: rgba(0,245,255,.12);
   color: rgba(255,255,255,.96);
 }
-.nav__cta:hover{ background: rgba(0,245,255,.16); }
+.nav__cta:hover{ background: rgba(0,245,255,.18); }
 
-/* Also highlight any download buttons (your hero Resume button has download attr) */
-.btn[download]{
-  border-color: rgba(0,245,255,.40);
-}
-
-/* Optional subtle pulse (motion-safe) */
-@media (prefers-reduced-motion: no-preference){
-  .nav__cta{
-    animation: ctaPulse 2.6s ease-in-out infinite;
-  }
-  @keyframes ctaPulse{
-    0%, 100% { box-shadow: 0 0 0 rgba(0,245,255,0); }
-    50%      { box-shadow: 0 0 22px rgba(0,245,255,.18); }
-  }
-}
-.nav__links a:hover{ background: rgba(255,255,255,.06); }
+/* Make space for fixed nav */
+body{ padding-top: var(--navH); }
 
 /* =========================
    Hero
    ========================= */
-.hero{ padding: 60px 0 24px; position:relative; }
+.hero{ padding: 54px 0 24px; position:relative; }
+
 .hero__inner{
   display:grid;
   grid-template-columns: 1.15fr .85fr;
   gap: 42px;
   align-items: start;
 }
+
+.hero__left{ min-width: 0; } /* prevents weird overflow pushes */
 .hero__right{
   justify-self: end;
   width: 100%;
-  max-width: 520px; /* #comment: adjust if you want wider terminal */
+  max-width: 520px;
   display: flex;
   flex-direction: column;
   gap: 14px;
@@ -196,6 +202,7 @@ code{
   gap: 12px;
   margin-bottom: 10px;
 }
+
 .avatar{
   width: 44px;
   height: 44px;
@@ -207,8 +214,9 @@ code{
   letter-spacing: -0.02em;
   color: rgba(0,0,0,.92);
   background: var(--accent);
-  box-shadow: 0 16px 50px rgba(0,0,0,.40);
+  box-shadow: 0 14px 42px rgba(0,0,0,.38);
 }
+
 .hero__badgeText{ display:flex; flex-direction:column; gap: 6px; }
 .hero__micro{ color: var(--muted); font-size: 13px; }
 
@@ -227,53 +235,22 @@ code{
 
 .hero__title{
   margin: 14px 0 10px;
-  font-size:56px;
-  line-height:1.05;
-  letter-spacing:-0.03em;
+  font-size: 54px;
+  line-height: 1.05;
+  letter-spacing: -0.03em;
 }
 
-/* Subtle cyberpunk glitch */
-.glitch{
-  position:relative;
-  display:inline-block;
-}
+/* Less “glitchy”: keep class, remove the effect */
 .glitch::before,
-.glitch::after{
-  content: attr(data-text);
-  position:absolute;
-  left:0;
-  top:0;
-  width:100%;
-  overflow:hidden;
-  opacity:.22;
-  pointer-events:none;
-}
-.glitch::before{
-  transform: translate(2px, 0);
-  color: var(--accent2);
-  clip-path: inset(0 0 62% 0);
-}
-.glitch::after{
-  transform: translate(-2px, 0);
-  color: var(--accent);
-  clip-path: inset(55% 0 0 0);
-}
-@media (prefers-reduced-motion: no-preference){
-  .glitch::before, .glitch::after{ animation: glitch 3.2s infinite; }
-  @keyframes glitch{
-    0%, 92%, 100% { filter:none; opacity:.20; }
-    93% { filter: blur(.3px); opacity:.33; }
-    94% { filter: blur(.6px); opacity:.26; }
-    95% { filter:none; opacity:.20; }
-  }
-}
+.glitch::after{ display:none !important; }
 
 .hero__subtitle{
   margin:0 0 14px;
-  font-size: 24px;
+  font-size: 22px;
   font-weight: 900;
-  color: rgba(255,255,255,.90);
+  color: rgba(255,255,255,.92);
 }
+
 .hero__summary{
   margin:0 0 16px;
   color: var(--muted);
@@ -296,7 +273,7 @@ code{
   box-shadow: var(--shadow2);
 }
 .stat__num{
-  font-size: 22px;
+  font-size: 20px;
   font-weight: 900;
   color: var(--accent);
 }
@@ -328,37 +305,43 @@ code{
 .proof__title{ margin-top: 6px; font-weight: 900; letter-spacing:-0.01em; }
 .proof__text{ margin-top: 6px; color: var(--muted); line-height: 1.6; font-size: 13px; }
 
-/* Buttons (NO gradients) */
-.cta{ display:flex; gap: 14px; margin: 10px 0 18px; }
-.btn{
-  padding: 12px 16px;
-  border-radius: 14px;
-  font-weight: 900;
-  border: 1px solid var(--btnBorder);
-  background: var(--btnBg);
-  color: rgba(255,255,255,.92);
-  display:inline-flex;
-  justify-content:center;
+/* =========================
+   Terminal (stable, no blur filters)
+   ========================= */
+.terminal{
+  border-radius: 22px;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.42);
+  overflow:hidden;
+  position:relative;
+  box-shadow:
+    var(--shadow),
+    0 0 0 1px rgba(0,245,255,.10),
+    0 0 22px rgba(0,245,255,.08);
+}
+
+.terminal::before{ content:""; display:none; } /* remove expensive glow layer */
+
+.terminal__top{
+  display:flex;
   align-items:center;
-  min-width: 170px;
-  cursor: pointer;
+  gap:8px;
+  padding: 14px 14px;
+  border-bottom: 1px solid rgba(255,255,255,.10);
 }
-.btn:hover{ background: var(--btnHoverBg); }
-.btn:focus{ outline: 2px solid var(--ring); outline-offset: 2px; }
 
-.btn--primary{
-  border-color: rgba(0,245,255,.40);
-  background: rgba(0,245,255,.10);
-  color: rgba(255,255,255,.96);
-}
-.btn--primary:hover{ background: rgba(0,245,255,.16); }
-.btn--ghost{
-  border-color: rgba(255,255,255,.16);
-  background: rgba(255,255,255,.06);
-}
-.btn--ghost:hover{ background: rgba(255,255,255,.10); }
+.dot{ width:10px; height:10px; border-radius:999px; display:inline-block; opacity:.95; }
+.dot--r{ background:#ff5f57; }
+.dot--y{ background:#febc2e; }
+.dot--g{ background:#28c840; }
 
-/* Mini button (Copy) */
+.terminal__title{
+  margin-left: 6px;
+  font-size: 12px;
+  color: rgba(255,255,255,.85);
+  font-family: var(--mono);
+}
+
 .miniBtn{
   margin-left:auto;
   padding: 8px 10px;
@@ -373,48 +356,6 @@ code{
 }
 .miniBtn:hover{ background: rgba(0,245,255,.10); border-color: rgba(0,245,255,.30); }
 
-/* =========================
-   Terminal (typing-friendly)
-   ========================= */
-.terminal{
-  border-radius: 22px;
-  border: 1px solid rgba(255,255,255,.14);
-  background: rgba(0,0,0,.35);
-  box-shadow: var(--shadow);
-  overflow:hidden;
-  position:relative;
-}
-.terminal::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  border-radius: 22px;
-  background: rgba(0,245,255,.10);
-  filter: blur(18px);
-  z-index:0;
-}
-.terminal > *{ position:relative; z-index:1; }
-
-.terminal__top{
-  display:flex;
-  align-items:center;
-  gap:8px;
-  padding: 14px 14px;
-  border-bottom: 1px solid rgba(255,255,255,.10);
-}
-.dot{ width:10px; height:10px; border-radius:999px; display:inline-block; opacity:.95; }
-.dot--r{ background:#ff5f57; }
-.dot--y{ background:#febc2e; }
-.dot--g{ background:#28c840; }
-
-.terminal__title{
-  margin-left: 6px;
-  font-size: 12px;
-  color: rgba(255,255,255,.85);
-  font-family: var(--mono);
-}
-
-/* The PRE itself */
 .terminal__body{
   margin:0;
   padding: 18px 18px 22px;
@@ -445,20 +386,28 @@ code{
   0%, 50%{ opacity:1; }
   51%, 100%{ opacity:0; }
 }
+@media (prefers-reduced-motion: reduce){
+  .caret{ animation:none; }
+}
 
 /* =========================
    Sections + grids
    ========================= */
 .section{ padding: 56px 0; }
+
 .section__title{
   margin:0 0 10px;
-  font-size: 34px;
+  font-size: 32px;
   letter-spacing:-0.02em;
 }
-.section__subtitle{ margin:0 0 26px; color: var(--muted); line-height: 1.6; }
+.section__subtitle{
+  margin:0 0 26px;
+  color: var(--muted);
+  line-height: 1.6;
+}
 
 .grid{ display:grid; gap: 16px; }
-.grid--skills{ grid-template-columns: repeat(3, 1fr); } /* 6 cards = balanced */
+.grid--skills{ grid-template-columns: repeat(3, 1fr); }
 .grid--projects{ grid-template-columns: repeat(2, 1fr); }
 .grid--levels{ grid-template-columns: repeat(3, 1fr); }
 .grid--approach{ grid-template-columns: repeat(2, 1fr); }
@@ -471,11 +420,13 @@ code{
   box-shadow: var(--shadow2);
   padding: 18px;
 }
+
+/* Less “jumpy” hover to reduce repaint/jank */
 .card:hover{
-  border-color: rgba(0,245,255,.22);
-  box-shadow: 0 18px 55px rgba(0,0,0,.55);
-  transform: translateY(-1px);
+  border-color: rgba(0,245,255,.20);
+  background: rgba(255,255,255,.06);
 }
+
 .card__title{ margin:0 0 12px; font-size: 16px; font-weight: 900; letter-spacing:-0.01em; }
 .card__text{ margin:0 0 14px; color: var(--muted); line-height: 1.65; font-size: 14px; }
 
@@ -489,38 +440,28 @@ code{
   line-height: 1.6;
   font-size: 13px;
 }
-.card__why strong{
-  color: rgba(255,255,255,.92);
-}
+.card__why strong{ color: rgba(255,255,255,.92); }
 
-/* Chips (default) */
+/* Chips */
 .chips{ display:flex; flex-wrap:wrap; gap: 10px; }
 .chip{
   padding: 8px 10px;
   border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.16);
-  background: rgba(0,0,0,.18);
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(0,0,0,.16);
   font-family: var(--mono);
   font-size: 12px;
   color: rgba(255,255,255,.90);
 }
-/* Power skills highlight */
-.chip--power{
-  border-color: rgba(0,245,255,.28);
-  background: rgba(0,245,255,.08);
-  box-shadow: 0 0 18px rgba(0,245,255,.10);
-}
-.chip--power:hover{
-  border-color: rgba(0,245,255,.45);
-  background: rgba(0,245,255,.12);
-}
-.chip:hover{ border-color: rgba(0,245,255,.28); background: rgba(255,255,255,.06); }
+.chip:hover{ border-color: rgba(0,245,255,.22); background: rgba(255,255,255,.05); }
 
-/* Skills section polish (KEEP your HTML) */
-#skills .card{
-  position: relative;
-  overflow: hidden;
+.chip--power{
+  border-color: rgba(0,245,255,.26);
+  background: rgba(0,245,255,.08);
 }
+
+/* Skills polish */
+#skills .card{ position: relative; overflow: hidden; }
 #skills .card__title{
   display:flex;
   align-items:center;
@@ -535,21 +476,7 @@ code{
   height: 10px;
   border-radius: 3px;
   background: var(--accent);
-  box-shadow: 0 0 18px rgba(0,245,255,.25);
-}
-#skills .chip{
-  padding: 7px 10px;
-  border-radius: 999px;
-  border: 1px solid rgba(255,255,255,.12);
-  background: rgba(0,0,0,.18);
-  font-family: var(--mono);
-  font-size: 12px;
-  line-height: 1;
-  color: rgba(255,255,255,.90);
-}
-#skills .chip:hover{
-  border-color: rgba(0,245,255,.28);
-  background: rgba(0,245,255,.08);
+  box-shadow: 0 0 14px rgba(0,245,255,.18);
 }
 
 .card__top{
@@ -559,11 +486,12 @@ code{
   gap: 12px;
   margin-bottom: 10px;
 }
+
 .tag{
   font-size: 12px;
   font-weight: 900;
   color: var(--accent);
-  border: 1px solid rgba(0,245,255,.35);
+  border: 1px solid rgba(0,245,255,.30);
   background: rgba(0,245,255,.10);
   padding: 6px 10px;
   border-radius: 999px;
@@ -636,12 +564,12 @@ code{
   padding: 14px;
   box-shadow: var(--shadow2);
 }
-.contact__item:hover{ border-color: rgba(0,245,255,.22); background: rgba(255,255,255,.07); }
+.contact__item:hover{ border-color: rgba(0,245,255,.18); background: rgba(255,255,255,.06); }
 .contact__label{ font-size: 12px; color: rgba(255,255,255,.74); font-family: var(--mono); }
 .contact__value{ margin-top: 6px; font-weight: 900; letter-spacing: -0.01em; }
 
 /* =========================
-   Floating social buttons (left side, same size)
+   Floating social buttons
    ========================= */
 .socialDock{
   position: fixed;
@@ -663,15 +591,14 @@ code{
   padding: 10px 12px;
   border-radius: 14px;
   border: 1px solid rgba(255,255,255,.16);
-  background: rgba(0,0,0,.28);
-  backdrop-filter: blur(10px);
+  background: rgba(0,0,0,.52); /* no blur = less glitch */
   box-shadow: var(--shadow2);
   color: rgba(255,255,255,.92);
   font-weight: 900;
   overflow: hidden;
 }
 .socialBtn:hover{
-  border-color: rgba(0,245,255,.28);
+  border-color: rgba(0,245,255,.22);
   background: rgba(0,245,255,.10);
 }
 .socialBtn:focus{
@@ -696,8 +623,12 @@ code{
   text-overflow: ellipsis;
 }
 
-/* Responsive */
+/* =========================
+   Mobile
+   ========================= */
 @media (max-width: 980px){
+  :root{ --navH: 74px; }
+
   .hero__inner{ grid-template-columns: 1fr; }
   .hero__title{ font-size: 44px; }
   .stats{ grid-template-columns: repeat(2, 1fr); }
@@ -708,43 +639,29 @@ code{
   .grid--approach{ grid-template-columns: 1fr; }
   .timeline__item{ grid-template-columns: 1fr; }
   .contact__grid{ grid-template-columns: 1fr; }
-    .nav__inner{
-    justify-content: flex-start;
-    padding: 10px 0;
-  }
 
   .nav__links{
-    display:flex;
-    gap:10px;
-    width:100%;
+    gap: 8px;
+    padding: 0 10px;
     overflow-x:auto;
     -webkit-overflow-scrolling: touch;
-    padding: 0 10px;
     scrollbar-width: none;
   }
   .nav__links::-webkit-scrollbar{ display:none; }
+  .nav__links a{ flex: 0 0 auto; white-space: nowrap; }
 
-  .nav__links a{
-    flex: 0 0 auto;
-    white-space: nowrap;
+  .socialDock{ display:none; }
+
+  body{
+    padding-left: 0;
+    padding-bottom: calc(74px + env(safe-area-inset-bottom, 0));
   }
-
-  /* Social dock becomes icons-only */
-  .socialDock{ left: 10px; }
-  .socialBtn{ width: 46px; padding: 10px; justify-content: center; }
-  .socialBtn__text{ display:none; }
 }
 
-  /* Mobile bottom bar (icons) */
+/* Mobile bottom bar */
 .mobileBar{ display:none; }
 
 @media (max-width: 980px){
-  /* Hide the left dock on mobile */
-  .socialDock{ display:none; }
-
-  /* Make room so content isn't hidden behind the bar */
-  body{ padding-bottom: calc(74px + env(safe-area-inset-bottom, 0)); }
-
   .mobileBar{
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -757,8 +674,7 @@ code{
 
     bottom: env(safe-area-inset-bottom, 0);
     padding: 10px 10px calc(10px + env(safe-area-inset-bottom, 0));
-    background: rgba(0,0,0,.55);
-    backdrop-filter: blur(12px);
+    background: rgba(0,0,0,.65);
     border-top: 1px solid var(--border);
   }
 
@@ -775,7 +691,7 @@ code{
   }
 
   .mobileBar__btn:hover{
-    border-color: rgba(0,245,255,.28);
+    border-color: rgba(0,245,255,.22);
     background: rgba(0,245,255,.10);
   }
 
@@ -797,39 +713,17 @@ code{
   }
 }
 
-/* Chrome: stop white flashing + reduce compositor load */
-html.fx-lite body { isolation: isolate; } /* extra safety for blending bugs */
-
+/* =========================
+   Chrome Lite FX (fx-lite)
+   - extra hardening if Chrome still flashes
+   ========================= */
 html.fx-lite body::before,
 html.fx-lite body::after{
-  display:none; /* removes scanlines + noise fixed layers */
+  display:none;
 }
 
-/* Blur + backdrop-filter are expensive; keep solid translucency */
 html.fx-lite .nav,
 html.fx-lite .socialBtn,
 html.fx-lite .mobileBar{
-  -webkit-backdrop-filter: none !important;
-  backdrop-filter: none !important;
-  background: rgba(0,0,0,.65) !important;
-}
-
-/* Big blur glow can trigger jank */
-html.fx-lite .terminal::before{
-  filter: none !important;
-  opacity: .10;
-}
-
-/* Reduce repaint work on hover */
-html.fx-lite .card:hover{
-  transform: none !important;
-  box-shadow: var(--shadow2) !important;
-}
-
-/* Glitch animation can cause flashing on some GPUs */
-@media (prefers-reduced-motion: no-preference){
-  html.fx-lite .glitch::before,
-  html.fx-lite .glitch::after{
-    animation: none !important;
-  }
+  background: rgba(0,0,0,.72) !important;
 }
