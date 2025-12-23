@@ -34,7 +34,7 @@ document.documentElement.setAttribute("data-mode", "full");
 /* =========================
    Terminal typewriter
    - Fast typing
-   - Finish instantly if user scrolls past
+   - Finish instantly if user scrolls past OR clicks Copy
    - Hard cap
    ========================= */
 const terminalTextEl = document.getElementById("terminalText");
@@ -43,7 +43,18 @@ const terminalCopyBtn = document.getElementById("terminalCopy");
 const TYPE_MS = 7;
 const LINE_PAUSE_MS = 110;
 
-const lines = Array.isArray(window.TERMINAL_LINES) ? window.TERMINAL_LINES : [];
+function readTerminalLines() {
+  const el = document.getElementById("terminalLines");
+  if (!el) return [];
+  try {
+    const parsed = JSON.parse(el.textContent || "[]");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+const lines = readTerminalLines();
 let fullText = "";
 
 let typingAborted = false;
@@ -138,9 +149,13 @@ typeTerminal();
 /* Copy button copies the final text */
 if (terminalCopyBtn) {
   terminalCopyBtn.addEventListener("click", async () => {
+    if (!typingFinished) finishTerminalInstant();
+
     const textToCopy = (
       fullText || (terminalTextEl ? terminalTextEl.textContent : "")
     ).trim();
+
+    if (!textToCopy) return;
 
     try {
       await navigator.clipboard.writeText(textToCopy);
@@ -171,7 +186,7 @@ if (terminalCopyBtn) {
     window.matchMedia &&
     window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-  if (reduce) {
+  if (reduce || !("IntersectionObserver" in window)) {
     els.forEach((el) => el.classList.add("is-visible"));
     return;
   }
