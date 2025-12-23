@@ -1,4 +1,1 @@
 FQDN	Group	Status	Environment	IP Address	Port	Proxy	Last Snapshot
-stg-app-01.example.net	staging	ONLINE	staging	10.10.20.15	5072	proxy.beta	10-01-2025 09:30
-prod-app-02.example.net	prod	ONLINE	prod	10.10.30.22	5061	proxy.alpha	10-01-2025 09:30
-cluster10-2.example.net	clusters	ONLINE	prod	10.10.40.12	5090	proxy.beta	10-01-2025 09:30
