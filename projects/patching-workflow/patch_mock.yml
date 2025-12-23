@@ -1,0 +1,150 @@
+---
+- name: Mock patching workflow (safe-by-default)
+  hosts: "{{ target | default('SAFE_DEFAULT') }}"
+  gather_facts: false
+  serial: 1
+  any_errors_fatal: true
+  order: inventory
+
+  vars:
+    run_id: "mock-{{ lookup('pipe','date -u +%Y%m%dT%H%M%SZ') }}"
+    artifacts_root: "artifacts"
+    artifacts_dir: "{{ artifacts_root }}/{{ run_id }}/{{ inventory_hostname }}"
+
+  pre_tasks:
+    - name: Announce start
+      ansible.builtin.debug:
+        msg: "Starting patch on {{ inventory_hostname }}"
+      tags: [always]
+
+    - name: Record start epoch (controller)
+      ansible.builtin.command: date +%s
+      delegate_to: localhost
+      register: start_ts
+      changed_when: false
+      tags: [always]
+
+  tasks:
+    # TODO: create artifacts dir (controller)
+    - name: Create artifacts directory (controller)
+      ansible.builtin.file:
+        path: "{{ artifacts_dir }}"
+        state: directory
+        mode: "0755"
+      delegate_to: localhost
+      changed_when: false
+      tags: [apply]
+
+    # TODO: read + parse mock yum_result.json
+    - name: Apply | read mock yum result json
+      ansible.builtin.slurp:
+        src: "fixtures/{{ inventory_hostname }}/yum_result.json"
+      delegate_to: localhost
+      register: yum_result_file
+      changed_when: false
+      tags: [apply]
+
+    - name: Apply | parse yum result
+      ansible.builtin.set_fact:
+        yum_result: "{{ (yum_result_file.content | b64decode) | from_json }}"
+      tags: [apply]
+
+    - name: Apply | compute yum_ok flag
+      ansible.builtin.set_fact:
+        yum_ok: "{{ (yum_result.rc | default(1)) == 0 }}"
+      tags: [apply]
+
+    # TODO: compute yum_ok, duration, print summary
+    - name: Record end epoch (controller)
+      ansible.builtin.command: date +%s
+      delegate_to: localhost
+      register: end_ts
+      changed_when: false
+      tags: [apply]
+
+    - name: Compute duration seconds
+      ansible.builtin.set_fact:
+        update_duration_secs: "{{ (end_ts.stdout | int) - (start_ts.stdout | int) }}"
+      tags: [apply]
+
+    - name: Progress summary (success path)
+      ansible.builtin.debug:
+        msg:
+          - "Host: {{ inventory_hostname }}"
+          - "Status: SUCCESS (rc={{ yum_result.rc }})"
+          - "Duration: {{ update_duration_secs }}s"
+          - "Updated: {{ (yum_result.updated | default([])) | join(', ') | default('none', true) }}"
+          - "Installed: {{ (yum_result.installed | default([])) | join(', ') | default('none', true) }}"
+      when: yum_ok
+      tags: [apply]
+
+    - name: Progress summary (failure path)
+      ansible.builtin.debug:
+        msg:
+          - "Host: {{ inventory_hostname }}"
+          - "Status: FAILURE (rc={{ yum_result.rc | default('N/A') }})"
+          - "Duration: {{ update_duration_secs | default('N/A') }}s"
+          - "Error: {{ yum_result.msg | default('unknown error') }}"
+      when: not yum_ok
+      tags: [apply]
+
+    # TODO: on failure write controller logs + fail
+    - name: Write structured activity log (controller) on failure
+      ansible.builtin.blockinfile:
+        path: ./patch_activity.log
+        create: true
+        insertafter: EOF
+        marker: ""
+        block: |
+          ---
+          host: {{ inventory_hostname }}
+          start_epoch: {{ start_ts.stdout | default('') }}
+          end_epoch: {{ end_ts.stdout | default('') }}
+          duration_seconds: {{ update_duration_secs | default(0) }}
+          rc: {{ yum_result.rc | default('') }}
+          status: failure
+          message: {{ (yum_result.msg | default('')) | to_json }}
+      when: not yum_ok
+      delegate_to: localhost
+      tags: [apply]
+
+    - name: Log failure one-liner (controller)
+      ansible.builtin.lineinfile:
+        path: ./patch_failures.log
+        line: "{{ inventory_hostname }} - patch failed: {{ yum_result.msg | default('unknown error') }}"
+        create: true
+      when: not yum_ok
+      delegate_to: localhost
+      tags: [apply]
+
+    - name: Fail play if patch failed
+      ansible.builtin.fail:
+        msg: "Patch failed on {{ inventory_hostname }}. See patch_activity.log / patch_failures.log."
+      when: not yum_ok
+      tags: [apply]
+
+
+- name: Write run report (controller)
+  hosts: localhost
+  gather_facts: false
+  tasks:
+    # TODO: write artifacts/<run_id>/patch-report.txt
+    - name: Ensure run folder exists
+      ansible.builtin.file:
+        path: "artifacts/{{ hostvars[(groups['all']|first)].run_id | default('mock-run') }}"
+        state: directory
+
+    - name: Write run report
+      ansible.builtin.copy:
+        dest: "artifacts/{{ hostvars[(groups['all']|first)].run_id | default('mock-run') }}/patch-report.txt"
+        content: |
+          Mock Patch Run Report
+          ====================
+
+          Run ID: {{ hostvars[(groups['all']|first)].run_id | default('mock-run') }}
+
+          Results:
+          {% for h in (groups['all'] | sort) %}
+          - {{ h }}: {% if (hostvars[h].yum_ok | default(false)) %}SUCCESS{% else %}FAILURE{% endif %}
+          {% endfor %}
+

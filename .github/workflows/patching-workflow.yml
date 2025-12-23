@@ -1,0 +1,68 @@
+name: Patching Workflow (Mock)
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "projects/hosts.ini"
+      - "projects/patching-workflow/**"
+      - ".github/workflows/patching-workflow.yml"
+
+jobs:
+  patching-mock:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ansible
+
+      - name: Generate mock fixtures from projects/hosts.ini
+        working-directory: projects/patching-workflow
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          rm -rf fixtures
+          mkdir -p fixtures
+
+          HOSTS=$(grep -vE '^\s*#|^\s*$|^\s*\[.*\]\s*$' ../hosts.ini)
+
+          for h in $HOSTS; do
+            d="fixtures/${h}"
+            mkdir -p "$d"
+
+            # Keep runs GREEN for portfolio: rc=0 everywhere.
+            # Add variety in updated packages so the report is not boring.
+            if [[ "$h" == *proxy* ]]; then
+              printf '%s' '{"rc":0,"updated":["agent"],"installed":[],"msg":"mock patch succeeded"}' > "${d}/yum_result.json"
+            elif [[ "$h" == *worker* ]]; then
+              printf '%s' '{"rc":0,"updated":["worker-utils"],"installed":[],"msg":"mock patch succeeded"}' > "${d}/yum_result.json"
+            else
+              printf '%s' '{"rc":0,"updated":["core-utils"],"installed":[],"msg":"mock patch succeeded"}' > "${d}/yum_result.json"
+            fi
+          done
+
+      - name: Run mock patch playbook
+        working-directory: projects/patching-workflow
+        run: |
+          ansible-playbook -i ../hosts.ini patch_mock.yml -e target=all --tags apply
+
+      - name: Publish run report to workflow summary
+        shell: bash
+        run: |
+          echo "## Patching Workflow (Mock) — Run Report" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          ls -1dt projects/patching-workflow/artifacts/mock-* | head -n 1 | xargs -I{} cat "{}/patch-report.txt" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: patching-workflow-mock-artifacts
+          path: projects/patching-workflow/artifacts/
