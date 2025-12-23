@@ -23,6 +23,7 @@ jobs:
 
       - name: Generate mock rpm fixtures from projects/hosts.ini
         working-directory: projects/rpm-package-check
+        shell: bash
         run: |
           set -euo pipefail
 
@@ -36,11 +37,11 @@ jobs:
             f="fixtures/installed_rpms/${h}.txt"
 
             # Default: all required RPMs present (matches required_rpms.yml)
-            cat > "$f" <<'EOF'
-            app-core-1.0.0-1.el7.x86_64
-            app-agent-2.3.1-4.el7.x86_64
-            app-proxy-0.9.9-2.el7.x86_64
-            EOF
+            printf '%s\n' \
+              'app-core-1.0.0-1.el7.x86_64' \
+              'app-agent-2.3.1-4.el7.x86_64' \
+              'app-proxy-0.9.9-2.el7.x86_64' \
+              > "$f"
 
             # Add “missing” examples so the report has signal (matches your hostnames)
             case "$h" in
@@ -54,7 +55,7 @@ jobs:
                 ;;
               qa-*.example.net)
                 # qa-app-01, qa-app-02
-                grep -v '^app-core-' "$f" > "${f}.tmp" && mv "${f}.tmp" "$f"
+                grep -v '^app-core-'  "$f" > "${f}.tmp" && mv "${f}.tmp" "$f"
                 ;;
             esac
           done
@@ -64,12 +65,6 @@ jobs:
         run: |
           ansible-playbook -i ../hosts.ini rpm_check.yml
 
-      - name: Upload report artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: rpm-package-check-report
-          path: projects/rpm-package-check/artifacts/
-
       - name: Publish report to workflow summary
         run: |
           echo "## RPM Package Check Report" >> "$GITHUB_STEP_SUMMARY"
@@ -77,3 +72,9 @@ jobs:
           echo '```' >> "$GITHUB_STEP_SUMMARY"
           cat projects/rpm-package-check/artifacts/rpm-check-report.txt >> "$GITHUB_STEP_SUMMARY"
           echo '```' >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rpm-package-check-report
+          path: projects/rpm-package-check/artifacts/
