@@ -797,3 +797,39 @@ code{
   }
 }
 
+/* Chrome: stop white flashing + reduce compositor load */
+html.fx-lite body { isolation: isolate; } /* extra safety for blending bugs */
+
+html.fx-lite body::before,
+html.fx-lite body::after{
+  display:none; /* removes scanlines + noise fixed layers */
+}
+
+/* Blur + backdrop-filter are expensive; keep solid translucency */
+html.fx-lite .nav,
+html.fx-lite .socialBtn,
+html.fx-lite .mobileBar{
+  -webkit-backdrop-filter: none !important;
+  backdrop-filter: none !important;
+  background: rgba(0,0,0,.65) !important;
+}
+
+/* Big blur glow can trigger jank */
+html.fx-lite .terminal::before{
+  filter: none !important;
+  opacity: .10;
+}
+
+/* Reduce repaint work on hover */
+html.fx-lite .card:hover{
+  transform: none !important;
+  box-shadow: var(--shadow2) !important;
+}
+
+/* Glitch animation can cause flashing on some GPUs */
+@media (prefers-reduced-motion: no-preference){
+  html.fx-lite .glitch::before,
+  html.fx-lite .glitch::after{
+    animation: none !important;
+  }
+}
