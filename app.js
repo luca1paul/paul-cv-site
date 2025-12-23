@@ -1,5 +1,11 @@
 // app.js
 
+(function enableChromeLiteFx() {
+  const ua = navigator.userAgent;
+  const isChrome = /Chrome\/\d+/.test(ua) && !/Edg\/|OPR\//.test(ua); // include desktop Chrome
+  if (isChrome) document.documentElement.classList.add("fx-lite");
+})();
+
 /* =========================
    Footer year (safe even if you don't have a footer element)
    ========================= */
