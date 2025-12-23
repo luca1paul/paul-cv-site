@@ -1,0 +1,9 @@
+exclude:
+  - projects/rpm-package-check/
+  - projects/patching-workflow/
+  - projects/patching-mock/
+  - projects/**.yml
+  - projects/**.yaml
+
+# Optional: also prevent Jekyll from trying to treat files as collections
+include: []
