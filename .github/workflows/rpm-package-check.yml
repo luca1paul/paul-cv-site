@@ -1,0 +1,79 @@
+name: RPM Package Check (Mock)
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "projects/hosts.ini"
+      - "projects/rpm-package-check/**"
+      - ".github/workflows/rpm-package-check.yml"
+
+jobs:
+  rpm-check:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      - name: Install Ansible
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ansible
+
+      - name: Generate mock rpm fixtures from projects/hosts.ini
+        working-directory: projects/rpm-package-check
+        run: |
+          set -euo pipefail
+
+          rm -rf fixtures/installed_rpms
+          mkdir -p fixtures/installed_rpms
+
+          # Extract hostnames (skip comments, blanks, and [groups])
+          HOSTS=$(grep -vE '^\s*#|^\s*$|^\s*\[.*\]\s*$' ../hosts.ini)
+
+          for h in $HOSTS; do
+            f="fixtures/installed_rpms/${h}.txt"
+
+            # Default: all required RPMs present (matches required_rpms.yml)
+            cat > "$f" <<'EOF'
+            app-core-1.0.0-1.el7.x86_64
+            app-agent-2.3.1-4.el7.x86_64
+            app-proxy-0.9.9-2.el7.x86_64
+            EOF
+
+            # Add “missing” examples so the report has signal (matches your hostnames)
+            case "$h" in
+              *-proxy*.example.net|*proxy*.example.net)
+                # dev-proxy01, stg-proxy01, prd-proxy01
+                grep -v '^app-agent-' "$f" > "${f}.tmp" && mv "${f}.tmp" "$f"
+                ;;
+              stg-old01.example.net)
+                # explicit "old" staging host
+                grep -v '^app-proxy-' "$f" > "${f}.tmp" && mv "${f}.tmp" "$f"
+                ;;
+              qa-*.example.net)
+                # qa-app-01, qa-app-02
+                grep -v '^app-core-' "$f" > "${f}.tmp" && mv "${f}.tmp" "$f"
+                ;;
+            esac
+          done
+
+      - name: Run RPM check playbook
+        working-directory: projects/rpm-package-check
+        run: |
+          ansible-playbook -i ../hosts.ini rpm_check.yml
+
+      - name: Upload report artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: rpm-package-check-report
+          path: projects/rpm-package-check/artifacts/
+
+      - name: Publish report to workflow summary
+        run: |
+          echo "## RPM Package Check Report" >> "$GITHUB_STEP_SUMMARY"
+          echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"
+          cat projects/rpm-package-check/artifacts/rpm-check-report.txt >> "$GITHUB_STEP_SUMMARY"
+          echo '```' >> "$GITHUB_STEP_SUMMARY"

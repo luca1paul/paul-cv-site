@@ -1,0 +1,68 @@
+---
+- name: RPM Package Check (mock fixtures, read-only)
+  hosts: all
+  gather_facts: false
+  vars_files:
+    - required_rpms.yml
+
+  tasks:
+    - name: Read mock rpm list for this host
+      ansible.builtin.slurp:
+        src: "fixtures/installed_rpms/{{ inventory_hostname }}.txt"
+      delegate_to: localhost
+      register: rpm_fixture
+
+    - name: Parse installed RPM base names (strip versions/arch)
+      ansible.builtin.set_fact:
+        installed_rpms: >-
+          {{
+            (rpm_fixture.content | b64decode).splitlines()
+            | map('regex_replace', '-[0-9].*$', '')
+            | list
+          }}
+
+    - name: Compute missing required RPMs
+      ansible.builtin.set_fact:
+        missing_rpms: "{{ required_rpms | difference(installed_rpms) }}"
+
+    - name: Report per-host status
+      ansible.builtin.debug:
+        msg: >-
+          Host '{{ inventory_hostname }}'
+          {% if (missing_rpms | length) == 0 %}
+          OK — all required RPMs installed
+          {% else %}
+          MISSING — {{ missing_rpms | join(', ') }}
+          {% endif %}
+
+- name: Write report artifact
+  hosts: localhost
+  gather_facts: false
+  vars_files:
+    - required_rpms.yml
+
+  tasks:
+    - name: Ensure artifacts folder exists
+      ansible.builtin.file:
+        path: artifacts
+        state: directory
+
+    - name: Write report
+      ansible.builtin.copy:
+        dest: artifacts/rpm-check-report.txt
+        content: |
+          RPM Presence Check Report
+          =========================
+
+          Required RPMs:
+          - {{ required_rpms | join('\n- ') }}
+
+          Results:
+          {% for h in (groups['all'] | sort) %}
+          - Host '{{ h }}'
+            {% if (hostvars[h].missing_rpms | length) == 0 %}
+            OK — all required RPMs installed
+            {% else %}
+            MISSING — {{ hostvars[h].missing_rpms | join(', ') }}
+            {% endif %}
+          {% endfor %}
