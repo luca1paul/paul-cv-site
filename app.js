@@ -211,8 +211,8 @@ if (terminalCopyBtn) {
    ========================= */
 const levelsFull = {
   core: [
-    "Manual QA: story, system, compatibility",
-    "Defects: clear repro, evidence, prioritization",
+    "QA Testing: story, system, compatibility (risk-based)",
+    "Defect Triage: repro, evidence, root cause correlation",
     "Linux: services, processes, logs, troubleshooting",
     "Git/GitHub: branches, PRs, merges (daily workflow)",
     "Ansible: inventory, targeting, playbook execution",
@@ -224,19 +224,20 @@ const levelsFull = {
     "CI/CD: GitHub Actions + Jenkins usage",
     "Investigations: client + server log correlation",
     "Documentation: handoffs, knowledge sharing",
-    "Monitoring: Grafana dashboards",
-    "Cloud: AWS/Azure fundamentals",
+    "Monitoring: Grafana dashboards, alert tuning",
+    "IaC basics: YAML templating, config versioning",
+    "Cloud Platforms: AWS & Azure (EC2, IAM, pipelines basics)",
     "API testing: Postman request/response validation",
     "Agile: Scrum/Kanban delivery in sprints",
   ],
   familiar: [
     "Docker: images, containers, compose-level usage",
     "Terraform: reading plans, small changes with guidance",
+    "Security: firewalls/VPN/encryption fundamentals",
+    "Load balancing: health checks, routing concepts",
     "RabbitMQ: queues/consumers, basic troubleshooting",
     "Wireshark: captures, filters, common network issues",
     "SQL: simple SELECT/WHERE/JOIN understanding",
-    "Load balancing: health checks, routing concepts",
-    "Security: firewalls/VPN/encryption fundamentals",
     "Performance testing: concepts + tooling awareness",
   ],
 };
