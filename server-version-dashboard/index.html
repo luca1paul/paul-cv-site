@@ -73,11 +73,11 @@
 <body>
     <h1>Server Dashboard</h1>
     <div class="summary">
-        <strong>Total hosts:</strong> 21
+        <strong>Total hosts:</strong> 31
         &nbsp;|&nbsp;
-        <strong>Online:</strong> 0
+        <strong>Online:</strong> 24
         &nbsp;|&nbsp;
-        <strong>Offline:</strong> 21
+        <strong>Offline:</strong> 7
     </div>
     
     <h2>Group: clusters</h2>
@@ -93,8 +93,9 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="is-offline"><td>cluster01.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
-<tr class="is-offline"><td>cluster02.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
+            <tr class=""><td>cluster01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>prod-cluster-node</td><td>10.30.100.11</td><td>5090</td><td>proxy.beta</td></tr>
+<tr class=""><td>cluster10.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>prod</td><td>10.10.40.11</td><td>5090</td><td>proxy.beta</td></tr>
+<tr class="is-offline"><td>cluster02.example.net</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
         </tbody>
     </table>
 
@@ -111,10 +112,13 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="is-offline"><td>dev-app01.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
-<tr class="is-offline"><td>dev-app02.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
-<tr class="is-offline"><td>dev-proxy01.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
-<tr class="is-offline"><td>dev-worker01.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
+            <tr class=""><td>dev-app-01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>dev</td><td>10.10.10.11</td><td>5060</td><td>proxy.alpha</td></tr>
+<tr class=""><td>dev-app-02.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>dev</td><td>10.10.10.12</td><td>5062</td><td>proxy.beta</td></tr>
+<tr class=""><td>dev-app01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>dev-rhel9</td><td>10.10.1.21</td><td>5061</td><td>proxy.alpha</td></tr>
+<tr class=""><td>dev-proxy01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>dev-ubuntu22</td><td>10.10.1.31</td><td>5070</td><td>proxy.beta</td></tr>
+<tr class=""><td>dev-worker01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>dev-rhel8</td><td>10.10.1.41</td><td>5090</td><td>proxy.alpha</td></tr>
+<tr class=""><td>host01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>dev-rhel9</td><td>10.10.1.11</td><td>5060</td><td>proxy.alpha</td></tr>
+<tr class=""><td>host02.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>dev-ubuntu22</td><td>10.10.1.12</td><td>5080</td><td>proxy.beta</td></tr>
         </tbody>
     </table>
 
@@ -131,12 +135,33 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="is-offline"><td>prd-app01.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
-<tr class="is-offline"><td>prd-app02.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
-<tr class="is-offline"><td>prd-app03.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
-<tr class="is-offline"><td>prd-proxy01.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
-<tr class="is-offline"><td>prd-worker01.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
-<tr class="is-offline"><td>prd-worker02.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
+            <tr class=""><td>host03.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>prod-rhel9</td><td>10.30.1.10</td><td>5060</td><td>proxy.alpha</td></tr>
+<tr class=""><td>prd-app01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>prod-rhel9</td><td>10.30.1.11</td><td>5060</td><td>proxy.alpha</td></tr>
+<tr class=""><td>prd-app02.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>prod-rhel9</td><td>10.30.1.12</td><td>5061</td><td>proxy.beta</td></tr>
+<tr class=""><td>prd-proxy01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>prod-ubuntu22</td><td>10.30.2.20</td><td>5080</td><td>proxy.beta</td></tr>
+<tr class=""><td>prd-worker01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>prod-rhel8</td><td>10.30.3.21</td><td>5090</td><td>proxy.alpha</td></tr>
+<tr class=""><td>prd-worker02.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>prod-rhel8</td><td>10.30.3.22</td><td>5091</td><td></td></tr>
+<tr class=""><td>prod-app-01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>prod</td><td>10.10.30.21</td><td>5060</td><td>proxy.alpha</td></tr>
+<tr class="is-offline"><td>prd-app03.example.net</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
+<tr class="is-offline"><td>prod-app-02.example.net</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
+        </tbody>
+    </table>
+
+    <h2>Group: qa</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>FQDN</th>
+                <th>Status</th>
+                <th>Platform</th>
+                <th>IP Address</th>
+                <th>Port</th>
+                <th>Proxy</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class=""><td>qa-app-01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>qa</td><td>10.10.15.21</td><td>5070</td><td>proxy.alpha</td></tr>
+<tr class=""><td>qa-app-02.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>qa</td><td>10.10.15.22</td><td>5071</td><td>proxy.beta</td></tr>
         </tbody>
     </table>
 
@@ -153,11 +178,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="is-offline"><td>stg-app01.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
-<tr class="is-offline"><td>stg-app02.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
-<tr class="is-offline"><td>stg-old01.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
-<tr class="is-offline"><td>stg-proxy01.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
-<tr class="is-offline"><td>stg-worker01.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
+            <tr class=""><td>stg-app01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>staging-rhel9</td><td>10.20.1.11</td><td>5060</td><td>proxy.alpha</td></tr>
+<tr class=""><td>stg-app02.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>staging-ubuntu22</td><td>10.20.1.12</td><td>5062</td><td>proxy.beta</td></tr>
+<tr class=""><td>stg-proxy01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>staging-ubuntu22</td><td>10.20.1.31</td><td>5080</td><td>proxy.beta</td></tr>
+<tr class="is-offline"><td>stg-app-01.example.net</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
+<tr class="is-offline"><td>stg-old01.example.net</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
         </tbody>
     </table>
 
@@ -174,11 +199,11 @@
             </tr>
         </thead>
         <tbody>
-            <tr class="is-offline"><td>jump01.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
-<tr class="is-offline"><td>monitor01.example.internal</td><td><span class="badge badge--offline">OFFLINE</span></td><td></td><td></td><td></td><td></td></tr>
+            <tr class=""><td>jump01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>tools-ubuntu22</td><td>10.40.1.60</td><td>22</td><td></td></tr>
+<tr class=""><td>monitor01.example.net</td><td><span class="badge badge--online">ONLINE</span></td><td>tools-debian12</td><td>10.40.1.50</td><td>9090</td><td></td></tr>
         </tbody>
     </table>
 
-    <footer>Last run: 14:30 23.12.2025</footer>
+    <footer>Last run: 13:23 24.12.2025</footer>
 </body>
 </html>
