@@ -7,6 +7,8 @@
   <title>Paul Luca — DevOps Engineer | QA Foundations + CI/CD | Looking for new challenges</title>
   <meta name="description" content="DevOps Engineer (1+ year) transitioning from 8+ years in QA. Skilled in Ansible, Linux, CI/CD, observability, and automation. Available for remote/hybrid roles." />
   <meta name="theme-color" content="#04050a" />
+  <link rel="icon" type="image/png" href="assets/favicon.png" />
+  <meta name="robots" content="index, follow">
 
   <!--
 Keywords: DevOps Engineer, Site Reliability Engineer, QA Automation, Release Engineer, Infrastructure as Code, CI/CD pipelines, Ansible, GitHub Actions, Monitoring, Troubleshooting, Linux Administration
@@ -286,6 +288,33 @@ Keywords: DevOps Engineer, Site Reliability Engineer, QA Automation, Release Eng
     <p class="section__subtitle">Tools I’ve built to make releases and operations smoother.</p>
 
     <div class="grid grid--projects">
+      <article class="card card--project">
+        <div class="card__top">
+          <h4 class="card__title">AutoOps Infrastructure</h4>
+          <span class="tag">CI/CD • Terraform • Ansible</span>
+        </div>
+
+        <p class="card__text">
+        End-to-end DevOps system automating build, deployment, and monitoring across infrastructure and application layers. Fully implemented using GitHub Actions, Terraform, Ansible, Docker, and Prometheus.
+        </p>
+
+        <p class="card__why">
+        <strong>Reason:</strong> I wanted to prove I can design and operate a full delivery pipeline from scratch—covering code, infrastructure, and observability.</p>
+
+      <ul class="bullets">
+        <li>CI/CD: multi-stage GitHub Actions pipeline (build, push, deploy)</li>
+        <li>Infra as Code: Terraform provisioning for AWS VPC + EC2</li>
+        <li>Config as Code: Ansible automation for Docker, Nginx, Prometheus, Grafana</li>
+        <li>Monitoring: Prometheus metrics + Grafana dashboards</li>
+        <li>Full lifecycle: Git push → Auto build → Deploy → Health check</li>
+        <li><strong>Impact:</strong> <span class="muted">Complete DevOps pipeline running on GitHub Actions with automatic infrastructure + application deployment</span></li>
+      </ul>
+
+        <div class="projectLinks">
+          <a class="tagLink" href="https://github.com/luca1paul/autoops" target="_blank" rel="noreferrer">Code</a>
+          <a class="tagLink" href="https://github.com/luca1paul/autoops/actions" target="_blank" rel="noreferrer">CI/CD runs</a>
+        </div>
+      </article>
 
       <article class="card card--project">
         <div class="card__top">
@@ -308,7 +337,6 @@ Keywords: DevOps Engineer, Site Reliability Engineer, QA Automation, Release Eng
           <a class="tagLink" href="https://github.com/luca1paul/paul-cv-site/tree/main/projects/rpm-package-check" target="_blank" rel="noreferrer">Code</a>
           <a class="tagLink" href="https://github.com/luca1paul/paul-cv-site/actions/workflows/rpm-package-check.yml" target="_blank" rel="noreferrer">CI run</a>
         </div>
-
       </article>
 
       <article class="card card--project">
@@ -320,7 +348,7 @@ Keywords: DevOps Engineer, Site Reliability Engineer, QA Automation, Release Eng
         <p class="card__text">Safe rollout pattern: explicitly targeted runs, one host at a time, stop on first failure, with a run report and controller-side failure logs.</p>
 
         <p class="card__why">
-          <strong>Reason:</strong>Standardizes patch execution to reduce risk and make results consistent regardless of who runs it.</p>
+          <strong>Reason:</strong> Standardizes patch execution to reduce risk and make results consistent regardless of who runs it.</p>
 
         <ul class="bullets">
           <li>Safe-by-default targeting (SAFE_DEFAULT + explicit target)</li>

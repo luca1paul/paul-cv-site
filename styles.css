@@ -791,3 +791,62 @@ html.fx-lite .socialBtn,
 html.fx-lite .mobileBar{
   background: rgba(0,0,0,.72) !important;
 }
+
+/* --- Project bullet fine-tuning --- */
+.card--project .bullets li {
+  font-size: 13px;                    /* slightly larger for legibility */
+  line-height: 1.55;
+  margin-bottom: 4px;
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* Highlight key markers (Impact, Reason, Stack) */
+.card--project .bullets li strong {
+  color: var(--accent);
+  font-weight: 600;                   /* slightly lighter than 900, more elegant */
+}
+
+/* Muted "impact text" or supporting text */
+.card--project .bullets li .muted {
+  color: rgba(255, 255, 255, 0.65);
+  font-style: italic;
+}
+
+/* Card layout compression for project grid */
+.card--project {
+  padding: 1.5rem;
+}
+
+/* Smaller title + text for denser cards */
+.card--project .card__title {
+  font-size: 1.1rem;
+  margin-bottom: 0.3rem;
+}
+
+.card--project .card__text {
+  font-size: 0.9rem;
+  margin-bottom: 0.5rem;
+}
+
+/* Optional: consistent spacing for bullets in cards */
+.card--project .bullets {
+  margin-top: 0.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.projectLinks {
+  margin-top: 0.75rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.tagLink {
+  font-size: 0.8rem;
+  opacity: 0.9;
+  transition: opacity 0.2s ease;
+}
+
+.tagLink:hover {
+  opacity: 1;
+}
