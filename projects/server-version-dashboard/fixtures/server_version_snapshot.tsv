@@ -1,25 +1,25 @@
 FQDN	Group	Status	Environment	IP Address	Port	Proxy	Last Snapshot
-cluster01-1.example.net	clusters	ONLINE	prod-cluster-node	10.30.100.11	5090	proxy.beta	16-01-2026 06:08
-cluster01-2.example.net	clusters	ONLINE	prod-cluster-node	10.30.100.12	5090	proxy.beta	16-01-2026 06:08
-cluster10-1.example.net	clusters	ONLINE	prod	10.10.40.11	5090	proxy.beta	16-01-2026 06:08
-dev-app-01.example.net	dev	ONLINE	dev	10.10.10.11	5060	proxy.alpha	16-01-2026 06:08
-dev-app-02.example.net	dev	ONLINE	dev	10.10.10.12	5062	proxy.beta	16-01-2026 06:08
-dev-app01.example.net	dev	ONLINE	dev-rhel9	10.10.1.21	5061	proxy.alpha	16-01-2026 06:08
-dev-proxy01.example.net	dev	ONLINE	dev-ubuntu22	10.10.1.31	5070	proxy.beta	16-01-2026 06:08
-dev-worker01.example.net	dev	ONLINE	dev-rhel8	10.10.1.41	5090	proxy.alpha	16-01-2026 06:08
-host01.example.net	dev	ONLINE	dev-rhel9	10.10.1.11	5060	proxy.alpha	16-01-2026 06:08
-host02.example.net	dev	ONLINE	dev-ubuntu22	10.10.1.12	5080	proxy.beta	16-01-2026 06:08
-host03.example.net	prod	ONLINE	prod-rhel9	10.30.1.10	5060	proxy.alpha	16-01-2026 06:08
-jump01.example.net	tools	ONLINE	tools-ubuntu22	10.40.1.60	22		16-01-2026 06:08
-monitor01.example.net	tools	ONLINE	tools-debian12	10.40.1.50	9090		16-01-2026 06:08
-prd-app01.example.net	prod	ONLINE	prod-rhel9	10.30.1.11	5060	proxy.alpha	16-01-2026 06:08
-prd-app02.example.net	prod	ONLINE	prod-rhel9	10.30.1.12	5061	proxy.beta	16-01-2026 06:08
-prd-proxy01.example.net	prod	ONLINE	prod-ubuntu22	10.30.2.20	5080	proxy.beta	16-01-2026 06:08
-prd-worker01.example.net	prod	ONLINE	prod-rhel8	10.30.3.21	5090	proxy.alpha	16-01-2026 06:08
-prd-worker02.example.net	prod	ONLINE	prod-rhel8	10.30.3.22	5091		16-01-2026 06:08
-prod-app-01.example.net	prod	ONLINE	prod	10.10.30.21	5060	proxy.alpha	16-01-2026 06:08
-qa-app-01.example.net	qa	ONLINE	qa	10.10.15.21	5070	proxy.alpha	16-01-2026 06:08
-qa-app-02.example.net	qa	ONLINE	qa	10.10.15.22	5071	proxy.beta	16-01-2026 06:08
-stg-app01.example.net	staging	ONLINE	staging-rhel9	10.20.1.11	5060	proxy.alpha	16-01-2026 06:08
-stg-app02.example.net	staging	ONLINE	staging-ubuntu22	10.20.1.12	5062	proxy.beta	16-01-2026 06:08
-stg-proxy01.example.net	staging	ONLINE	staging-ubuntu22	10.20.1.31	5080	proxy.beta	16-01-2026 06:08
+cluster01-1.example.net	clusters	ONLINE	prod-cluster-node	10.30.100.11	5090	proxy.beta	17-01-2026 06:01
+cluster01-2.example.net	clusters	ONLINE	prod-cluster-node	10.30.100.12	5090	proxy.beta	17-01-2026 06:01
+cluster10-1.example.net	clusters	ONLINE	prod	10.10.40.11	5090	proxy.beta	17-01-2026 06:01
+dev-app-01.example.net	dev	ONLINE	dev	10.10.10.11	5060	proxy.alpha	17-01-2026 06:01
+dev-app-02.example.net	dev	ONLINE	dev	10.10.10.12	5062	proxy.beta	17-01-2026 06:01
+dev-app01.example.net	dev	ONLINE	dev-rhel9	10.10.1.21	5061	proxy.alpha	17-01-2026 06:01
+dev-proxy01.example.net	dev	ONLINE	dev-ubuntu22	10.10.1.31	5070	proxy.beta	17-01-2026 06:01
+dev-worker01.example.net	dev	ONLINE	dev-rhel8	10.10.1.41	5090	proxy.alpha	17-01-2026 06:01
+host01.example.net	dev	ONLINE	dev-rhel9	10.10.1.11	5060	proxy.alpha	17-01-2026 06:01
+host02.example.net	dev	ONLINE	dev-ubuntu22	10.10.1.12	5080	proxy.beta	17-01-2026 06:01
+host03.example.net	prod	ONLINE	prod-rhel9	10.30.1.10	5060	proxy.alpha	17-01-2026 06:01
+jump01.example.net	tools	ONLINE	tools-ubuntu22	10.40.1.60	22		17-01-2026 06:01
+monitor01.example.net	tools	ONLINE	tools-debian12	10.40.1.50	9090		17-01-2026 06:01
+prd-app01.example.net	prod	ONLINE	prod-rhel9	10.30.1.11	5060	proxy.alpha	17-01-2026 06:01
+prd-app02.example.net	prod	ONLINE	prod-rhel9	10.30.1.12	5061	proxy.beta	17-01-2026 06:01
+prd-proxy01.example.net	prod	ONLINE	prod-ubuntu22	10.30.2.20	5080	proxy.beta	17-01-2026 06:01
+prd-worker01.example.net	prod	ONLINE	prod-rhel8	10.30.3.21	5090	proxy.alpha	17-01-2026 06:01
+prd-worker02.example.net	prod	ONLINE	prod-rhel8	10.30.3.22	5091		17-01-2026 06:01
+prod-app-01.example.net	prod	ONLINE	prod	10.10.30.21	5060	proxy.alpha	17-01-2026 06:01
+qa-app-01.example.net	qa	ONLINE	qa	10.10.15.21	5070	proxy.alpha	17-01-2026 06:01
+qa-app-02.example.net	qa	ONLINE	qa	10.10.15.22	5071	proxy.beta	17-01-2026 06:01
+stg-app01.example.net	staging	ONLINE	staging-rhel9	10.20.1.11	5060	proxy.alpha	17-01-2026 06:01
+stg-app02.example.net	staging	ONLINE	staging-ubuntu22	10.20.1.12	5062	proxy.beta	17-01-2026 06:01
+stg-proxy01.example.net	staging	ONLINE	staging-ubuntu22	10.20.1.31	5080	proxy.beta	17-01-2026 06:01
