@@ -1,3 +1,12 @@
+# -------------------------------------------------------------------
+# GitHub Actions Workflow: Patching Workflow (Mock)
+# -------------------------------------------------------------------
+# This workflow simulates the patching process using mock data.
+# It generates mock patch results for hosts defined in projects/hosts.ini
+# and runs the patching playbook against these mock results.
+# -------------------------------------------------------------------
+# ".github/workflows/patching-workflow.yml"
+
 name: Patching Workflow (Mock)
 
 on:

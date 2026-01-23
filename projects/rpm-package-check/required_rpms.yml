@@ -1,3 +1,7 @@
+# Required RPMs Configuration
+# This YAML file lists the required RPM packages for the application.
+# Located at: projects/rpm-package-check/required_rpms.yml
+
 ---
 required_rpms:
   - app-core

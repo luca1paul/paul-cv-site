@@ -1,3 +1,8 @@
+# Server Version Dashboard Workflow
+# This workflow generates the server version dashboard using mock data
+# and pushes the updated HTML and snapshot files to the repository.
+# .github/workflows/server-version-dashboard.yml
+
 name: Server Version Dashboard (mock → GitHub Pages)
 
 on:

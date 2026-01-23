@@ -1,3 +1,8 @@
+# Mock Patching Workflow Playbook
+# This Ansible playbook simulates a patching workflow using mock data.
+# It reads predefined mock results instead of performing real package updates.
+# Located at: projects/patching-workflow/patch_mock.yml
+
 ---
 - name: Mock patching workflow (safe-by-default)
   hosts: "{{ target | default('SAFE_DEFAULT') }}"

@@ -1,5 +1,7 @@
 # RPM Package Check (Mock, Read-Only)
 
+rpm-package-check/README.md
+
 Ansible playbook that validates required RPM packages across inventory groups.
 
 - Inventory: `projects/hosts.ini` (clusters/dev/qa/staging/prod/tools)

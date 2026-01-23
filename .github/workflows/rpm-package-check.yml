@@ -1,3 +1,12 @@
+# -------------------------------------------------------------------
+# GitHub Actions Workflow: RPM Package Check (Mock)
+# -------------------------------------------------------------------
+# This workflow simulates the RPM package check process using mock data.
+# It generates mock installed RPM lists for hosts defined in projects/hosts.ini
+# and runs the RPM check playbook against these mock lists.
+# -------------------------------------------------------------------
+# ".github/workflows/rpm-package-check.yml"
+
 name: RPM Package Check (Mock)
 
 on:

@@ -1,4 +1,7 @@
 // app.js
+// General site JavaScript
+// ========================= */
+// app.js
 
 /* Enable "lite" effects on desktop Chrome to avoid white flashing + scroll jank */
 (function enableChromeLiteFx() {

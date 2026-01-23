@@ -1,3 +1,9 @@
+# RPM Package Check Playbook
+# This Ansible playbook checks for the presence of required RPM packages
+# on target hosts using mock fixture data. It generates a report of missing
+# packages per host and writes the results to an artifact file.
+# Located at: projects/rpm-package-check/rpm_check.yml
+
 ---
 - name: RPM Package Check (mock fixtures, read-only)
   hosts: all
