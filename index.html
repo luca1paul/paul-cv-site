@@ -291,24 +291,24 @@ Keywords: DevOps Engineer, Site Reliability Engineer, QA Automation, Release Eng
       <article class="card card--project">
         <div class="card__top">
           <h4 class="card__title">AutoOps Infrastructure</h4>
-          <span class="tag">CI/CD • Terraform • Ansible</span>
+          <span class="tag">Kubernetes • CI/CD • Terraform • Ansible</span>
         </div>
 
         <p class="card__text">
-        End-to-end DevOps system automating build, deployment, and monitoring across infrastructure and application layers. Fully implemented using GitHub Actions, Terraform, Ansible, Docker, and Prometheus.
+        A self-healing, containerized platform orchestrating a Python API with a focus on high availability, resource governance, and proactive monitoring.
         </p>
 
         <p class="card__why">
-        <strong>Reason:</strong> I wanted to prove I can design and operate a full delivery pipeline from scratch—covering code, infrastructure, and observability.</p>
+        <strong>Reason:</strong> To master the transition from "running containers" to "orchestrating production-grade systems" with strict resource contracts and observability.
 
       <ul class="bullets">
-        <li>CI/CD: multi-stage GitHub Actions pipeline (build, push, deploy)</li>
-        <li>Infra as Code: Terraform provisioning for AWS VPC + EC2</li>
-        <li>Config as Code: Ansible automation for Docker, Nginx, Prometheus, Grafana</li>
-        <li>Monitoring: Prometheus metrics + Grafana dashboards</li>
-        <li>Full lifecycle: Git push → Auto build → Deploy → Health check</li>
-        <li><strong>Impact:</strong> <span class="muted">Complete DevOps pipeline running on GitHub Actions with automatic infrastructure + application deployment</span></li>
-      </ul>
+        <li><strong>Kubernetes Orchestration:</strong> Managed API lifecycle using <strong>Helm</strong> charts for DRY, environment-agnostic deployments.</li>
+        <li><strong>Resource Governance:</strong> Optimized cluster stability by implementing CPU/Memory requests/limits, moving workloads from <em>BestEffort</em> to <strong>Burstable QoS</strong> classes.</li>
+        <li><strong>Observability Stack:</strong> Deployed <strong>Kube-Prometheus-Stack</strong> with ServiceMonitors for automated metric discovery and Grafana visualization.</li>
+        <li><strong>Health & Reliability:</strong> Configured Liveness/Readiness probes to enable self-healing and ensure zero-downtime traffic routing.</li>
+        <li><strong>Security:</strong> Simulated <strong>Zero-Trust</strong> environments using NetworkPolicies to restrict cross-namespace traffic.</li>
+        <li><strong>Impact:</strong> <span class="muted">Achieved 100% observability of pod health and resource utilization via automated Prometheus scraping.</span></li>
+      </ul>>
 
         <div class="projectLinks">
           <a class="tagLink" href="https://github.com/luca1paul/autoops" target="_blank" rel="noreferrer">Code</a>
