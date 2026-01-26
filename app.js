@@ -242,6 +242,9 @@ const levelsFull = {
     "Wireshark: captures, filters, common network issues",
     "SQL: simple SELECT/WHERE/JOIN understanding",
     "Performance testing: concepts + tooling awareness",
+    "Kubernetes: Deployments, Services, Probes, Resource Limits",
+    "Helm: Chart creation, values templating, release management",
+    "Security: NetworkPolicies, Firewalls, VPN fundamentals",
   ],
 };
 
