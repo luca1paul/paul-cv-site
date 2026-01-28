@@ -1,7 +1,4 @@
 // app.js
-// General site JavaScript
-// ========================= */
-// app.js
 
 /* Enable "lite" effects on desktop Chrome to avoid white flashing + scroll jank */
 (function enableChromeLiteFx() {
@@ -18,14 +15,11 @@
   }
 })();
 
-/* Footer year (safe even if you don't have a footer element) */
 const yearEl = document.getElementById("year");
 if (yearEl) yearEl.textContent = new Date().getFullYear();
 
-/* Force full mode attribute (safe) */
 document.documentElement.setAttribute("data-mode", "full");
 
-/* Hide project links that are still set to "#" */
 (function hideUnsetProjectLinks() {
   const links = [...document.querySelectorAll("[data-project-link]")];
   links.forEach((a) => {
@@ -111,7 +105,6 @@ async function typeTerminal() {
 
 typeTerminal();
 
-/* Skip typing once user scrolls past the terminal */
 (function terminalSkipOnScrollPast() {
   const terminalWrap = document.querySelector(".terminal");
   if (!terminalWrap) return;
@@ -149,7 +142,6 @@ typeTerminal();
   }, 2200);
 })();
 
-/* Copy button copies the final text */
 if (terminalCopyBtn) {
   terminalCopyBtn.addEventListener("click", async () => {
     if (!typingFinished) finishTerminalInstant();
