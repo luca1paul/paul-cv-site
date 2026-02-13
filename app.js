@@ -15,19 +15,6 @@
   }
 })();
 
-const yearEl = document.getElementById("year");
-if (yearEl) yearEl.textContent = new Date().getFullYear();
-
-document.documentElement.setAttribute("data-mode", "full");
-
-(function hideUnsetProjectLinks() {
-  const links = [...document.querySelectorAll("[data-project-link]")];
-  links.forEach((a) => {
-    const href = (a.getAttribute("href") || "").trim();
-    a.style.display = !href || href === "#" ? "none" : "inline-block";
-  });
-})();
-
 /* =========================
    Terminal typewriter
    - Fast typing
