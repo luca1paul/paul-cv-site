@@ -418,6 +418,21 @@ img, svg { display: block; max-width: 100%; }
    ========================= */
 .grid--projects { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; }
 
+/* WIP Badge */
+.badge-wip {
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--secondary);
+  border: 1px solid rgba(236, 72, 153, 0.3);
+  background: rgba(236, 72, 153, 0.1);
+  padding: 2px 8px;
+  border-radius: 99px;
+  vertical-align: middle;
+  margin-left: 8px;
+}
+
 /* Featured Project */
 .card--featured {
   grid-column: 1 / -1;

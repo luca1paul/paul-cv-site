@@ -305,6 +305,28 @@
           </div>
         </article>
 
+        <article class="card card--project card--featured">
+          <div class="card__top">
+            <h4 class="card__title">Guidely Platform <span class="badge-wip">WIP</span></h4>
+            <span class="tag">Docker • Terraform • Kubernetes • Helm • ArgoCD • GitHub Actions</span>
+          </div>
+
+          <p class="card__text">
+          Full-stack marketplace platform with production-grade DevOps infrastructure. FastAPI backend containerized with Docker, deployed to AWS EKS via Helm charts and ArgoCD GitOps, with infrastructure provisioned entirely through Terraform.
+          </p>
+
+          <p class="card__why">
+          <strong>Reason:</strong> To build end-to-end DevOps ownership — from local development (Docker Compose) through infrastructure provisioning (Terraform) to production deployment (Kubernetes + GitOps).
+          </p>
+          <ul class="bullets">
+            <li><strong>Containerized Development:</strong> Docker Compose with hot-reload for FastAPI + PostgreSQL local environment.</li>
+            <li><strong>Infrastructure as Code:</strong> Terraform modules for AWS EKS, RDS, S3, VPC, and IAM.</li>
+            <li><strong>Kubernetes Deployment:</strong> Helm charts for environment-agnostic deployments with rolling updates.</li>
+            <li><strong>GitOps Pipeline:</strong> ArgoCD syncs from Git to EKS, GitHub Actions handles build, test, and image push.</li>
+            <li><strong>Impact:</strong> <span class="muted">Production-ready infrastructure supporting multi-replica API deployments with managed database and media storage.</span></li>
+          </ul>
+        </article>
+
         <article class="card card--project">
           <div class="card__top">
             <h4 class="card__title">Server Health Check</h4>
