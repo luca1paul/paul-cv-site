@@ -1,2 +1,7 @@
 # Ignore generated dashboards
 server-version-dashboard/index.html
+
+# Local-only files
+.claude/
+CLAUDE.md
+.vscode/
