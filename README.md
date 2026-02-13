@@ -1,6 +1,6 @@
 # Paul Luca — DevOps Engineer Portfolio
 
-Personal CV and portfolio site showcasing DevOps and QA engineering skills, with live demo projects powered by GitHub Actions.
+Personal CV and portfolio site showcasing my DevOps and QA engineering skills, with live demo projects powered by GitHub Actions.
 
 **Live site:** [luca1paul.github.io/paul-cv-site](https://luca1paul.github.io/paul-cv-site/)
 
@@ -8,8 +8,8 @@ Personal CV and portfolio site showcasing DevOps and QA engineering skills, with
 
 ## Tech Stack
 
-- **Frontend:** HTML, CSS, vanilla JavaScript — no frameworks, no build step
-- **Dashboard:** Python 3 (stdlib only)
+- **Frontend:** HTML, CSS, vanilla JavaScript
+- **Dashboard:** Python 3
 - **Automation:** Ansible
 - **CI/CD:** GitHub Actions
 - **Hosting:** GitHub Pages
