@@ -16,6 +16,14 @@ Personal CV and portfolio site showcasing DevOps and QA engineering skills, with
 
 ## Demo Projects
 
+### AutoOps Infrastructure
+Kubernetes-orchestrated platform with Helm charts, resource governance (Burstable QoS), Kube-Prometheus-Stack observability, liveness/readiness probes, and NetworkPolicy-based zero-trust simulation.
+
+[View code](https://github.com/luca1paul/autoops) | [View CI/CD runs](https://github.com/luca1paul/autoops/actions)
+
+### Guidely Platform *(WIP)*
+Full-stack marketplace with production-grade DevOps: Docker Compose local dev, Terraform for AWS EKS/RDS/S3, Helm charts for Kubernetes deployment, and ArgoCD GitOps pipeline.
+
 ### Patching Workflow
 Ansible playbook demonstrating a safe OS patching pattern with serial execution, fail-fast behavior, and safe-by-default targeting.
 
