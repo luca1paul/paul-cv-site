@@ -203,6 +203,59 @@ if (terminalCopyBtn) {
 })();
 
 /* =========================
+   Stats Counter Animation
+   ========================= */
+(function setupStatsCounter() {
+  const statsBar = document.querySelector(".statsBar");
+  if (!statsBar) return;
+
+  const animateValue = (obj, start, end, duration, isFloat, suffix) => {
+    let startTimestamp = null;
+    const step = (timestamp) => {
+      if (!startTimestamp) startTimestamp = timestamp;
+      const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+      
+      // Ease out quart
+      const ease = 1 - Math.pow(1 - progress, 4);
+      
+      const current = start + (end - start) * ease;
+      
+      obj.textContent = isFloat 
+        ? current.toFixed(1) + suffix 
+        : Math.floor(current) + suffix;
+
+      if (progress < 1) {
+        window.requestAnimationFrame(step);
+      }
+    };
+    window.requestAnimationFrame(step);
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        // Animate numbers
+        const nums = entry.target.querySelectorAll(".stat__num");
+        nums.forEach(el => {
+          const text = el.textContent.trim();
+          const match = text.match(/([\d\.]+)(.*)/); // Capture number and suffix (e.g. "1.8" and "+")
+          
+          if (match) {
+            const val = parseFloat(match[1]);
+            const suffix = match[2] || "";
+            const isFloat = match[1].includes(".");
+            animateValue(el, 0, val, 5000, isFloat, suffix);
+          }
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  observer.observe(statsBar);
+})();
+
+/* =========================
    Scroll Spy (Nav Highlight)
    ========================= */
 (function scrollSpy() {
