@@ -40,6 +40,7 @@ function readTerminalLines() {
 
 const lines = readTerminalLines();
 let fullText = "";
+let targetText = "";
 
 let typingAborted = false;
 let typingFinished = false;
@@ -57,6 +58,7 @@ function finishTerminalInstant() {
   terminalTextEl.textContent = done;
 
   fullText = done;
+  targetText = done;
   typingFinished = true;
 }
 
@@ -65,6 +67,17 @@ async function typeTerminal() {
 
   terminalTextEl.textContent = "";
   fullText = "";
+  targetText = "";
+
+  // Optimization: Decouple logic from rendering for smoother mobile performance
+  const renderLoop = () => {
+    if (typingFinished) return;
+    if (terminalTextEl.textContent !== targetText) {
+      terminalTextEl.textContent = targetText;
+    }
+    requestAnimationFrame(renderLoop);
+  };
+  requestAnimationFrame(renderLoop);
 
   for (let i = 0; i < lines.length; i++) {
     if (typingAborted) return;
@@ -74,20 +87,21 @@ async function typeTerminal() {
     for (let c = 0; c < line.length; c++) {
       if (typingAborted) return;
 
-      terminalTextEl.textContent += line[c];
+      targetText += line[c];
       fullText += line[c];
 
       await sleep(TYPE_MS + Math.floor(Math.random() * 8));
     }
 
     if (i !== lines.length - 1) {
-      terminalTextEl.textContent += "\n";
+      targetText += "\n";
       fullText += "\n";
       await sleep(LINE_PAUSE_MS);
     }
   }
 
   typingFinished = true;
+  terminalTextEl.textContent = fullText;
 }
 
 typeTerminal();
@@ -189,6 +203,31 @@ if (terminalCopyBtn) {
 })();
 
 /* =========================
+   Scroll Spy (Nav Highlight)
+   ========================= */
+(function scrollSpy() {
+  const sections = document.querySelectorAll("section[id]");
+  const navLinks = document.querySelectorAll(".nav__links a");
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const id = entry.target.getAttribute("id");
+          navLinks.forEach((link) => {
+            // Toggle active class if href matches the section ID
+            link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
+          });
+        }
+      });
+    },
+    { threshold: 0.2, rootMargin: "-10% 0px -50% 0px" }
+  );
+
+  sections.forEach((sec) => observer.observe(sec));
+})();
+
+/* =========================
    Levels (FULL page)
    ========================= */
 const levelsFull = {
@@ -236,3 +275,67 @@ function fillList(id, items) {
 fillList("levelCore", levelsFull.core);
 fillList("levelStrong", levelsFull.strong);
 fillList("levelFamiliar", levelsFull.familiar);
+
+/* =========================
+   Mobile Menu Toggle
+   ========================= */
+(function setupMobileMenu() {
+  const nav = document.querySelector(".nav");
+  const toggle = document.getElementById("menuToggle");
+  const navLinks = document.getElementById("navLinks");
+  const links = navLinks?.querySelectorAll("a");
+
+  if (!toggle || !navLinks) return;
+
+  toggle.addEventListener("click", (e) => {
+    e.stopPropagation();
+    const isOpen = nav.classList.toggle("nav--open");
+    toggle.setAttribute("aria-expanded", isOpen);
+  });
+
+  // Close menu when clicking a link
+  links?.forEach((link) => {
+    link.addEventListener("click", () => {
+      nav.classList.remove("nav--open");
+      toggle.setAttribute("aria-expanded", "false");
+    });
+  });
+
+  // Close menu on scroll
+  window.addEventListener("scroll", () => {
+    if (nav.classList.contains("nav--open")) {
+      nav.classList.remove("nav--open");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+  }, { passive: true });
+
+  // Close menu when clicking outside
+  document.addEventListener("click", (e) => {
+    if (nav.classList.contains("nav--open") && !nav.contains(e.target)) {
+      nav.classList.remove("nav--open");
+      toggle.setAttribute("aria-expanded", "false");
+    }
+  });
+})();
+
+/* =========================
+   Analytics: Resume Download
+   ========================= */
+(function setupResumeTracking() {
+  const links = document.querySelectorAll('a[href*="Paul_Luca_DevOps_Eng_Resume.pdf"]');
+
+  links.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (typeof gtag === "function") {
+        let location = "Other";
+        if (link.closest(".nav")) location = "Navigation";
+        else if (link.closest(".hero")) location = "Hero";
+
+        gtag("event", "download_resume", {
+          event_category: "Engagement",
+          event_label: location,
+        });
+      }
+    });
+  });
+})();

@@ -5,3 +5,6 @@ server-version-dashboard/index.html
 .claude/
 CLAUDE.md
 .vscode/
+GEMINI.md
+gemini/
+.gemini/

@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Paul Luca — DevOps Engineer | QA Foundations + CI/CD | Looking for new challenges</title>
   <meta name="description" content="DevOps Engineer (1.5+ years) transitioning from 9+ years in QA. Skilled in Ansible, Linux, CI/CD, observability, and automation. Available for remote/hybrid roles." />
-  <meta name="theme-color" content="#020305" />
+  <meta name="theme-color" content="#F6F3EE" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <meta name="robots" content="index, follow">
 
@@ -19,16 +19,19 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@700;800;900&family=DM+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@400;600&display=swap" rel="stylesheet">
 
-  <link rel="stylesheet" href="styles.css?v=5" />
+  <link rel="stylesheet" href="styles.css?v=6" />
 </head>
 
 <body>
   <nav class="nav" aria-label="Primary navigation">
     <div class="container nav__inner">
-      <div class="nav__links">
-        <a class="nav__cta" href="assets/Paul_Luca_DevOps_Eng_Resume.pdf" download>Download Resume</a>
+      <a class="nav__cta" href="assets/Paul_Luca_DevOps_Eng_Resume.pdf" download>Download Resume</a>
+      <button class="nav__toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
+        <span class="hamburger"></span>
+      </button>
+      <div class="nav__links" id="navLinks">
         <a href="#skills">Skills</a>
         <a href="#levels">Levels</a>
         <a href="#projects">Projects</a>
@@ -41,6 +44,10 @@
 
   <header class="hero" id="top">
     <div class="container">
+      <div class="hero__nameBlock">
+        <h1 class="hero__name">PAUL LUCA</h1>
+      </div>
+
       <div class="hero__grid">
         
         <div class="hero__content">
@@ -49,19 +56,26 @@
             <div class="hero__badgeText">
               <div class="pill" id="modePill">Quality Assurance • DevOps</div>
               <span class="status-badge"><span class="status-dot"></span>Open to opportunities</span>
-              <div class="hero__micro">Cluj-Napoca, Romania • Remote/Hybrid</div>
+              <div class="hero__micro">Cluj-Napoca, Romania • Available for Remote/Hybrid/On-Site</div>
             </div>
           </div>
 
-          <h1 class="hero__title">
-            Paul <span class="accent">Luca</span>
-          </h1>
+
 
           <h2 class="hero__subtitle">DevOps Engineer | QA Background</h2>
 
           <p class="hero__summary">
             <strong>Seeking Junior DevOps</strong> roles where I can contribute to reliable delivery and operations. Hands-on with Linux administration, Ansible automation, CI/CD pipelines (GitHub Actions), and Python/Bash scripting — backed by 9+ years of troubleshooting, triage, and documentation discipline from QA. Currently expanding into cloud infrastructure (Azure) and container orchestration. Open to on-site, hybrid, or remote.
           </p>
+
+          <div class="hero__actions">
+            <a class="btn btn--primary" href="assets/Paul_Luca_DevOps_Eng_Resume.pdf" download>
+              Download Resume
+            </a>
+            <a class="btn btn--secondary" href="#contact">
+              Let's Talk
+            </a>
+          </div>
         </div>
 
         <div class="hero__visual reveal">
@@ -95,20 +109,17 @@
 
       <div class="statsBar reveal">
         <div class="stat">
-          <div class="stat__num" id="stat1Num">1.5+</div>
+          <div class="stat__num" id="stat1Num">1.8+</div>
           <div class="stat__label" id="stat1Label">Years DevOps</div>
         </div>
-        <div class="stat__sep"></div>
         <div class="stat">
-          <div class="stat__num" id="stat2Num">9+</div>
+          <div class="stat__num" id="stat2Num">11+</div>
           <div class="stat__label" id="stat2Label">Years QA</div>
         </div>
-        <div class="stat__sep"></div>
         <div class="stat">
           <div class="stat__num" id="stat3Num">Calm</div>
           <div class="stat__label" id="stat3Label">During incidents</div>
         </div>
-        <div class="stat__sep"></div>
         <div class="stat">
           <div class="stat__num" id="stat4Num">Quality</div>
           <div class="stat__label" id="stat4Label">As a habit</div>
@@ -140,7 +151,8 @@
 
   <section class="section reveal" id="skills">
     <div class="container">
-      <h3 class="section__title">Technical <span class="accent">Expertise</span></h3>
+      <div class="section__titleRule" aria-hidden="true"></div>
+      <h3 class="section__title" data-num="01">Technical <span class="accent">Expertise</span></h3>
       <p class="section__subtitle">Practical skills built through production work.</p>
 
       <div class="grid--skills">
@@ -243,7 +255,8 @@
 
   <section class="section reveal" id="levels">
     <div class="container">
-      <h3 class="section__title">Skill <span class="accent">Levels</span></h3>
+      <div class="section__titleRule" aria-hidden="true"></div>
+      <h3 class="section__title" data-num="02">Skill <span class="accent">Levels</span></h3>
       <p class="section__subtitle">Core / Strong / Familiar - Here's what I know.</p>
 
       <div class="grid--levels">
@@ -276,10 +289,58 @@
 
   <section class="section reveal" id="projects">
     <div class="container">
-      <h3 class="section__title">Projects <span class="accent">I've worked on</span></h3>
+      <div class="section__titleRule" aria-hidden="true"></div>
+      <h3 class="section__title" data-num="03">Projects <span class="accent">I've worked on</span></h3>
       <p class="section__subtitle">Tools I’ve built to make releases and operations smoother.</p>
 
       <div class="grid--projects">
+        <article class="card card--project card--featured">
+          <div class="card__top">
+            <h4 class="card__title">Simple Money <span class="badge-wip">Personal Project - In Development - Launches this year</span></h4>
+            <span class="tag">TypeScript • React Native • Node.js • PostgreSQL</span>
+          </div>
+
+          <p class="card__text">
+          A privacy-first personal finance app built on proven financial principles. Features include rapid manual transaction entry, debt snowball/avalanche calculators, and FIRE (Financial Independence) projections without third-party bank connections.
+          </p>
+
+          <p class="card__why">
+            <strong>Reason:</strong> To provide a clear, simple, and private way to manage money without linking bank accounts.
+          </p>
+          <ul class="bullets">
+            <li>Rapid manual transaction entry</li>
+            <li>Debt snowball/avalanche calculators</li>
+            <li>FIRE (Financial Independence) projections</li>
+            <li>Multi-currency support</li>
+            <li>VAT tracking</li>
+            <li>"What-if" scenario planning</li>
+            <li><strong>Impact:</strong> <span class="highlight">A privacy-focused alternative to mainstream budgeting apps.</span></li>
+          </ul>
+        </article>
+        
+        <article class="card card--project card--featured">
+          <div class="card__top">
+            <h4 class="card__title">Guidely Platform <span class="badge-wip">Personal Project - In Development - Launch DATE TBD</span></h4>
+            <span class="tag">Docker • Terraform • Kubernetes • Helm • ArgoCD • GitHub Actions</span>
+          </div>
+
+          <p class="card__text">
+          Walking tours marketplace connecting travelers with local guides.
+          </p>
+        </p>
+
+          <p class="card__why">
+          <strong>Reason:</strong> To build end-to-end DevOps ownership — from local development (Docker Compose) through infrastructure provisioning (Terraform) to production deployment (Kubernetes + GitOps).
+          </p>
+          <ul class="bullets">
+            <li><strong>Containerized Development:</strong> Docker Compose with hot-reload for FastAPI + PostgreSQL local environment.</li>
+            <li><strong>Infrastructure as Code:</strong> Terraform modules for AWS EKS, RDS, S3, VPC, and IAM.</li>
+            <li><strong>Kubernetes Deployment:</strong> Helm charts for environment-agnostic deployments with rolling updates.</li>
+            <li><strong>GitOps Pipeline:</strong> ArgoCD syncs from Git to EKS, GitHub Actions handles build, test, and image push.</li>
+            <li><strong>Impact:</strong> <span class="highlight">Production-ready infrastructure supporting multi-replica API deployments with managed database and media storage.</span></li>
+          </ul>
+        </article>
+
         <article class="card card--project card--featured">
           <div class="card__top">
             <h4 class="card__title">AutoOps Infrastructure</h4>
@@ -299,35 +360,13 @@
             <li><strong>Observability Stack:</strong> Deployed <strong>Kube-Prometheus-Stack</strong> with ServiceMonitors for automated metric discovery and Grafana visualization.</li>
             <li><strong>Health & Reliability:</strong> Configured Liveness/Readiness probes to enable self-healing and ensure zero-downtime traffic routing.</li>
             <li><strong>Security:</strong> Simulated <strong>Zero-Trust</strong> environments using NetworkPolicies to restrict cross-namespace traffic.</li>
-            <li><strong>Impact:</strong> <span class="muted">Achieved 100% observability of pod health and resource utilization via automated Prometheus scraping.</span></li>
+            <li><strong>Impact:</strong> <span class="highlight">Achieved 100% observability of pod health and resource utilization via automated Prometheus scraping.</span></li>
           </ul>
 
           <div class="projectLinks">
             <a class="tagLink" href="https://github.com/luca1paul/autoops" target="_blank" rel="noreferrer">Code</a>
             <a class="tagLink" href="https://github.com/luca1paul/autoops/actions" target="_blank" rel="noreferrer">CI/CD runs</a>
           </div>
-        </article>
-
-        <article class="card card--project card--featured">
-          <div class="card__top">
-            <h4 class="card__title">Guidely Platform <span class="badge-wip">WIP</span></h4>
-            <span class="tag">Docker • Terraform • Kubernetes • Helm • ArgoCD • GitHub Actions</span>
-          </div>
-
-          <p class="card__text">
-          Full-stack marketplace platform with production-grade DevOps infrastructure. FastAPI backend containerized with Docker, deployed to AWS EKS via Helm charts and ArgoCD GitOps, with infrastructure provisioned entirely through Terraform.
-          </p>
-
-          <p class="card__why">
-          <strong>Reason:</strong> To build end-to-end DevOps ownership — from local development (Docker Compose) through infrastructure provisioning (Terraform) to production deployment (Kubernetes + GitOps).
-          </p>
-          <ul class="bullets">
-            <li><strong>Containerized Development:</strong> Docker Compose with hot-reload for FastAPI + PostgreSQL local environment.</li>
-            <li><strong>Infrastructure as Code:</strong> Terraform modules for AWS EKS, RDS, S3, VPC, and IAM.</li>
-            <li><strong>Kubernetes Deployment:</strong> Helm charts for environment-agnostic deployments with rolling updates.</li>
-            <li><strong>GitOps Pipeline:</strong> ArgoCD syncs from Git to EKS, GitHub Actions handles build, test, and image push.</li>
-            <li><strong>Impact:</strong> <span class="muted">Production-ready infrastructure supporting multi-replica API deployments with managed database and media storage.</span></li>
-          </ul>
         </article>
 
         <article class="card card--project">
@@ -344,12 +383,12 @@
           <ul class="bullets">
             <li>Validates required package presence per host or group</li>
             <li>Highlights missing packages per host</li>
-            <li><strong>Impact:</strong> <span class="muted">Replaced manual spot checks with automated 1-minute validation across 15+ servers</span></li>
+            <li><strong>Impact:</strong> <span class="highlight">Replaced manual spot checks with automated 1-minute validation across 15+ servers</span></li>
           </ul>
 
           <div class="projectLinks">
             <a class="tagLink" href="https://github.com/luca1paul/paul-cv-site/tree/main/projects/rpm-package-check" target="_blank" rel="noreferrer">Code</a>
-            <a class="tagLink" href="https://github.com/luca1paul/paul-cv-site/actions/workflows/rpm-package-check.yml" target="_blank" rel="noreferrer">CI run</a>
+            <a class="tagLink" href="https://github.com/luca1paul/paul-cv-site/actions/workflows/rpm-package-check.yml" target="_blank" rel="noreferrer">CI</a>
           </div>
         </article>
 
@@ -367,12 +406,12 @@
           <ul class="bullets">
             <li>Safe-by-default targeting (SAFE_DEFAULT + explicit target)</li>
             <li>Before/after snapshots with what's changed</li>
-            <li><strong>Impact:</strong> <span class="muted">Enforces blast-radius reduction and deterministic failure handling across production hosts</span></li>
+            <li><strong>Impact:</strong> <span class="highlight">Enforces blast-radius reduction and deterministic failure handling across production hosts</span></li>
           </ul>
 
           <div class="projectLinks">
             <a class="tagLink" href="https://github.com/luca1paul/paul-cv-site/tree/main/projects/patching-workflow" target="_blank" rel="noreferrer">Code</a>
-            <a class="tagLink" href="https://github.com/luca1paul/paul-cv-site/actions/workflows/patching-workflow.yml" target="_blank" rel="noreferrer">CI run</a>
+            <a class="tagLink" href="https://github.com/luca1paul/paul-cv-site/actions/workflows/patching-workflow.yml" target="_blank" rel="noreferrer">CI</a>
           </div>
         </article>
 
@@ -391,7 +430,7 @@
           <ul class="bullets">
             <li>Single-page report</li>
             <li>Shows status + last-known retention for offline hosts</li>
-            <li><strong>Impact:</strong> <span class="muted">Centralizes status, platform, and connectivity data for 30+ hosts — fewer handoff questions, faster onboarding</span></li>
+            <li><strong>Impact:</strong> <span class="highlight">Centralizes status, platform, and connectivity data for 30+ hosts — fewer handoff questions, faster onboarding</span></li>
           </ul>
 
           <div class="projectLinks">
@@ -415,7 +454,7 @@
           <ul class="bullets">
             <li>Clear repro steps + attachments</li>
             <li>Fast feedback loops</li>
-            <li><strong>Impact:</strong> <span class="muted">Faster bug fixes</span></li>
+            <li><strong>Impact:</strong> <span class="highlight">Faster bug fixes</span></li>
           </ul>
 
         </article>
@@ -435,7 +474,7 @@
           <ul class="bullets">
             <li>Risk-based scope (high-impact flows first)</li>
             <li>Deterministic reruns</li>
-            <li><strong>Impact:</strong> <span class="muted">Releases were cleaner and more stable</span></li>
+            <li><strong>Impact:</strong> <span class="highlight">Releases were cleaner and more stable</span></li>
           </ul>
 
         </article>
@@ -455,7 +494,7 @@
           <ul class="bullets">
             <li>Risk-based selection</li>
             <li>Up to date with the latest Android</li>
-            <li><strong>Impact:</strong> <span class="muted">More stable releases on different devices and OS versions</span></li>
+            <li><strong>Impact:</strong> <span class="highlight">More stable releases on different devices and OS versions</span></li>
           </ul>
 
         </article>
@@ -465,13 +504,14 @@
 
   <section class="section reveal" id="approach">
     <div class="container">
-      <h3 class="section__title">How I <span class="accent">Work</span></h3>
+      <div class="section__titleRule" aria-hidden="true"></div>
+      <h3 class="section__title" data-num="04">How I <span class="accent">Work</span></h3>
       <p class="section__subtitle">
         I’m transitioning into DevOps with strong QA fundamentals: risk management, strong triage, and dependable execution.
       </p>
 
       <div class="grid--approach">
-        <article class="card">
+        <article class="card card--featured">
           <h4 class="card__title">How I operate</h4>
           <ul class="bullets">
             <li><strong>Risk-first:</strong> I prioritize what can break users or releases, and focus effort there.</li>
@@ -482,7 +522,7 @@
           </ul>
         </article>
 
-        <article class="card">
+        <article class="card card--featured">
           <h4 class="card__title">What teams get</h4>
           <ul class="bullets">
             <li><strong>Smoother operations:</strong> fewer surprises, more repeatable flows.</li>
@@ -498,7 +538,8 @@
 
   <section class="section reveal" id="experience">
     <div class="container">
-      <h3 class="section__title">Work <span class="accent">Experience</span></h3>
+      <div class="section__titleRule" aria-hidden="true"></div>
+      <h3 class="section__title" data-num="05">Work <span class="accent">Experience</span></h3>
       <p class="section__subtitle">Highlights (details in PDF).</p>
 
       <div class="timeline">
@@ -558,7 +599,8 @@
     <div class="container">
       <div class="contact card">
         <div class="contact__header">
-          <h3 class="section__title" style="margin:0">Contact</h3>
+          <div class="section__titleRule" aria-hidden="true"></div>
+          <h3 class="section__title" data-num="06" style="margin:0">Contact</h3>
           <p class="section__subtitle" style="margin:0">Interested in dependable delivery and QA-minded DevOps? Let’s talk.</p>
         </div>
 
@@ -612,7 +654,6 @@
     </a>
 
     <a class="socialBtn" href="https://instagram.com/pa.ul.lu.ca" target="_blank" rel="noreferrer noopener" aria-label="Instagram">
-      <span class="icon" aria-hidden="true">
         <svg viewBox="0 0 24 24" fill="none">
           <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor" stroke-width="2"/>
           <path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="2"/>
@@ -642,6 +683,6 @@
     </a>
   </div>
 
-  <script src="app.js?v=5" defer></script>
+  <script src="app.js?v=6" defer></script>
 </body>
 </html>
