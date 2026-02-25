@@ -16,6 +16,39 @@
 })();
 
 /* =========================
+   Typewriter Audio Engine (Web Audio API)
+   ========================= */
+let soundEnabled = true;
+let audioCtx = null;
+
+function playTypewriterSound() {
+  if (!soundEnabled) return;
+  
+  if (!audioCtx) {
+    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  }
+
+  if (audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+
+  osc.type = 'square';
+  osc.frequency.setValueAtTime(150 + Math.random() * 50, audioCtx.currentTime);
+  
+  gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
+  gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
+
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.05);
+}
+
+/* =========================
    Terminal typewriter
    - Fast typing
    - Finish instantly if user scrolls past OR clicks Copy
@@ -23,9 +56,10 @@
    ========================= */
 const terminalTextEl = document.getElementById("terminalText");
 const terminalCopyBtn = document.getElementById("terminalCopy");
+const audioToggleBtn = document.getElementById("audioToggle");
 
-const TYPE_MS = 7;
-const LINE_PAUSE_MS = 110;
+const TYPE_MS = 35;
+const LINE_PAUSE_MS = 400;
 
 function readTerminalLines() {
   const el = document.getElementById("terminalLines");
@@ -89,6 +123,8 @@ async function typeTerminal() {
 
       targetText += line[c];
       fullText += line[c];
+      
+      if (c % 2 === 0) playTypewriterSound();
 
       await sleep(TYPE_MS + Math.floor(Math.random() * 8));
     }
@@ -104,49 +140,28 @@ async function typeTerminal() {
   terminalTextEl.textContent = fullText;
 }
 
-typeTerminal();
+// Sound Toggle Logic
+if (audioToggleBtn) {
+  // Sync initial state
+  audioToggleBtn.innerText = soundEnabled ? "Sound: ON" : "Sound: OFF";
+  audioToggleBtn.classList.toggle("miniBtn--active", soundEnabled);
 
-(function terminalSkipOnScrollPast() {
-  const terminalWrap = document.querySelector(".terminal");
-  if (!terminalWrap) return;
-
-  if (!("IntersectionObserver" in window)) {
-    setTimeout(() => {
-      if (!typingFinished) finishTerminalInstant();
-    }, 2200);
-    return;
-  }
-
-  let seen = false;
-
-  const io = new IntersectionObserver(
-    (entries) => {
-      for (const ent of entries) {
-        if (ent.isIntersecting) {
-          seen = true;
-        } else if (seen && !typingFinished) {
-          finishTerminalInstant();
-          io.disconnect();
-        }
-      }
-    },
-    { threshold: 0.12 }
-  );
-
-  io.observe(terminalWrap);
-
-  setTimeout(() => {
-    if (!typingFinished) {
-      finishTerminalInstant();
-      io.disconnect();
+  audioToggleBtn.addEventListener("click", () => {
+    soundEnabled = !soundEnabled;
+    audioToggleBtn.innerText = soundEnabled ? "Sound: ON" : "Sound: OFF";
+    audioToggleBtn.classList.toggle("miniBtn--active", soundEnabled);
+    
+    // Resume context if needed
+    if (soundEnabled && !audioCtx) {
+      audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     }
-  }, 2200);
-})();
+  });
+}
+
+typeTerminal();
 
 if (terminalCopyBtn) {
   terminalCopyBtn.addEventListener("click", async () => {
-    if (!typingFinished) finishTerminalInstant();
-
     const textToCopy = (
       fullText || (terminalTextEl ? terminalTextEl.textContent : "")
     ).trim();
@@ -410,6 +425,90 @@ fillList("levelFamiliar", levelsFull.familiar);
           event_category: "Engagement",
           event_label: location,
         });
+      }
+    });
+  });
+})();
+
+/* =========================
+   Memorability Artifacts
+   ========================= */
+
+(function setupJiraEasterEgg() {
+  const egg = document.getElementById('jiraEasterEgg');
+  const modal = document.getElementById('jiraModal');
+  const closeBtn = document.getElementById('closeJira');
+
+  if (!egg || !modal) return;
+
+  egg.addEventListener('click', () => {
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  });
+
+  const closeModal = () => {
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  };
+
+  closeBtn?.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
+  });
+})();
+
+(function setupResumeDeployInteraction() {
+  const resumeBtns = document.querySelectorAll('a[href*="Resume"], a[download]');
+  const terminalText = document.getElementById('terminalText');
+  const terminalBody = document.querySelector('.terminal__body');
+
+  resumeBtns.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      if (btn.dataset.deploying === "true") return;
+
+      e.preventDefault();
+      btn.dataset.deploying = "true";
+      const originalText = btn.innerText;
+      btn.innerText = "DEPLOYING...";
+
+      const deploySequence = [
+        "\n\n> Initializing resume_fetch.yml...",
+        "> TASK [Fetch PDF from S3] *********************",
+        "> ok: [localhost]",
+        "> TASK [Verify Integrity] *********************",
+        "> success: [checksum matches]",
+        "> DEPLOY COMPLETE. DOWNLOADING...\n"
+      ];
+
+      if (terminalText && terminalBody) {
+        let i = 0;
+        const typeNextLine = () => {
+          if (i < deploySequence.length) {
+            terminalText.innerText += deploySequence[i];
+            
+            // Auto-scroll terminal
+            terminalBody.scrollTop = terminalBody.scrollHeight;
+            
+            playTypewriterSound();
+            i++;
+            setTimeout(typeNextLine, 150);
+          } else {
+            const link = document.createElement('a');
+            link.href = btn.href;
+            link.download = "";
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            setTimeout(() => {
+              btn.innerText = originalText;
+              btn.dataset.deploying = "false";
+            }, 2000);
+          }
+        };
+        typeNextLine();
+      } else {
+        window.location.href = btn.href;
       }
     });
   });

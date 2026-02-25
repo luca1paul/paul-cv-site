@@ -25,9 +25,16 @@
 </head>
 
 <body>
+  <div class="pipeline-ticker" aria-hidden="true">
+    <div class="ticker__item"><span>SYS:</span> ONLINE</div>
+    <div class="ticker__item"><span>BUILD:</span> <span class="success">SUCCESS</span></div>
+    <div class="ticker__item"><span>DEPLOY:</span> PROD</div>
+    <div class="ticker__item ticker__item--log">FETCHING logs... 100%</div>
+  </div>
+
   <nav class="nav" aria-label="Primary navigation">
     <div class="container nav__inner">
-      <a class="nav__cta" href="assets/Paul_Luca_DevOps_Eng_Resume.pdf" download>Download Resume</a>
+      <a class="nav__cta" href="assets/Paul Luca - CV.pdf" download>Download Resume</a>
       <button class="nav__toggle" id="menuToggle" aria-label="Toggle navigation" aria-expanded="false">
         <span class="hamburger"></span>
       </button>
@@ -69,7 +76,7 @@
           </p>
 
           <div class="hero__actions">
-            <a class="btn btn--primary" href="assets/Paul_Luca_DevOps_Eng_Resume.pdf" download>
+            <a class="btn btn--primary" href="assets/Paul Luca - CV.pdf" download>
               Download Resume
             </a>
             <a class="btn btn--secondary" href="#contact">
@@ -87,7 +94,10 @@
                 <span class="dot dot--g"></span>
               </div>
               <span class="terminal__title" id="terminalTitle">paul@qaops:~</span>
-              <button class="miniBtn" id="terminalCopy" type="button" aria-label="Copy commands">Copy</button>
+              <div class="terminal__actions">
+                <button class="miniBtn" id="audioToggle" type="button" aria-label="Toggle sound">Sound: OFF</button>
+                <button class="miniBtn" id="terminalCopy" type="button" aria-label="Copy commands">Copy</button>
+              </div>
             </div>
 
             <pre class="terminal__body"><span id="terminalText"></span><span class="caret" aria-hidden="true">▋</span></pre>
@@ -168,6 +178,7 @@
             <span class="chip">RabbitMQ</span>
             <span class="chip chip--power">Azure</span>
             <span class="chip">AWS</span>
+            <span class="chip chip--power">AWS Lambda</span>
             <span class="chip">Grafana</span>
             <span class="chip">Jenkins</span>
             <span class="chip">Nginx</span>
@@ -225,6 +236,7 @@
             <span class="chip">Jira</span>
             <span class="chip">Jama</span>
             <span class="chip">Confluence</span>
+            <span class="chip chip--power">Postman</span>
             <span class="chip">Agile</span>
             <span class="chip chip--power">Defect lifecycle</span>
             <span class="chip chip--power">Logcat/RXLogger</span>
@@ -301,20 +313,19 @@
           </div>
 
           <p class="card__text">
-          A privacy-first personal finance app built on proven financial principles. Features include rapid manual transaction entry, debt snowball/avalanche calculators, and FIRE (Financial Independence) projections without third-party bank connections.
+          A privacy-first personal finance app built on proven financial principles, designed for rapid manual transaction entry and long-term wealth projections without third-party bank connections.
           </p>
 
           <p class="card__why">
-            <strong>Reason:</strong> To provide a clear, simple, and private way to manage money without linking bank accounts.
+            <strong>Reason:</strong> To provide a clear, simple, and private way to manage money while maintaining absolute data ownership.
           </p>
           <ul class="bullets">
-            <li>Rapid manual transaction entry</li>
-            <li>Debt snowball/avalanche calculators</li>
-            <li>FIRE (Financial Independence) projections</li>
-            <li>Multi-currency support</li>
-            <li>VAT tracking</li>
-            <li>"What-if" scenario planning</li>
-            <li><strong>Impact:</strong> <span class="highlight">A privacy-focused alternative to mainstream budgeting apps.</span></li>
+            <li><strong>User Experience:</strong> Optimized for rapid manual transaction entry with intuitive multi-currency support.</li>
+            <li><strong>Financial Strategy:</strong> Integrated debt snowball/avalanche calculators to accelerate financial freedom.</li>
+            <li><strong>Future Projections:</strong> Dynamic FIRE (Financial Independence) forecasting based on historical spending and saving rates.</li>
+            <li><strong>Tax Compliance:</strong> Built-in VAT tracking and expense categorization for simplified financial reporting.</li>
+            <li><strong>Scenario Planning:</strong> "What-if" modeling to visualize the impact of major financial decisions.</li>
+            <li><strong>Impact:</strong> <span class="highlight">A secure, privacy-focused alternative to mainstream budgeting apps that empowers users through data ownership.</span></li>
           </ul>
         </article>
         
@@ -445,7 +456,7 @@
             <span class="tag">QA</span>
           </div>
 
-          <p class="card__text">Repro + evidence using client/server logs to speed up fixes and reduce noise.</p>
+          <p class="card__text">Repro + evidence using client/server logs to speed up finishes and reduce noise.</p>
 
           <p class="card__why">
             <strong>Reason:</strong> “It doesn’t work” tickets burn time. Good logs and knowing the root cause of the issue gets devs to root cause faster with fewer loops.
@@ -498,9 +509,60 @@
           </ul>
 
         </article>
+
+        <!-- Jira Easter Egg Card -->
+        <article class="card card--project jira-egg" id="jiraEasterEgg">
+          <div class="card__top">
+            <h4 class="card__title">Legacy Pipeline "Bug"</h4>
+            <span class="tag">QA • DEVOPS • STABILITY</span>
+          </div>
+          <p class="card__text">Wait, this card looks... tilted. Is there an undocumented issue here?</p>
+          <div class="card__why" style="border-color: var(--accent)">
+            <strong>DEBUG:</strong> Click this card to open the diagnostic report.
+          </div>
+          <ul class="bullets">
+            <li>Investigate the tilt</li>
+            <li>Find the root cause</li>
+            <li>Verify the fix</li>
+          </ul>
+        </article>
       </div>
     </div>
   </section>
+
+  <!-- Jira Modal -->
+  <div id="jiraModal" class="modal" aria-hidden="true">
+    <div class="modal__content card">
+      <div class="jira-header">
+        <div class="jira-breadcrumbs">PROJECTS / QAOPS / QAOPS-1024</div>
+        <button class="miniBtn modal-close" id="closeJira">&times; Close</button>
+      </div>
+      <h3 class="jira-title">Layout inconsistency in project grid (Tilted Card)</h3>
+      <div class="jira-meta">
+        <span class="jira-status">IN PROGRESS</span>
+        <span class="jira-priority">HIGH</span>
+      </div>
+      <div class="jira-body">
+        <h5>Description</h5>
+        <p>A specific project card in the "Worked on" section is displaying a non-standard rotation and custom positioning. Initial investigation suggests a CSS "easter egg" implementation.</p>
+        <h5>Reproduction Steps</h5>
+        <ol>
+          <li>Scroll to Section 03 (Projects)</li>
+          <li>Locate the "Legacy Pipeline" card</li>
+          <li>Observe the 3-degree counter-clockwise tilt and centered alignment</li>
+          <li>Scroll to the very bottom of the page to trigger the "QA PASSED" stamp</li>
+        </ol>
+        <h5>Technical Logs</h5>
+        <pre class="terminal-log">
+          [DEBUG] card_rotation: -3deg
+          [DEBUG] grid_alignment: centered
+          [WARN]  standard_alignment: bypassed
+          [INFO]  user_interaction: detected
+          [SUCCESS] recruiter_interest: +50%</pre>
+      </div>
+    </div>
+  </div>
+
 
   <section class="section reveal" id="approach">
     <div class="container">
@@ -511,14 +573,43 @@
       </p>
 
       <div class="grid--approach">
+        <!-- The Bridge Diagram -->
+        <article class="card card--featured bridge-card">
+          <h4 class="card__title">The QA → DevOps Bridge</h4>
+          <div class="bridge-viz">
+            <div class="bridge-side">
+              <span class="bridge-label">11+ YEARS QA</span>
+              <ul class="bridge-list">
+                <li>Risk Identification</li>
+                <li>Root Cause Analysis</li>
+                <li>Regression Discipline</li>
+                <li>Stakeholder Communication</li>
+              </ul>
+            </div>
+            <div class="bridge-arrow">
+              <svg viewBox="0 0 100 20" fill="none"><path d="M0 10h95m0 0l-10-10m10 10l-10 10" stroke="currentColor" stroke-width="2"/></svg>
+              <span class="bridge-transfer">TRANSFERABLE ASSETS</span>
+            </div>
+            <div class="bridge-side">
+              <span class="bridge-label">DEVOPS ENGINEER</span>
+              <ul class="bridge-list">
+                <li>Stable Deployments</li>
+                <li>Reliable Automation</li>
+                <li>Observed Systems</li>
+                <li>Frictionless Releases</li>
+              </ul>
+            </div>
+          </div>
+        </article>
+
         <article class="card card--featured">
           <h4 class="card__title">How I operate</h4>
           <ul class="bullets">
             <li><strong>Risk-first:</strong> I prioritize what can break users or releases, and focus effort there.</li>
-            <li><strong>Clear communication:</strong> I keep updates short, factual, and action-oriented (what happened, impact, next step).</li>
-            <li><strong>Ownership:</strong> I follow issues through—repro, evidence, fix validation, and documentation.</li>
+            <li><strong>Clear communication:</strong> I keep updates short, factual, and action-oriented.</li>
+            <li><strong>Ownership:</strong> I follow issues through—repro, evidence, and fix validation.</li>
             <li><strong>Calm in incidents:</strong> I stay structured under pressure and regain control quickly.</li>
-            <li><strong>Continuous learning:</strong> I actively ramp up in DevOps by closing gaps fast and applying what I learn immediately.</li>
+            <li><strong>Continuous learning:</strong> I actively ramp up in DevOps by closing gaps fast.</li>
           </ul>
         </article>
 
@@ -557,13 +648,24 @@
         </div>
 
         <div class="timeline__item">
-          <div class="timeline__when">Jul 2019 – Present</div>
+          <div class="timeline__when">Jul 2019 – Jun 2024</div>
           <div class="timeline__content">
             <h4>Test Analyst @ Cognizant</h4>
             <div class="role__stack"><strong>Stack:</strong> Android • Logcat • Jira • Story Testing • System Testing</div>
             <p>Designed, executed system and story-level tests for Android apps using log-based evidence collection.<br>
             Streamlined defect lifecycle and introduced evidence-first triage templates, reducing bug turnaround by ~30%.<br>
             Supported release validation for mobile platforms with multi-device compatibility coverage.
+          </p>
+          </div>
+        </div>
+
+        <div class="timeline__item">
+          <div class="timeline__when">Jul 2017 – Present</div>
+          <div class="timeline__content">
+            <h4>Freelance Software Tester @ Global App Testing</h4>
+            <div class="role__stack"><strong>Stack:</strong> Exploratory Testing • Bug Reporting • Mobile/Web</div>
+            <p>Performed exploratory testing and detailed bug reporting for global brands across various mobile and web platforms.<br>
+            Identified high-severity functional and UI issues, providing clear reproduction steps and technical logs.
           </p>
           </div>
         </div>
@@ -587,6 +689,7 @@
             <div class="role__stack"><strong>Stack:</strong> iOS • Black-box • Compatibility • Game Testing</div>
             <p>Performed manual and compatibility testing for iOS mobile titles across multiple devices and OS versions.<br>
             Supervised a team of 3-4 QA testers and temporarily managed a 22-member team. Optimized test case libraries, improving coverage accuracy by 15%.<br>
+            Awarded <strong>Employee of the Month</strong> for leadership and dedication during critical release cycles.<br>
             Mentored junior testers in test planning, prioritization, and bug documentation.
           </p>
           </div>
@@ -687,6 +790,21 @@
       <span class="mobileBar__text">Instagram</span>
     </a>
   </div>
+
+  <!-- Memorability Artifacts -->
+
+  <svg style="display:none">
+    <filter id="grain">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch" />
+      <feColorMatrix type="saturate" values="0" />
+      <feComponentTransfer>
+        <feFuncR type="linear" slope="0.35" />
+        <feFuncG type="linear" slope="0.35" />
+        <feFuncB type="linear" slope="0.35" />
+      </feComponentTransfer>
+      <feBlend in="SourceGraphic" mode="soft-light" />
+    </filter>
+  </svg>
 
   <script src="app.js?v=6" defer></script>
 </body>
