@@ -187,11 +187,20 @@ if (terminalCopyBtn) {
     return;
   }
 
+  // Stagger reveal for cards inside sections
+  function staggerCards(el) {
+    const cards = el.querySelectorAll('.card');
+    cards.forEach((card, index) => {
+      card.style.setProperty('--delay', `${index * 0.05}s`);
+    });
+  }
+
   const io = new IntersectionObserver(
     (entries) => {
       entries.forEach((ent) => {
         if (ent.isIntersecting) {
           ent.target.classList.add("is-visible");
+          staggerCards(ent.target);
           io.unobserve(ent.target);
         }
       });
@@ -244,7 +253,7 @@ if (terminalCopyBtn) {
             const val = parseFloat(match[1]);
             const suffix = match[2] || "";
             const isFloat = match[1].includes(".");
-            animateValue(el, 0, val, 5000, isFloat, suffix);
+            animateValue(el, 0, val, 2000, isFloat, suffix);
           }
         });
         observer.unobserve(entry.target);
