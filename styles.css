@@ -287,14 +287,15 @@ img, svg { display: block; max-width: 100%; }
   .nav__links {
     display: none;
     position: absolute;
-    top: var(--nav-h);
+    top: 100%;
+    margin-top: 19px; /* Anchor to black border */
     left: 0;
     right: 0;
     background: var(--bg-deep);
     flex-direction: column;
     width: 100%;
-    padding: 1rem 0;
-    border-bottom: 2px solid var(--border-strong);
+    padding: 0;
+    border: 1px solid var(--border-strong);
     overflow-x: hidden;
     gap: 0;
   }
@@ -307,7 +308,17 @@ img, svg { display: block; max-width: 100%; }
     width: 100%;
     text-align: center;
     padding: 16px;
+    border-bottom: 1.5px solid var(--border-strong);
+  }
+  
+  .nav__links a:last-child {
     border-bottom: none;
+  }
+  
+  .nav__links a.active {
+    color: var(--accent);
+    background: rgba(201, 75, 42, 0.05);
+    font-weight: 700;
   }
 }
 

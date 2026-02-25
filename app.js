@@ -268,25 +268,38 @@ if (terminalCopyBtn) {
    Scroll Spy (Nav Highlight)
    ========================= */
 (function scrollSpy() {
-  const sections = document.querySelectorAll("section[id]");
+  const sections = document.querySelectorAll("section[id], header[id]");
   const navLinks = document.querySelectorAll(".nav__links a");
 
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const id = entry.target.getAttribute("id");
-          navLinks.forEach((link) => {
-            // Toggle active class if href matches the section ID
-            link.classList.toggle("active", link.getAttribute("href") === `#${id}`);
-          });
+  function updateActiveLink() {
+    let currentId = "";
+    
+    // Scanline at 120px from top (nav height + some buffer)
+    const scanline = window.scrollY + 120;
+
+    // Special case: Very bottom of the page
+    if ((window.innerHeight + window.scrollY) >= document.body.offsetHeight - 50) {
+      currentId = "contact";
+    } else {
+      sections.forEach((sec) => {
+        const top = sec.offsetTop;
+        const height = sec.offsetHeight;
+        if (scanline >= top && scanline < top + height) {
+          currentId = sec.getAttribute("id");
         }
       });
-    },
-    { threshold: 0.2, rootMargin: "-10% 0px -50% 0px" }
-  );
+    }
 
-  sections.forEach((sec) => observer.observe(sec));
+    if (currentId) {
+      navLinks.forEach((link) => {
+        link.classList.toggle("active", link.getAttribute("href") === `#${currentId}`);
+      });
+    }
+  }
+
+  window.addEventListener("scroll", updateActiveLink, { passive: true });
+  // Initial check
+  updateActiveLink();
 })();
 
 /* =========================
