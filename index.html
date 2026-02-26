@@ -10,6 +10,16 @@
   <meta name="theme-color" content="#F6F3EE" />
   <link rel="icon" type="image/png" href="assets/favicon.png" />
   <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://luca1paul.github.io/paul-cv-site/" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Paul Luca — DevOps Engineer" />
+  <meta property="og:description"
+    content="DevOps Engineer with 11+ years QA discipline. Ansible, Linux, CI/CD, observability, and automation." />
+  <meta property="og:image" content="https://luca1paul.github.io/paul-cv-site/assets/og-image.png" />
+  <meta property="og:url" content="https://luca1paul.github.io/paul-cv-site/" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-CSJLLB25ZE"></script>
   <script>
@@ -76,17 +86,18 @@
           <h2 class="hero__subtitle">DevOps Engineer | Software Tester</h2>
 
           <p class="hero__summary">
-            <strong>Seeking Junior DevOps</strong> roles where I can contribute to reliable delivery and operations.
-            Hands-on with Linux administration, Ansible automation, CI/CD pipelines (GitHub Actions), and Python/Bash
-            scripting — backed by 9+ years of troubleshooting, triage, and documentation discipline from QA. Currently
-            expanding into cloud infrastructure (Azure) and container orchestration. Open to on-site, hybrid, or remote.
+            <strong>DevOps Engineer</strong> who brings 11 years of quality first discipline to infrastructure delivery.
+            I build reliable automation, safe patching workflows and observable systems, backed by deep
+            troubleshooting instincts from a decade of production QA. Hands-on with Linux administration, Ansible,
+            CI/CD pipelines (GitHub Actions), and Python/Bash scripting. Currently expanding into cloud
+            infrastructure (Azure) and container orchestration.
           </p>
 
           <div class="hero__actions">
             <a class="btn btn--primary" href="assets/Paul Luca - CV.pdf" download>
               Download Resume
             </a>
-            <a class="btn btn--secondary" href="#contact">
+            <a class="btn btn--secondary btn--talk" href="#contact">
               Let's Talk
             </a>
           </div>
@@ -166,6 +177,17 @@
 
     </div>
   </header>
+
+  <div class="currently-building reveal">
+    <div class="container">
+      <div class="building-banner">
+        <div class="building-content">
+          <strong>Currently Building:</strong> Simple Money — A privacy first personal finance app built with
+          TypeScript, React Native, Node.js, and PostgreSQL. Launching this year.
+        </div>
+      </div>
+    </div>
+  </div>
 
   <section class="section reveal" id="skills">
     <div class="container">
@@ -339,7 +361,7 @@
               historical spending and saving rates.</li>
             <li><strong>Tax Compliance:</strong> Built-in VAT tracking and expense categorization for simplified
               financial reporting.</li>
-            <li><strong>Scenario Planning:</strong> "What-if" modeling to visualize the impact of major financial
+            <li><strong>Scenario Planning:</strong> "What if" modeling to visualize the impact of major financial
               decisions.</li>
             <li><strong>Impact:</strong> <span class="highlight">A secure, privacy-focused alternative to mainstream
                 budgeting apps that empowers users through data ownership.</span></li>
@@ -356,22 +378,21 @@
           <p class="card__text">
             Walking tours marketplace connecting travelers with local guides.
           </p>
-          </p>
 
           <p class="card__why">
-            <strong>Reason:</strong> To build end-to-end DevOps ownership — from local development (Docker Compose)
+            <strong>Reason:</strong> To build end-to-end DevOps ownership, from local development (Docker Compose)
             through infrastructure provisioning (Terraform) to production deployment (Kubernetes + GitOps).
           </p>
           <ul class="bullets">
             <li><strong>Containerized Development:</strong> Docker Compose with hot-reload for FastAPI + PostgreSQL
               local environment.</li>
             <li><strong>Infrastructure as Code:</strong> Terraform modules for AWS EKS, RDS, S3, VPC, and IAM.</li>
-            <li><strong>Kubernetes Deployment:</strong> Helm charts for environment-agnostic deployments with rolling
+            <li><strong>Kubernetes Deployment:</strong> Helm charts for environment agnostic deployments with rolling
               updates.</li>
             <li><strong>GitOps Pipeline:</strong> ArgoCD syncs from Git to EKS, GitHub Actions handles build, test, and
               image push.</li>
-            <li><strong>Impact:</strong> <span class="highlight">Production-ready infrastructure supporting
-                multi-replica API deployments with managed database and media storage.</span></li>
+            <li><strong>Impact:</strong> <span class="highlight">Production ready infrastructure supporting
+                multi replica API deployments with managed database and media storage.</span></li>
           </ul>
         </article>
 
@@ -398,7 +419,7 @@
             <li><strong>Observability Stack:</strong> Deployed <strong>Kube-Prometheus-Stack</strong> with
               ServiceMonitors for automated metric discovery and Grafana visualization.</li>
             <li><strong>Health & Reliability:</strong> Configured Liveness/Readiness probes to enable self-healing and
-              ensure zero-downtime traffic routing.</li>
+              ensure zero downtime traffic routing.</li>
             <li><strong>Security:</strong> Simulated <strong>Zero-Trust</strong> environments using NetworkPolicies to
               restrict cross-namespace traffic.</li>
             <li><strong>Impact:</strong> <span class="highlight">Achieved 100% observability of pod health and resource
@@ -418,18 +439,18 @@
             <span class="tag">Ansible</span>
           </div>
 
-          <p class="card__text"> Read-only compliance check that verifies required packages are present across inventory
+          <p class="card__text"> Read only compliance check that verifies required packages are present across inventory
             groups and produces a clear pass/fail report.</p>
 
           <p class="card__why">
-            <strong>Reason:</strong> Quick pre-flight validation before deployments and troubleshooting—no more
-            spot-checking servers by hand.
+            <strong>Reason:</strong> Quick pre-flight validation before deployments and troubleshooting, no more
+            spot checking servers by hand.
           </p>
 
           <ul class="bullets">
             <li>Validates required package presence per host or group</li>
             <li>Highlights missing packages per host</li>
-            <li><strong>Impact:</strong> <span class="highlight">Replaced manual spot checks with automated 1-minute
+            <li><strong>Impact:</strong> <span class="highlight">Replaced manual spot checks with automated 1 minute
                 validation across 15+ servers</span></li>
           </ul>
 
@@ -448,7 +469,7 @@
           </div>
 
           <p class="card__text">Safe rollout pattern: explicitly targeted runs, one host at a time, stop on first
-            failure, with a run report and controller-side failure logs.</p>
+            failure, with a run report and controller side failure logs.</p>
 
           <p class="card__why">
             <strong>Reason:</strong> Standardizes patch execution to reduce risk and make results consistent regardless
@@ -458,7 +479,7 @@
           <ul class="bullets">
             <li>Safe-by-default targeting (SAFE_DEFAULT + explicit target)</li>
             <li>Before/after snapshots with what's changed</li>
-            <li><strong>Impact:</strong> <span class="highlight">Enforces blast-radius reduction and deterministic
+            <li><strong>Impact:</strong> <span class="highlight">Enforces blast radius reduction and deterministic
                 failure handling across production hosts</span></li>
           </ul>
 
@@ -515,7 +536,8 @@
           <ul class="bullets">
             <li>Clear repro steps + attachments</li>
             <li>Fast feedback loops</li>
-            <li><strong>Impact:</strong> <span class="highlight">Faster bug fixes</span></li>
+            <li><strong>Impact:</strong> <span class="highlight">Reduced average bug turnaround from ~3 days to ~1 day
+                by providing root-cause ready reports</span></li>
           </ul>
 
         </article>
@@ -536,7 +558,8 @@
           <ul class="bullets">
             <li>Risk-based scope (high-impact flows first)</li>
             <li>Deterministic reruns</li>
-            <li><strong>Impact:</strong> <span class="highlight">Releases were cleaner and more stable</span></li>
+            <li><strong>Impact:</strong> <span class="highlight">Cut regression escaped defects by ~40%, reducing
+                release blocking issues from ~5 per cycle to 1–2</span></li>
           </ul>
 
         </article>
@@ -547,7 +570,7 @@
             <span class="tag">QA</span>
           </div>
 
-          <p class="card__text">Structured device/OS coverage to catch real-world issues early.</p>
+          <p class="card__text">Structured device/OS coverage to catch real world issues early.</p>
 
           <p class="card__why">
             <strong>Reason:</strong> Users don’t all run the newest device. Used multiple Android devices and OSs to
@@ -557,8 +580,8 @@
           <ul class="bullets">
             <li>Risk-based selection</li>
             <li>Up to date with the latest Android</li>
-            <li><strong>Impact:</strong> <span class="highlight">More stable releases on different devices and OS
-                versions</span></li>
+            <li><strong>Impact:</strong> <span class="highlight">Covered 8+ device/OS combinations per release, catching
+                ~15% of issues that only reproduced on specific hardware</span></li>
           </ul>
 
         </article>
@@ -566,7 +589,7 @@
         <!-- Jira Easter Egg Card -->
         <article class="card card--project jira-egg" id="jiraEasterEgg">
           <div class="card__top">
-            <h4 class="card__title">Legacy Pipeline "Bug"</h4>
+            <h4 class="card__title">Legacy Pipeline "Bug" <span class="badge-egg">🐣 Easter Egg</span></h4>
             <span class="tag">QA • DEVOPS • STABILITY</span>
           </div>
           <p class="card__text">Wait, this card looks... tilted. Is there an undocumented issue here?</p>
@@ -660,10 +683,15 @@
 
         <article class="card card--featured">
           <h4 class="card__title">How I operate</h4>
+          <p class="card__text about-me">
+            I'm a systems thinker who got into DevOps through Quality Engineering. I like clean logs,
+            deterministic pipelines and knowing exactly what changed. Outside work, I hike, photograph places I travel
+            to and try to automate anything I do more than twice.
+          </p>
           <ul class="bullets">
             <li><strong>Risk-first:</strong> I prioritize what can break users or releases, and focus effort there.</li>
             <li><strong>Clear communication:</strong> I keep updates short, factual, and action-oriented.</li>
-            <li><strong>Ownership:</strong> I follow issues through—repro, evidence, and fix validation.</li>
+            <li><strong>Ownership:</strong> I follow issues through repro, evidence, and fix validation.</li>
             <li><strong>Calm in incidents:</strong> I stay structured under pressure and regain control quickly.</li>
             <li><strong>Continuous learning:</strong> I actively ramp up in DevOps by closing gaps fast.</li>
           </ul>
@@ -711,8 +739,8 @@
             <h4>Test Analyst @ Cognizant</h4>
             <div class="role__stack"><strong>Stack:</strong> Android • Logcat • Jira • Story Testing • System Testing
             </div>
-            <p>Designed, executed system and story-level tests for Android apps using log-based evidence collection.<br>
-              Streamlined defect lifecycle and introduced evidence-first triage templates, reducing bug turnaround by
+            <p>Designed, executed system and story-level tests for Android apps using log based evidence collection.<br>
+              Streamlined defect lifecycle and introduced evidence first triage templates, reducing bug turnaround by
               ~30%.<br>
               Supported release validation for mobile platforms with multi-device compatibility coverage.
             </p>
@@ -843,17 +871,7 @@
       <span class="socialBtn__text">GitHub</span>
     </a>
 
-    <a class="socialBtn" href="https://instagram.com/pa.ul.lu.ca" target="_blank" rel="noreferrer noopener"
-      aria-label="Instagram">
-      <svg viewBox="0 0 24 24" fill="none">
-        <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor"
-          stroke-width="2" />
-        <path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="2" />
-        <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-      </svg>
-      </span>
-      <span class="socialBtn__text">Instagram</span>
-    </a>
+
 
   </div>
 
@@ -894,16 +912,7 @@
         </svg></span>
       <span class="mobileBar__text">GitHub</span>
     </a>
-    <a class="mobileBar__btn" href="https://instagram.com/pa.ul.lu.ca" target="_blank" rel="noreferrer noopener"
-      aria-label="Instagram">
-      <span class="icon" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none">
-          <path d="M7 2h10a5 5 0 0 1 5 5v10a5 5 0 0 1-5 5H7a5 5 0 0 1-5-5V7a5 5 0 0 1 5-5Z" stroke="currentColor"
-            stroke-width="2" />
-          <path d="M12 16a4 4 0 1 0 0-8 4 4 0 0 0 0 8Z" stroke="currentColor" stroke-width="2" />
-          <path d="M17.5 6.5h.01" stroke="currentColor" stroke-width="3" stroke-linecap="round" />
-        </svg></span>
-      <span class="mobileBar__text">Instagram</span>
-    </a>
+
   </div>
 
   <!-- Memorability Artifacts -->

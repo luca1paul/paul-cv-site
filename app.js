@@ -23,7 +23,7 @@ let audioCtx = null;
 
 function playTypewriterSound() {
   if (!soundEnabled) return;
-  
+
   if (!audioCtx) {
     audioCtx = new (window.AudioContext || window.webkitAudioContext)();
   }
@@ -37,7 +37,7 @@ function playTypewriterSound() {
 
   osc.type = 'square';
   osc.frequency.setValueAtTime(150 + Math.random() * 50, audioCtx.currentTime);
-  
+
   gain.gain.setValueAtTime(0.02, audioCtx.currentTime);
   gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.05);
 
@@ -123,7 +123,7 @@ async function typeTerminal() {
 
       targetText += line[c];
       fullText += line[c];
-      
+
       if (c % 2 === 0) playTypewriterSound();
 
       await sleep(TYPE_MS + Math.floor(Math.random() * 8));
@@ -150,7 +150,7 @@ if (audioToggleBtn) {
     soundEnabled = !soundEnabled;
     audioToggleBtn.innerText = soundEnabled ? "Sound: ON" : "Sound: OFF";
     audioToggleBtn.classList.toggle("miniBtn--active", soundEnabled);
-    
+
     // Resume context if needed
     if (soundEnabled && !audioCtx) {
       audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -238,14 +238,14 @@ if (terminalCopyBtn) {
     const step = (timestamp) => {
       if (!startTimestamp) startTimestamp = timestamp;
       const progress = Math.min((timestamp - startTimestamp) / duration, 1);
-      
+
       // Ease out quart
       const ease = 1 - Math.pow(1 - progress, 4);
-      
+
       const current = start + (end - start) * ease;
-      
-      obj.textContent = isFloat 
-        ? current.toFixed(1) + suffix 
+
+      obj.textContent = isFloat
+        ? current.toFixed(1) + suffix
         : Math.floor(current) + suffix;
 
       if (progress < 1) {
@@ -263,7 +263,7 @@ if (terminalCopyBtn) {
         nums.forEach(el => {
           const text = el.textContent.trim();
           const match = text.match(/([\d\.]+)(.*)/); // Capture number and suffix (e.g. "1.8" and "+")
-          
+
           if (match) {
             const val = parseFloat(match[1]);
             const suffix = match[2] || "";
@@ -288,7 +288,7 @@ if (terminalCopyBtn) {
 
   function updateActiveLink() {
     let currentId = "";
-    
+
     // Scanline at 120px from top (nav height + some buffer)
     const scanline = window.scrollY + 120;
 
@@ -412,7 +412,7 @@ fillList("levelFamiliar", levelsFull.familiar);
    Analytics: Resume Download
    ========================= */
 (function setupResumeTracking() {
-  const links = document.querySelectorAll('a[href*="Paul_Luca_DevOps_Eng_Resume.pdf"]');
+  const links = document.querySelectorAll('a[href*="Paul Luca - CV.pdf"]');
 
   links.forEach((link) => {
     link.addEventListener("click", () => {
@@ -485,10 +485,10 @@ fillList("levelFamiliar", levelsFull.familiar);
         const typeNextLine = () => {
           if (i < deploySequence.length) {
             terminalText.innerText += deploySequence[i];
-            
+
             // Auto-scroll terminal
             terminalBody.scrollTop = terminalBody.scrollHeight;
-            
+
             playTypewriterSound();
             i++;
             setTimeout(typeNextLine, 150);
@@ -499,7 +499,7 @@ fillList("levelFamiliar", levelsFull.familiar);
             document.body.appendChild(link);
             link.click();
             document.body.removeChild(link);
-            
+
             setTimeout(() => {
               btn.innerText = originalText;
               btn.dataset.deploying = "false";
