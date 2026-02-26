@@ -991,6 +991,9 @@ img, svg { display: block; max-width: 100%; }
   font-size: 0.8rem;
   margin-top: 1rem;
   border-left: 4px solid #5e6c84;
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-x: auto;
 }
 
 /* Global Grain Filter */
